@@ -90,7 +90,7 @@
          </item>
          <item row="0" column="1">
           <property name="text">
-           <string>1.13</string>
+           <string>3</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -98,7 +98,7 @@
          </item>
          <item row="0" column="2">
           <property name="text">
-           <string>3.29</string>
+           <string>4</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -106,7 +106,7 @@
          </item>
          <item row="0" column="3">
           <property name="text">
-           <string>1.660</string>
+           <string>12</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -125,7 +125,7 @@
          </item>
          <item row="1" column="1">
           <property name="text">
-           <string>-1.13</string>
+           <string>1</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -133,7 +133,7 @@
          </item>
          <item row="1" column="2">
           <property name="text">
-           <string>-3.57</string>
+           <string>2</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -141,7 +141,7 @@
          </item>
          <item row="1" column="3">
           <property name="text">
-           <string>0.925</string>
+           <string>2</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -160,7 +160,7 @@
          </item>
          <item row="2" column="1">
           <property name="text">
-           <string>2.26</string>
+           <string>4</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -168,7 +168,7 @@
          </item>
          <item row="2" column="2">
           <property name="text">
-           <string>-3.57</string>
+           <string>4</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -176,7 +176,7 @@
          </item>
          <item row="2" column="3">
           <property name="text">
-           <string>1.950</string>
+           <string>2</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -195,7 +195,7 @@
          </item>
          <item row="3" column="1">
           <property name="text">
-           <string>3.39</string>
+           <string>0</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -203,7 +203,7 @@
          </item>
          <item row="3" column="2">
           <property name="text">
-           <string>2.26</string>
+           <string>4</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -211,7 +211,7 @@
          </item>
          <item row="3" column="3">
           <property name="text">
-           <string>2.230</string>
+           <string>3</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -620,7 +620,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="Tcp">
       <attribute name="title">
@@ -647,7 +647,7 @@
        <item row="0" column="1">
         <widget class="QLineEdit" name="lineEdit_IP">
          <property name="text">
-          <string>192.168.1.30</string>
+          <string>127.0.0.1</string>
          </property>
         </widget>
        </item>
@@ -674,7 +674,7 @@
        <item row="0" column="3">
         <widget class="QLineEdit" name="lineEdit_Port">
          <property name="text">
-          <string>8088</string>
+          <string>12900</string>
          </property>
         </widget>
        </item>

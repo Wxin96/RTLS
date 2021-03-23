@@ -8,6 +8,7 @@
 //#define TOF_REPORT_LEN  (107)
 #define TOF_REPORT_LEN  (64)
 
+
 RTLS_Widget::RTLS_Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RTLS_Widget)
@@ -204,10 +205,15 @@ void RTLS_Widget:: handleTimeout()
 
         if(mask==0x0f)
         {
-            distance[tid].t_a0 = int(range[0]*1.0028 - 566.97);
-            distance[tid].t_a1 = int(range[1]*1.0028 - 566.97);
-            distance[tid].t_a2 = int(range[2]*1.0028 - 566.97);
-            distance[tid].t_a3 = int(range[3]*1.0028 - 566.97);
+//            distance[tid].t_a0 = int(range[0]*1.0028 - 566.97);
+//            distance[tid].t_a1 = int(range[1]*1.0028 - 566.97);
+//            distance[tid].t_a2 = int(range[2]*1.0028 - 566.97);
+//            distance[tid].t_a3 = int(range[3]*1.0028 - 566.97);
+            distance[tid].t_a0 = range[0];
+            distance[tid].t_a1 = range[1];
+            distance[tid].t_a2 = range[2];
+            distance[tid].t_a3 = range[3];
+
             distance[tid].flag = 1<<tid;
             dist_flag |= distance[tid].flag;
 
@@ -336,15 +342,16 @@ void RTLS_Widget:: handleTimeout()
 
 }
 
-// TODO 根据不同的通信写判断
-void RTLS_Widget::newData()
+// TODO: 根据不同的通信写判断
+void RTLS_Widget::  newData()
 {
     QByteArray data;                // 读取数据
     QString str_data = data;        // 转换为字符串
 //    QStringList str_data_split;     // 字符串分割为字符串列表
     QTextCursor cursor;             // 控件滑动位置
 
-    if (ui->Button_connect->text() == QString("DisConnect"))
+
+    if (ui->Button_connect->text() != QString("Connect"))
     {
         data = tcpSocket->readAll();
         str_data = data;
@@ -359,6 +366,8 @@ void RTLS_Widget::newData()
         cursor.movePosition(QTextCursor::End);
         ui->textEdit_read->setTextCursor(cursor);
         ui->textEdit_read->append(data);
+
+        qDebug() << data;
 
     //    emit deal_data(str_data_split);   舍弃
     }
@@ -422,10 +431,16 @@ void RTLS_Widget:: deal_data(QStringList str_data_split)
 
         if(mask==0x0f)
         {
-            distance[tid].t_a0 = int(range[0]*1.0094 - 561.1);
-            distance[tid].t_a1 = int(range[1]*1.0094 - 561.1);
-            distance[tid].t_a2 = int(range[2]*1.0094 - 561.1);
-            distance[tid].t_a3 = int(range[3]*1.0094 - 561.1);
+//            distance[tid].t_a0 = int(range[0]*1.0094 - 561.1);
+//            distance[tid].t_a1 = int(range[1]*1.0094 - 561.1);
+//            distance[tid].t_a2 = int(range[2]*1.0094 - 561.1);
+//            distance[tid].t_a3 = int(range[3]*1.0094 - 561.1);
+
+            distance[tid].t_a0 = range[0];
+            distance[tid].t_a1 = range[1];
+            distance[tid].t_a2 = range[2];
+            distance[tid].t_a3 = range[3];
+
             distance[tid].flag = 1<<tid;
             dist_flag |= distance[tid].flag;
 

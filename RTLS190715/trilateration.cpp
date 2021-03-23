@@ -918,3 +918,6 @@ double ResidualCal(vec3d* anchorArray, vec3d* location, int *distanceArray)
     }
     return residual;
 }
+
+
+

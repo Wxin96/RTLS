@@ -37,7 +37,7 @@ HEADERS += \
         rtls_widget.h \
         trilateration.h
 INCLUDEPATH += \
-            D:\eigen-eigen-b3f3d4950030\Eigen
+            D:\Soft\eigen-3.3.9\Eigen
 
 FORMS += \
         rtls_widget.ui

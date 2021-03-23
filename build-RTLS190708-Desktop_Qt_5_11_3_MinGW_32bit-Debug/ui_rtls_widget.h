@@ -389,7 +389,7 @@ public:
         retranslateUi(RTLS_Widget);
 
         tabWidget2->setCurrentIndex(0);
-        tabWidget1->setCurrentIndex(1);
+        tabWidget1->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(RTLS_Widget);
@@ -412,35 +412,35 @@ public:
         QTableWidgetItem *___qtablewidgetitem4 = tableWidget_Anchor->item(0, 0);
         ___qtablewidgetitem4->setText(QApplication::translate("RTLS_Widget", "Anchor 0", nullptr));
         QTableWidgetItem *___qtablewidgetitem5 = tableWidget_Anchor->item(0, 1);
-        ___qtablewidgetitem5->setText(QApplication::translate("RTLS_Widget", "1.13", nullptr));
+        ___qtablewidgetitem5->setText(QApplication::translate("RTLS_Widget", "3", nullptr));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget_Anchor->item(0, 2);
-        ___qtablewidgetitem6->setText(QApplication::translate("RTLS_Widget", "3.29", nullptr));
+        ___qtablewidgetitem6->setText(QApplication::translate("RTLS_Widget", "4", nullptr));
         QTableWidgetItem *___qtablewidgetitem7 = tableWidget_Anchor->item(0, 3);
-        ___qtablewidgetitem7->setText(QApplication::translate("RTLS_Widget", "1.660", nullptr));
+        ___qtablewidgetitem7->setText(QApplication::translate("RTLS_Widget", "12", nullptr));
         QTableWidgetItem *___qtablewidgetitem8 = tableWidget_Anchor->item(1, 0);
         ___qtablewidgetitem8->setText(QApplication::translate("RTLS_Widget", "Anchor 1", nullptr));
         QTableWidgetItem *___qtablewidgetitem9 = tableWidget_Anchor->item(1, 1);
-        ___qtablewidgetitem9->setText(QApplication::translate("RTLS_Widget", "-1.13", nullptr));
+        ___qtablewidgetitem9->setText(QApplication::translate("RTLS_Widget", "1", nullptr));
         QTableWidgetItem *___qtablewidgetitem10 = tableWidget_Anchor->item(1, 2);
-        ___qtablewidgetitem10->setText(QApplication::translate("RTLS_Widget", "-3.57", nullptr));
+        ___qtablewidgetitem10->setText(QApplication::translate("RTLS_Widget", "2", nullptr));
         QTableWidgetItem *___qtablewidgetitem11 = tableWidget_Anchor->item(1, 3);
-        ___qtablewidgetitem11->setText(QApplication::translate("RTLS_Widget", "0.925", nullptr));
+        ___qtablewidgetitem11->setText(QApplication::translate("RTLS_Widget", "2", nullptr));
         QTableWidgetItem *___qtablewidgetitem12 = tableWidget_Anchor->item(2, 0);
         ___qtablewidgetitem12->setText(QApplication::translate("RTLS_Widget", "Anchor 2", nullptr));
         QTableWidgetItem *___qtablewidgetitem13 = tableWidget_Anchor->item(2, 1);
-        ___qtablewidgetitem13->setText(QApplication::translate("RTLS_Widget", "2.26", nullptr));
+        ___qtablewidgetitem13->setText(QApplication::translate("RTLS_Widget", "4", nullptr));
         QTableWidgetItem *___qtablewidgetitem14 = tableWidget_Anchor->item(2, 2);
-        ___qtablewidgetitem14->setText(QApplication::translate("RTLS_Widget", "-3.57", nullptr));
+        ___qtablewidgetitem14->setText(QApplication::translate("RTLS_Widget", "4", nullptr));
         QTableWidgetItem *___qtablewidgetitem15 = tableWidget_Anchor->item(2, 3);
-        ___qtablewidgetitem15->setText(QApplication::translate("RTLS_Widget", "1.950", nullptr));
+        ___qtablewidgetitem15->setText(QApplication::translate("RTLS_Widget", "2", nullptr));
         QTableWidgetItem *___qtablewidgetitem16 = tableWidget_Anchor->item(3, 0);
         ___qtablewidgetitem16->setText(QApplication::translate("RTLS_Widget", "Anchor 3", nullptr));
         QTableWidgetItem *___qtablewidgetitem17 = tableWidget_Anchor->item(3, 1);
-        ___qtablewidgetitem17->setText(QApplication::translate("RTLS_Widget", "3.39", nullptr));
+        ___qtablewidgetitem17->setText(QApplication::translate("RTLS_Widget", "0", nullptr));
         QTableWidgetItem *___qtablewidgetitem18 = tableWidget_Anchor->item(3, 2);
-        ___qtablewidgetitem18->setText(QApplication::translate("RTLS_Widget", "2.26", nullptr));
+        ___qtablewidgetitem18->setText(QApplication::translate("RTLS_Widget", "4", nullptr));
         QTableWidgetItem *___qtablewidgetitem19 = tableWidget_Anchor->item(3, 3);
-        ___qtablewidgetitem19->setText(QApplication::translate("RTLS_Widget", "2.230", nullptr));
+        ___qtablewidgetitem19->setText(QApplication::translate("RTLS_Widget", "3", nullptr));
         tableWidget_Anchor->setSortingEnabled(__sortingEnabled);
 
         pushButton_2->setText(QApplication::translate("RTLS_Widget", "\345\233\276\345\275\242\345\214\226\347\225\214\351\235\242", nullptr));
@@ -477,9 +477,9 @@ public:
         tabWidget2->setTabText(tabWidget2->indexOf(widget), QApplication::translate("RTLS_Widget", "Table", nullptr));
         label_2->setText(QApplication::translate("RTLS_Widget", "\346\234\215\345\212\241\345\231\250 \347\253\257\345\217\243\345\217\267\357\274\232", nullptr));
         Button_connect->setText(QApplication::translate("RTLS_Widget", "Connect", nullptr));
-        lineEdit_IP->setText(QApplication::translate("RTLS_Widget", "192.168.1.30", nullptr));
+        lineEdit_IP->setText(QApplication::translate("RTLS_Widget", "127.0.0.1", nullptr));
         label->setText(QApplication::translate("RTLS_Widget", "\346\234\215\345\212\241\345\231\250 IP\357\274\232", nullptr));
-        lineEdit_Port->setText(QApplication::translate("RTLS_Widget", "8088", nullptr));
+        lineEdit_Port->setText(QApplication::translate("RTLS_Widget", "12900", nullptr));
         tabWidget1->setTabText(tabWidget1->indexOf(Tcp), QApplication::translate("RTLS_Widget", "TCP", nullptr));
         SerialLabel->setText(QApplication::translate("RTLS_Widget", "\344\270\262\345\217\243\351\200\211\346\213\251", nullptr));
         SerialButton->setText(QApplication::translate("RTLS_Widget", "Connect", nullptr));
