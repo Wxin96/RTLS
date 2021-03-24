@@ -9,7 +9,6 @@
 #include <QTime>
 #include <Eigen>
 
-//using Eigen::MatrixXd;
 using namespace Eigen;
 using namespace std;
 
@@ -38,7 +37,6 @@ unsigned char dist_flag;
 vec3d Tag[8];
 
 // 缓存数据
-
 ta_dist dit_temp[8][30];
 
 
@@ -104,7 +102,6 @@ double dot(const vec3d vector1, const vec3d vector2)
 }
 
 /* Replace vector with its cross product with another vector. */
-
 vec3d cross(const vec3d vector1, const vec3d vector2)
 {
     vec3d v;
@@ -668,16 +665,10 @@ int GetLocation(vec3d *best_solution, int use4thAnchor, vec3d* anchorArray, int 
 
     r4 = double(distanceArray[3] / 1000.0);
 
-    //qDebug() << "GetLocation" << r1 << r2 << r3 << r4;
-
-    //r4 = r1;
 
     /* get the best location using 3 or 4 spheres and keep it as know_best_location */
     result = deca_3dlocate (&o1, &o2, best_solution, &error, &best_3derror, &best_gdoprate,
                             p1, r1, p2, r2, p3, r3, p4, r1, &combination);
-
-
-    //qDebug() << "GetLocation" << result << "sol1: " << o1.x << o1.y << o1.z << " sol2: " << o2.x << o2.y << o2.z;
 
     if(result >= 0)
     {
@@ -758,9 +749,6 @@ void test(void)
 // Chan-Taylor测距
 void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distanceArray, double residual, double delta, int iterativeNum)
 {
-    /*  四基站检测  */
-    // (放在调用函数前监测)
-
     /*  获取初始位置Chan  */
     // 初始位置
     vec3d locationInit;
@@ -782,6 +770,7 @@ void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distan
 
 void GetLocationChanTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, double residual, double delta, int iterativeNum)
 {
+    qDebug() << "C-T-K positioning~" <<endl;
     /*  获取初始位置Chan  */
     // 初始位置
     vec3d locationInit;
@@ -793,11 +782,8 @@ void GetLocationChanTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *
     residualCal = ResidualCal(anchorArray, best_solution, distanceArray);
     qDebug()<<"ResidualCal:"<<residualCal<<endl;
 
-    /*  判断是否要进行Taylor  */
-    if (residualCal > residual)
-        *best_solution = TaylorItrator(anchorArray, &locationInit,distanceArray, delta, iterativeNum);
-    else
-        *best_solution = locationInit;
+    /*  Taylor  */
+    *best_solution = TaylorItrator(anchorArray, &locationInit,distanceArray, delta, iterativeNum);
 
     // 卡尔曼滤波
     kf->iteration(best_solution);
@@ -849,6 +835,7 @@ vec3d Chan(vec3d* anchorArray, int *distanceArray)
 // 500次67ms  1次0.134ms
 vec3d TaylorItrator(vec3d* anchorArray, vec3d* location, int *distanceArray, double delta, int iterativeNum)
 {
+    qDebug() << "Taylor~" << endl;
     // 坐标
     vec3d locaItrator = *location;
     // 坐标偏差
@@ -895,15 +882,12 @@ vec3d Taylor(vec3d* anchorArray, vec3d* location, int *distanceArray)
     double error = h.cwiseAbs().minCoeff();
     MatrixXd Q(4, 4);
     Q = error * MatrixXd::Identity(4, 4);
-//    std::cout << h << std::endl;
-//    std::cout << G << std::endl;
-//    std::cout << Q << std::endl;
 
     // 加权最小二乘法求解
     vec3d locationDelta;
     MatrixXd delta(3,1);
     delta = (G.transpose()*Q.inverse()*G).inverse()*(G.transpose()*Q.inverse()*h);
-//    std::cout << delta << std::endl;
+
     locationDelta.x = delta(0,0)/1000;
     locationDelta.y = delta(1,0)/1000;
     locationDelta.z = delta(2,0)/1000;
@@ -914,7 +898,7 @@ vec3d Taylor(vec3d* anchorArray, vec3d* location, int *distanceArray)
 void distUpdata(vec3d* anchorArray, vec3d* location, double *distanceUd)
 {
     // 单位统一(mm)
-    for (int i=0;i<4;i++)
+    for (int i=0;i < 4;i++)
     {
         distanceUd[i] = sqrt((anchorArray[i].x-location->x)*(anchorArray[i].x-location->x)
                              + (anchorArray[i].y-location->y)*(anchorArray[i].y-location->y)

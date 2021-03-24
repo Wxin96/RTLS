@@ -652,7 +652,7 @@
          </item>
          <item row="2" column="3">
           <property name="text">
-           <string>2</string>
+           <string>3</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -687,7 +687,7 @@
          </item>
          <item row="3" column="3">
           <property name="text">
-           <string>2.5</string>
+           <string>3.2</string>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>

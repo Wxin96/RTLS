@@ -475,7 +475,7 @@ public:
         QTableWidgetItem *___qtablewidgetitem26 = tableWidget_Anchor->item(2, 2);
         ___qtablewidgetitem26->setText(QApplication::translate("RTLS_Widget", "3", nullptr));
         QTableWidgetItem *___qtablewidgetitem27 = tableWidget_Anchor->item(2, 3);
-        ___qtablewidgetitem27->setText(QApplication::translate("RTLS_Widget", "2", nullptr));
+        ___qtablewidgetitem27->setText(QApplication::translate("RTLS_Widget", "3", nullptr));
         QTableWidgetItem *___qtablewidgetitem28 = tableWidget_Anchor->item(3, 0);
         ___qtablewidgetitem28->setText(QApplication::translate("RTLS_Widget", "Anchor 3", nullptr));
         QTableWidgetItem *___qtablewidgetitem29 = tableWidget_Anchor->item(3, 1);
@@ -483,7 +483,7 @@ public:
         QTableWidgetItem *___qtablewidgetitem30 = tableWidget_Anchor->item(3, 2);
         ___qtablewidgetitem30->setText(QApplication::translate("RTLS_Widget", "3", nullptr));
         QTableWidgetItem *___qtablewidgetitem31 = tableWidget_Anchor->item(3, 3);
-        ___qtablewidgetitem31->setText(QApplication::translate("RTLS_Widget", "2.5", nullptr));
+        ___qtablewidgetitem31->setText(QApplication::translate("RTLS_Widget", "3.2", nullptr));
         tableWidget_Anchor->setSortingEnabled(__sortingEnabled1);
 
         pushButton->setText(QApplication::translate("RTLS_Widget", "\350\257\273\345\217\226\345\237\272\347\253\231\345\235\220\346\240\207", nullptr));

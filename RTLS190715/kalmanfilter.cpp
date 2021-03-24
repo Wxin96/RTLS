@@ -33,8 +33,6 @@ KalmanFilter::KalmanFilter(int spatial_dimension, double delta_t, MatrixXd Q, Ma
 
 void KalmanFilter::predict()
 {
-    cout << "x size:" << x.size() << endl;
-    cout << "F size:" << F.size() << endl;
     this->x = this->F * this->x;    // 求x_k,k-1 预测状态
     this->P = this->F * this->P * this->F.transpose() + this->Q;    // 求预测估计误差协方差矩阵 P_k,k-1
     this->z_pred = this->H * this->x;    // 对x_k,k-1的观测
@@ -50,14 +48,13 @@ void KalmanFilter::update(vec3d *location)
     this->S = this->H * this->P * this->H.transpose() + this->R;    // 测量残差协方差 S_k
     this->K = this->P * this->H.transpose() * this->S.inverse();    // 求最优卡尔曼增益
     x = x + K * y;  // 求当前时刻x
-    cout << "x size:" << x.size() << endl;
 
     P = (MatrixXd::Identity(2 * dimension, 2 * dimension) - K * H) * P;
 }
 
 void KalmanFilter::iteration(vec3d *location)
 {
-    cout << "Kalman滤波~" <<endl;
+//    cout << "Kalman滤波~" <<endl;
     predict();
     update(location);
     // 更新位置

@@ -172,7 +172,7 @@ void RTLS_Widget:: handleTimeout()
         int length; // 数据帧长度
 
         length = str_data_split[0].length();
-        qDebug()<<length;
+//        qDebug()<<length;
 
         // 判断长度和mc
         if(length >= TOF_REPORT_LEN)
@@ -241,7 +241,7 @@ void RTLS_Widget:: handleTimeout()
     {
         int result = 0;
         int Range_deca[4] = {0};
-        qDebug("进入标签坐标计算");
+//        qDebug("进入标签坐标计算");
         for (i=0;i<8;i++)
         {
             if(dist_flag%2 ==1)
@@ -309,7 +309,7 @@ void RTLS_Widget:: handleTimeout()
                 Range_deca[2] = rangeFilterp[i][2];
                 Range_deca[3] = rangeFilterp[i][3];
 
-                qDebug("%d,%d,%d,%d", Range_deca[0],Range_deca[1],Range_deca[2],Range_deca[3]);
+//                qDebug("%d,%d,%d,%d", Range_deca[0],Range_deca[1],Range_deca[2],Range_deca[3]);
 
 //                result = GetLocation(&Tag[i], 0, &Anchor[0], &Range_deca[0]);
 //                GetLocationChanTaylor(&Tag[i], &Anchor[0], &Range_deca[0], 2, 0.001, 200);
@@ -318,15 +318,15 @@ void RTLS_Widget:: handleTimeout()
                 if (!distance[i].kf) {
                     int spatial_dimension = 3;
                     double delta_t = 0.2;
-                    MatrixXd Q = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension) * 0.001;
+                    MatrixXd Q = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension) * 0.0008;
                     MatrixXd R = MatrixXd::Identity(spatial_dimension, spatial_dimension) * 0.0025;     // sd = 0.05
                     MatrixXd P_init = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension);
                     distance[i].kf = new KalmanFilter(spatial_dimension, delta_t, Q, R, P_init);
                 }
 
-                GetLocationChanTaylorKalman(&Tag[i], &Anchor[0], &Range_deca[0], distance[i].kf, 2000, 0.001, 200);
+                GetLocationChanTaylorKalman(&Tag[i], &Anchor[0], &Range_deca[0], distance[i].kf, 0.005, 0.001, 200);
                 // 测距函数输出
-                qDebug()<<result;
+//                qDebug()<<result;
 
                 // 判断
                 if(result != -1)
@@ -409,7 +409,7 @@ void RTLS_Widget:: deal_data(QStringList str_data_split)
     {
 //        ui->textEdit_read->append(str_data_split[i]);
         length = str_data_split[i].length();
-        qDebug()<<length;
+//        qDebug()<<length;
 
         // 判断长度和mc
         if(length >= TOF_REPORT_LEN)
