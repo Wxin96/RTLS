@@ -2,17 +2,18 @@
 #define TRILATERATION_H
 #include "basetsd.h"
 #include "stdio.h"
+#include "kalmanfilter.h"
 
 #define		TRIL_3SPHERES							3
 #define		TRIL_4SPHERES							4
 
-// 坐标结构体
-struct vec3d{
-    double	x;
-    double	y;
-    double	z;
-    char flag[3];
-};
+// 坐标结构体 => 头文件循环引用，移到"kalmanfilter.h"中了
+//struct vec3d{
+//    double	x;
+//    double	y;
+//    double	z;
+//    char flag[3];
+//};
 
 // 标签距离四个基站的距离
 struct ta_dist{
@@ -20,15 +21,16 @@ struct ta_dist{
     int t_a1;
     int t_a2;
     int t_a3;
-    // 标志位
+    // 标志位=》针对哪个标签的测距
     int flag;
+    KalmanFilter* kf = nullptr;    // 卡尔曼滤波器，一个标签对应一个实例
 };
+
+// 标签距离基站距离数组
+extern ta_dist distance[8];
 
 // 基站坐标
 extern vec3d Anchor[4];
-
-// 标签距离基站距离
-extern ta_dist distance[8];
 
 // 距离标志位
 extern unsigned char dist_flag;
@@ -87,7 +89,11 @@ int trilateration(vec3d *const result1,
                   const double maxzero);
 int GetLocation(vec3d *best_solution, int use4thAnchor, vec3d* anchorArray, int *distanceArray);
 
+/* Chan-Taylor */
 void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distanceArray, double residual, double delta, int iterativeNum);
+
+/* Chan-Taylor-Kalman */
+void GetLocationChanTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, double residual, double delta, int iterativeNum);
 
 /* Chan方法初次定位 */
 vec3d Chan(vec3d* anchorArray, int *distanceArray);

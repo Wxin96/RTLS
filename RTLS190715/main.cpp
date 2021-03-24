@@ -1,37 +1,40 @@
 #include "rtls_widget.h"
 #include "trilateration.h"
+#include "kalmanfilter.h"
 #include <iostream>
 #include <QApplication>
 #include <QDebug>
 #include <Eigen>
+#include <exception>
 
 using Eigen::MatrixXd;
-using namespace std;
 
 int main(int argc, char *argv[])
 {
-//    Tag[0].x=0;
-//    Tag[0].y=0;
-//    Tag[0].z=0;
+//    int spatial_dimension = 3;
+//    double delta_t = 0.2;
+//    MatrixXd Q = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension) * 0.001;
+//    MatrixXd R = MatrixXd::Identity(spatial_dimension, spatial_dimension) * 0.0025;     // sd = 0.05
+//    MatrixXd P_init = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension);
+//    KalmanFilter kf_init(spatial_dimension, delta_t, Q, R, P_init);
 
-//    MatrixXd m(3,2);
-//    m(0,0) = 3;
-//    m(1,0) = 2.5;
-//    m(0,1) = -1;
-//    m(1,1) = m(1,0) + m(0,1);
-//    std::cout << m << std::endl;
-//    MatrixXd m(4,4);
-//    m = MatrixXd::Identity(4, 4);
-//    std::cout << m << std::endl;
 
-    // distance数组赋值0
+
+
     memset(dit_temp,0,sizeof(dit_temp));
 
     QApplication a(argc, argv);
     RTLS_Widget w;
     w.show();
 
-    test();
+    // 防止内存泄漏
+    for (int i = 0; i < 8; i++){
+        if (distance[i].kf) {
+            delete distance[i].kf;
+        }
+    }
+
 
     return a.exec();
+//    return 1;
 }

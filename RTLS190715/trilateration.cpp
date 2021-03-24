@@ -780,6 +780,29 @@ void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distan
 
 }
 
+void GetLocationChanTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, double residual, double delta, int iterativeNum)
+{
+    /*  获取初始位置Chan  */
+    // 初始位置
+    vec3d locationInit;
+    locationInit = Chan(anchorArray, distanceArray);
+    *best_solution = locationInit;
+
+    /*  计算残差  */
+    double residualCal = 0;
+    residualCal = ResidualCal(anchorArray, best_solution, distanceArray);
+    qDebug()<<"ResidualCal:"<<residualCal<<endl;
+
+    /*  判断是否要进行Taylor  */
+    if (residualCal > residual)
+        *best_solution = TaylorItrator(anchorArray, &locationInit,distanceArray, delta, iterativeNum);
+    else
+        *best_solution = locationInit;
+
+    // 卡尔曼滤波
+    kf->iteration(best_solution);
+}
+
 // Chan方法
 vec3d Chan(vec3d* anchorArray, int *distanceArray)
 {
@@ -900,6 +923,7 @@ void distUpdata(vec3d* anchorArray, vec3d* location, double *distanceUd)
     }
 }
 
+
 // 残差计算
 double ResidualCal(vec3d* anchorArray, vec3d* location, int *distanceArray)
 {
@@ -918,6 +942,7 @@ double ResidualCal(vec3d* anchorArray, vec3d* location, int *distanceArray)
     }
     return residual;
 }
+
 
 
 

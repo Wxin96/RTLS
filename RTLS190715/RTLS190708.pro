@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        kalmanfilter.cpp \
         location.cpp \
         main.cpp \
         mycombobox.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
         trilateration.cpp
 
 HEADERS += \
+        kalmanfilter.h \
         location.h \
         mycombobox.h \
         rtls_widget.h \

@@ -313,7 +313,18 @@ void RTLS_Widget:: handleTimeout()
 
 //                result = GetLocation(&Tag[i], 0, &Anchor[0], &Range_deca[0]);
 //                GetLocationChanTaylor(&Tag[i], &Anchor[0], &Range_deca[0], 2, 0.001, 200);
-                GetLocationChanTaylor(&Tag[i], &Anchor[0], &Range_deca[0], 2000, 0.001, 200);
+//                GetLocationChanTaylor(&Tag[i], &Anchor[0], &Range_deca[0], 2000, 0.001, 200);
+                // Kalman滤波初始化
+                if (!distance[i].kf) {
+                    int spatial_dimension = 3;
+                    double delta_t = 0.2;
+                    MatrixXd Q = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension) * 0.001;
+                    MatrixXd R = MatrixXd::Identity(spatial_dimension, spatial_dimension) * 0.0025;     // sd = 0.05
+                    MatrixXd P_init = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension);
+                    distance[i].kf = new KalmanFilter(spatial_dimension, delta_t, Q, R, P_init);
+                }
+
+                GetLocationChanTaylorKalman(&Tag[i], &Anchor[0], &Range_deca[0], distance[i].kf, 2000, 0.001, 200);
                 // 测距函数输出
                 qDebug()<<result;
 
@@ -343,7 +354,7 @@ void RTLS_Widget:: handleTimeout()
 }
 
 // TODO: 根据不同的通信写判断
-void RTLS_Widget::  newData()
+void RTLS_Widget::newData()
 {
     QByteArray data;                // 读取数据
     QString str_data = data;        // 转换为字符串
@@ -367,7 +378,7 @@ void RTLS_Widget::  newData()
         ui->textEdit_read->setTextCursor(cursor);
         ui->textEdit_read->append(data);
 
-        qDebug() << data;
+//        qDebug() << data;
 
     //    emit deal_data(str_data_split);   舍弃
     }
