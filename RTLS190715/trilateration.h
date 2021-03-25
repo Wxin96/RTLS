@@ -7,6 +7,9 @@
 #define		TRIL_3SPHERES							3
 #define		TRIL_4SPHERES							4
 
+#define W2V 0
+#define V2W 1
+
 // 坐标结构体 => 头文件循环引用，移到"kalmanfilter.h"中了
 //struct vec3d{
 //    double	x;
@@ -25,6 +28,14 @@ struct ta_dist{
     int flag;
     KalmanFilter* kf = nullptr;    // 卡尔曼滤波器，一个标签对应一个实例
 };
+// 坐标变换矩阵
+struct {
+    bool flag = false;
+    MatrixXd R_w2v = MatrixXd(3, 3);
+    MatrixXd t_w2v = MatrixXd(3, 1);
+    MatrixXd R_v2w = MatrixXd(3, 3);
+    MatrixXd t_v2w = MatrixXd(3, 1);
+} rigid_motion;
 
 // 标签距离基站距离数组
 extern ta_dist distance[8];
@@ -40,6 +51,9 @@ extern vec3d Tag[8];
 
 // 缓存数据
 extern ta_dist dit_temp[8][30];
+
+
+
 
 /* Return the difference of two vectors, (vector1 - vector2). */
 vec3d vdiff(const vec3d vector1, const vec3d vector2);
@@ -90,19 +104,22 @@ int trilateration(vec3d *const result1,
 int GetLocation(vec3d *best_solution, int use4thAnchor, vec3d* anchorArray, int *distanceArray);
 
 /* Chan-Taylor */
-void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distanceArray, double residual, double delta, int iterativeNum);
+void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distanceArray, MatrixXd Q, double residual, double delta, int iterativeNum);
 
 /* Chan-Taylor-Kalman */
-void GetLocationChanTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, double residual, double delta, int iterativeNum);
+void GetLocationChanTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, MatrixXd Q, double residual, double delta, int iterativeNum);
+
+/* Trilateral-Taylor-Kalman */
+void GetLocationTrilateralTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, MatrixXd Q, double residual, double delta, int iterativeNum);
 
 /* Chan方法初次定位 */
-vec3d Chan(vec3d* anchorArray, int *distanceArray);
+vec3d Chan(vec3d* anchorArray, int *distanceArray, MatrixXd Q);
 
 /* Taylor方法迭代定位 */
-vec3d TaylorItrator(vec3d* anchorArray, vec3d* location, int *distanceArray, double delta, int iterativeNum);
+vec3d TaylorItrator(vec3d* anchorArray, vec3d* location, int *distanceArray, MatrixXd Q, double delta, int iterativeNum);
 
 /* Taylor方法定位 */
-vec3d Taylor(vec3d* anchorArray, vec3d* location, int *distanceArray);
+vec3d Taylor(vec3d* anchorArray, vec3d* location, int *distanceArray, MatrixXd Q);
 
 /* Taylor方法定位 */
 void distUpdata(vec3d* anchorArray, vec3d* location, double *distanceUd);
@@ -112,5 +129,11 @@ double ResidualCal(vec3d* anchorArray, vec3d* location, int *distanceArray);
 double vdist(const vec3d v1, const vec3d v2);
 
 void test(void);
+
+// 旋转矩阵、平移矩阵初始化
+void RigidMotionInit(vec3d *anchorArray);
+
+// 两坐标系坐标转换
+vec3d CoordinateTranformation(int mode, vec3d *loc);
 
 #endif // TRILATERATION_H

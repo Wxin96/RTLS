@@ -323,8 +323,12 @@ void RTLS_Widget:: handleTimeout()
                     MatrixXd P_init = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension);
                     distance[i].kf = new KalmanFilter(spatial_dimension, delta_t, Q, R, P_init);
                 }
+                // Q初始化
+                MatrixXd Q = MatrixXd::Identity(4, 4) * 0.0025; // sd = 0.05
 
-                GetLocationChanTaylorKalman(&Tag[i], &Anchor[0], &Range_deca[0], distance[i].kf, 0.005, 0.001, 200);
+//                GetLocationChanTaylorKalman(&Tag[i], &Anchor[0], &Range_deca[0], distance[i].kf, Q, 0.005, 0.001, 200);
+                GetLocationTrilateralTaylorKalman(&Tag[i], &Anchor[0], &Range_deca[0], distance[i].kf, Q, 0.005, 0.001, 200);
+
                 // 测距函数输出
 //                qDebug()<<result;
 

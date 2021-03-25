@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 //    MatrixXd P_init = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension);
 //    KalmanFilter kf_init(spatial_dimension, delta_t, Q, R, P_init);
 
-
+    MatrixXd matrix(3, 3);
 
 
     memset(dit_temp,0,sizeof(dit_temp));
@@ -36,5 +36,7 @@ int main(int argc, char *argv[])
 
 
     return a.exec();
+
+//    test();
 //    return 1;
 }

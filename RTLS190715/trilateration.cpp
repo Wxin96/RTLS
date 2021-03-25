@@ -730,6 +730,20 @@ void test(void)
     anchorArray[3].y = 0.000; //anchor3.y uint:m
     anchorArray[3].z = 0.700; //anchor3.z uint:m
 
+    RigidMotionInit(&anchorArray[0]);
+    vec3d loc1 = CoordinateTranformation(W2V, &anchorArray[0]);
+    cout << loc1.x << endl;
+    cout << loc1.y << endl;
+    cout << loc1.z << endl;
+    loc1 = CoordinateTranformation(W2V, &anchorArray[1]);
+    cout << loc1.x << endl;
+    cout << loc1.y << endl;
+    cout << loc1.z << endl;
+    loc1 = CoordinateTranformation(W2V, &anchorArray[2]);
+    cout << loc1.x << endl;
+    cout << loc1.y << endl;
+    cout << loc1.z << endl;
+
     Range_deca[0] = 4740; //tag to A0 distance
     Range_deca[1] = 8628; //tag to A1 distance
     Range_deca[2] = 5254; //tag to A2 distance
@@ -741,18 +755,19 @@ void test(void)
 
     QTime t;
     t.start();
-    GetLocationChanTaylor(&report, &anchorArray[0], &Range_deca[0], 100, 0.0001, 150);
+    MatrixXd Q = MatrixXd::Identity(4, 4) * 0.0025; // sd = 0.05
+    GetLocationChanTaylor(&report, &anchorArray[0], &Range_deca[0], Q, 100, 0.0001, 150);
     printf("tag.x=%.3f\r\ntag.y=%.3f\r\ntag.z=%.3f\r\n", report.x, report.y, report.z);
     qDebug()<<t.elapsed()<<"ms";
 }
 
 // Chan-Taylor测距
-void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distanceArray, double residual, double delta, int iterativeNum)
+void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distanceArray, MatrixXd Q, double residual, double delta, int iterativeNum)
 {
     /*  获取初始位置Chan  */
     // 初始位置
     vec3d locationInit;
-    locationInit = Chan(anchorArray, distanceArray);
+    locationInit = Chan(anchorArray, distanceArray, Q);
     *best_solution = locationInit;
 
     /*  计算残差  */
@@ -762,19 +777,20 @@ void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distan
 
     /*  判断是否要进行Taylor  */
     if (residualCal > residual)
-        *best_solution = TaylorItrator(anchorArray, &locationInit,distanceArray, delta, iterativeNum);
+        *best_solution = TaylorItrator(anchorArray, &locationInit, distanceArray, Q, delta, iterativeNum);
     else
         *best_solution = locationInit;
 
 }
 
-void GetLocationChanTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, double residual, double delta, int iterativeNum)
+// C-T-K
+void GetLocationChanTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, MatrixXd Q, double residual, double delta, int iterativeNum)
 {
     qDebug() << "C-T-K positioning~" <<endl;
     /*  获取初始位置Chan  */
     // 初始位置
     vec3d locationInit;
-    locationInit = Chan(anchorArray, distanceArray);
+    locationInit = Chan(anchorArray, distanceArray, Q);
     *best_solution = locationInit;
 
     /*  计算残差  */
@@ -783,19 +799,116 @@ void GetLocationChanTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *
     qDebug()<<"ResidualCal:"<<residualCal<<endl;
 
     /*  Taylor  */
-    *best_solution = TaylorItrator(anchorArray, &locationInit,distanceArray, delta, iterativeNum);
-
+    *best_solution = TaylorItrator(anchorArray, &locationInit, distanceArray, Q, delta, iterativeNum);
     // 卡尔曼滤波
     kf->iteration(best_solution);
 }
 
+// TS(三边) - T - K
+void GetLocationTrilateralTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, MatrixXd Q, double residual, double delta, int iterativeNum){
+    // 0.检测旋转逆矩阵、平移矩阵是否初始化
+    if (!rigid_motion.flag) {
+        RigidMotionInit(anchorArray);
+    }
+    // 1.坐标变换
+    vec3d anchorArrayPlane[4];
+    for (int i = 0; i < 4; i++) {
+        anchorArrayPlane[i] = CoordinateTranformation(W2V, &anchorArray[i]);
+    }
+    // 2.三边测距
+    GetLocation(best_solution, 1, &anchorArrayPlane[0], distanceArray);
+    *best_solution = CoordinateTranformation(V2W, best_solution);
+    vec3d locationInit = *best_solution;
+    // 3.Taylor
+    /*  计算残差  */
+    double residualCal = 0;
+    residualCal = ResidualCal(anchorArray, best_solution, distanceArray);
+    qDebug()<<"ResidualCal: "<<residualCal<<endl;
+
+    /*  Taylor  */
+    cout << locationInit.x << "," << locationInit.y << "," << locationInit.z <<endl;
+    for (int i = 0; i < 4; i++) {
+        cout << anchorArray[i].x << "," << anchorArray[i].y  << "," << anchorArray[i].z  <<endl;
+        cout << distanceArray[i] << endl;
+    }
+    *best_solution = TaylorItrator(anchorArray, &locationInit, distanceArray, Q, delta, iterativeNum);
+    cout << best_solution->x << "," << best_solution->y << "," << best_solution->z <<endl;
+    // 4.Kalman
+    kf->iteration(best_solution);
+}
+
+// 旋转矩阵、平移矩阵初始化
+void RigidMotionInit(vec3d *anchorArray) {
+    // A0 - A2
+    vec3d a0 = anchorArray[0];
+    vec3d a1 = anchorArray[1];
+    vec3d a2 = anchorArray[2];
+    // A0_A1 => x轴单位向量 x
+    vec3d x = vdiff(a0, a1);
+    x = vdiv(x, vnorm(x));
+    // A0_A2 => A0_A2 单位向量t
+    vec3d t = vdiff(a0, a2);
+    t = vdiv(t, vnorm(t));
+    // t1在x上的投影向量 t2x
+    vec3d t2x = vmul(x, dot(x, t));
+    // 向量y
+    vec3d y = vdiff(t, t2x);
+    y = vdiv(y, vnorm(y));
+    // 向量z
+    vec3d z = cross(x, y);
+    // 旋转矩阵、平移矩阵初始化
+    rigid_motion.flag = true;
+    // 旋转逆矩阵
+    // V2W
+    rigid_motion.R_w2v(0, 0) = x.x;
+    rigid_motion.R_w2v(0, 1) = x.y;
+    rigid_motion.R_w2v(0, 2) = x.z;
+    rigid_motion.R_w2v(1, 0) = y.x;
+    rigid_motion.R_w2v(1, 1) = y.y;
+    rigid_motion.R_w2v(1, 2) = y.z;
+    rigid_motion.R_w2v(2, 0) = z.x;
+    rigid_motion.R_w2v(2, 1) = z.y;
+    rigid_motion.R_w2v(2, 2) = z.z;
+    // W2V
+    rigid_motion.R_v2w = rigid_motion.R_w2v.transpose();
+    // 平移矩阵
+    // V2W
+    rigid_motion.t_w2v(0, 0) = -anchorArray[0].x;
+    rigid_motion.t_w2v(1, 0) = -anchorArray[0].y;
+    rigid_motion.t_w2v(2, 0) = -anchorArray[0].z;
+    // W2V
+    rigid_motion.t_v2w = - rigid_motion.t_w2v;
+
+    rigid_motion.t_w2v = rigid_motion.R_w2v * rigid_motion.t_w2v;
+}
+
+// 坐标点转化
+vec3d CoordinateTranformation(int mode, vec3d *loc) {
+    // 转化为矩阵
+    MatrixXd originLoc(3, 1), targetLoc;
+    originLoc(0, 0) = loc->x;
+    originLoc(1, 0) = loc->y;
+    originLoc(2, 0) = loc->z;
+    if (mode == W2V) {
+        targetLoc = rigid_motion.R_w2v * originLoc + rigid_motion.t_w2v;
+    } else if (mode == V2W) {
+        targetLoc = rigid_motion.R_v2w * originLoc + rigid_motion.t_v2w;
+    }
+    vec3d target;
+    target.x = targetLoc(0, 0);
+    target.y = targetLoc(1, 0);
+    target.z = targetLoc(2, 0);
+    return target;
+}
+
 // Chan方法
-vec3d Chan(vec3d* anchorArray, int *distanceArray)
+vec3d Chan(vec3d* anchorArray, int *distanceArray, MatrixXd Q)
 {
     // xyz赋值
     // typedef Matrix<double, Dynamic, Dynamic> MatrixXd;
     // (double类型)
     // 坐标和距离单统一(mm)
+    Q = Q * 1000000;
     MatrixXd x(4,1);
     MatrixXd y(4,1);
     MatrixXd z(4,1);
@@ -813,6 +926,8 @@ vec3d Chan(vec3d* anchorArray, int *distanceArray)
     // h、G参数赋值
     MatrixXd h(4,1);
     MatrixXd G(4,4);
+    MatrixXd B(4,4);
+    MatrixXd Psi_inv;
     for(int i=0;i<4;i++)
     {
         h(i,0) = distanceArray[i]*distanceArray[i] - x(i, 0)*x(i, 0)- y(i, 0)*y(i, 0)- z(i, 0)*z(i, 0);
@@ -821,10 +936,11 @@ vec3d Chan(vec3d* anchorArray, int *distanceArray)
         G(i, 1) = -2*y(i,0);
         G(i, 2) = -2*z(i,0);
         G(i, 3) = 1;
+        B(i, i) = distanceArray[i];
     }
-
+    Psi_inv =  (4 * B * Q * B).inverse();
     // 计算并输出结果
-    result = (G.transpose()*G).inverse()*G.transpose()*h;
+    result = (G.transpose()*Psi_inv*G).inverse()*G.transpose()*Psi_inv*h;
     location.x = result(0, 0) / 1000;
     location.y = result(1, 0) / 1000;
     location.z = result(2, 0) / 1000;
@@ -833,7 +949,7 @@ vec3d Chan(vec3d* anchorArray, int *distanceArray)
 
 // Taylor迭代定位
 // 500次67ms  1次0.134ms
-vec3d TaylorItrator(vec3d* anchorArray, vec3d* location, int *distanceArray, double delta, int iterativeNum)
+vec3d TaylorItrator(vec3d* anchorArray, vec3d* location, int *distanceArray, MatrixXd Q, double delta, int iterativeNum)
 {
     qDebug() << "Taylor~" << endl;
     // 坐标
@@ -848,7 +964,7 @@ vec3d TaylorItrator(vec3d* anchorArray, vec3d* location, int *distanceArray, dou
     // 循环执行知道delta满足条件或者迭代超过次数
     for (i =0;i<iterativeNum;i++)
     {
-        locationDelta = Taylor(anchorArray, &locaItrator, distanceArray);
+        locationDelta = Taylor(anchorArray, &locaItrator, distanceArray, Q);
         locaItrator.x += locationDelta.x;
         locaItrator.y += locationDelta.y;
         locaItrator.z += locationDelta.z;
@@ -861,11 +977,12 @@ vec3d TaylorItrator(vec3d* anchorArray, vec3d* location, int *distanceArray, dou
 }
 
 // Taylor定位
-vec3d Taylor(vec3d* anchorArray, vec3d* location, int *distanceArray)
+vec3d Taylor(vec3d* anchorArray, vec3d* location, int *distanceArray, MatrixXd Q)
 {
     // 求迭代的distance
     double distanceUpdata[4];
     distUpdata(anchorArray, location, distanceUpdata);  // 函数内已进行单位mm统一
+    Q = Q * 1000000;
 
     // h G 参数(单位统mm)
     MatrixXd h(4,1);
@@ -877,11 +994,6 @@ vec3d Taylor(vec3d* anchorArray, vec3d* location, int *distanceArray)
         G(i,1) = 1000 * (location->y - anchorArray[i].y)/distanceUpdata[i];
         G(i,2) = 1000 * (location->z - anchorArray[i].z)/distanceUpdata[i];
     }
-
-    // Q
-    double error = h.cwiseAbs().minCoeff();
-    MatrixXd Q(4, 4);
-    Q = error * MatrixXd::Identity(4, 4);
 
     // 加权最小二乘法求解
     vec3d locationDelta;
