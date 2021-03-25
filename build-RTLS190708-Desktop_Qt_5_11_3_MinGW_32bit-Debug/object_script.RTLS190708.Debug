@@ -1,0 +1,12 @@
+INPUT(
+./debug\kalmanfilter.o
+./debug\location.o
+./debug\main.o
+./debug\mycombobox.o
+./debug\ranging.o
+./debug\rtls_widget.o
+./debug\trilateration.o
+./debug\moc_location.o
+./debug\moc_mycombobox.o
+./debug\moc_rtls_widget.o
+);

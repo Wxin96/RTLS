@@ -11,11 +11,15 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableWidget>
@@ -29,116 +33,86 @@ QT_BEGIN_NAMESPACE
 class Ui_RTLS_Widget
 {
 public:
-    QGridLayout *gridLayout_4;
+    QGridLayout *gridLayout_8;
+    QTabWidget *tabWidget2;
+    QWidget *Positioning;
+    QGridLayout *gridLayout_3;
+    QTableWidget *tableWidget_Tag;
+    QPushButton *pushButton_2;
+    QPushButton *pushButton;
+    QTableWidget *tableWidget_Anchor;
+    QWidget *Ranging;
+    QGridLayout *gridLayout_6;
+    QGroupBox *groupBox;
+    QGridLayout *gridLayout_5;
+    QLabel *label_3;
+    QComboBox *comboBox;
+    QLabel *label_4;
+    QComboBox *comboBox_2;
+    QLabel *label_7;
+    QLineEdit *lineEdit;
+    QPushButton *pushButton_6;
+    QLabel *label_8;
+    QLineEdit *lineEdit_2;
+    QPushButton *pushButton_5;
+    QLabel *label_5;
+    QLineEdit *lineEdit_3;
+    QPushButton *pushButton_3;
+    QLabel *label_6;
+    QLineEdit *lineEdit_4;
+    QPushButton *pushButton_4;
+    QTextEdit *textEdit;
+    QGroupBox *groupBox_2;
+    QGridLayout *gridLayout_7;
+    QTableWidget *tableWidget;
+    QTableWidget *tableWidget_2;
+    QLabel *label_9;
+    QCheckBox *checkBox;
+    QComboBox *comboBox_3;
     QTabWidget *tabWidget1;
     QWidget *Tcp;
     QGridLayout *gridLayout;
-    QTextEdit *textEdit_read;
-    QPushButton *Button_connect;
     QLineEdit *lineEdit_Port;
     QLabel *label_2;
-    QLabel *label;
-    QSpacerItem *horizontalSpacer;
+    QTextEdit *textEdit_read;
     QLineEdit *lineEdit_IP;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *Button_connect;
+    QLabel *label;
     QWidget *Serial;
     QGridLayout *gridLayout_2;
     QLabel *SerialLabel;
     QTextBrowser *SerialTextBrowser;
     QPushButton *SerialButton;
     MyComboBox *SerialBox;
-    QTabWidget *tabWidget2;
-    QWidget *Positioning;
-    QGridLayout *gridLayout_3;
-    QPushButton *pushButton_2;
-    QTableWidget *tableWidget_Tag;
-    QTableWidget *tableWidget_Anchor;
-    QPushButton *pushButton;
-    QWidget *Ranging;
+    QWidget *tab;
+    QGridLayout *gridLayout_4;
+    QLabel *label_10;
+    QLineEdit *lineEdit_5;
+    QPushButton *pushButton_7;
+    QLabel *label_12;
+    QComboBox *comboBox_5;
+    QLabel *label_11;
+    QComboBox *comboBox_4;
+    QPushButton *pushButton_8;
+    QLabel *label_13;
+    QComboBox *comboBox_6;
+    QTextEdit *textEdit_2;
+    QLabel *label_14;
+    QComboBox *comboBox_7;
+    QLabel *label_15;
+    QComboBox *comboBox_8;
+    QSlider *horizontalSlider;
 
     void setupUi(QWidget *RTLS_Widget)
     {
         if (RTLS_Widget->objectName().isEmpty())
             RTLS_Widget->setObjectName(QStringLiteral("RTLS_Widget"));
         RTLS_Widget->resize(780, 652);
-        gridLayout_4 = new QGridLayout(RTLS_Widget);
-        gridLayout_4->setSpacing(6);
-        gridLayout_4->setContentsMargins(11, 11, 11, 11);
-        gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
-        tabWidget1 = new QTabWidget(RTLS_Widget);
-        tabWidget1->setObjectName(QStringLiteral("tabWidget1"));
-        tabWidget1->setMaximumSize(QSize(16777215, 200));
-        Tcp = new QWidget();
-        Tcp->setObjectName(QStringLiteral("Tcp"));
-        gridLayout = new QGridLayout(Tcp);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        textEdit_read = new QTextEdit(Tcp);
-        textEdit_read->setObjectName(QStringLiteral("textEdit_read"));
-
-        gridLayout->addWidget(textEdit_read, 1, 0, 1, 6);
-
-        Button_connect = new QPushButton(Tcp);
-        Button_connect->setObjectName(QStringLiteral("Button_connect"));
-
-        gridLayout->addWidget(Button_connect, 0, 4, 1, 1);
-
-        lineEdit_Port = new QLineEdit(Tcp);
-        lineEdit_Port->setObjectName(QStringLiteral("lineEdit_Port"));
-
-        gridLayout->addWidget(lineEdit_Port, 0, 3, 1, 1);
-
-        label_2 = new QLabel(Tcp);
-        label_2->setObjectName(QStringLiteral("label_2"));
-
-        gridLayout->addWidget(label_2, 0, 2, 1, 1);
-
-        label = new QLabel(Tcp);
-        label->setObjectName(QStringLiteral("label"));
-
-        gridLayout->addWidget(label, 0, 0, 1, 1);
-
-        horizontalSpacer = new QSpacerItem(157, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer, 0, 5, 1, 1);
-
-        lineEdit_IP = new QLineEdit(Tcp);
-        lineEdit_IP->setObjectName(QStringLiteral("lineEdit_IP"));
-
-        gridLayout->addWidget(lineEdit_IP, 0, 1, 1, 1);
-
-        tabWidget1->addTab(Tcp, QString());
-        Serial = new QWidget();
-        Serial->setObjectName(QStringLiteral("Serial"));
-        gridLayout_2 = new QGridLayout(Serial);
-        gridLayout_2->setSpacing(6);
-        gridLayout_2->setContentsMargins(11, 11, 11, 11);
-        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        SerialLabel = new QLabel(Serial);
-        SerialLabel->setObjectName(QStringLiteral("SerialLabel"));
-        SerialLabel->setAlignment(Qt::AlignCenter);
-
-        gridLayout_2->addWidget(SerialLabel, 0, 0, 1, 1);
-
-        SerialTextBrowser = new QTextBrowser(Serial);
-        SerialTextBrowser->setObjectName(QStringLiteral("SerialTextBrowser"));
-
-        gridLayout_2->addWidget(SerialTextBrowser, 1, 0, 1, 4);
-
-        SerialButton = new QPushButton(Serial);
-        SerialButton->setObjectName(QStringLiteral("SerialButton"));
-
-        gridLayout_2->addWidget(SerialButton, 0, 3, 1, 1);
-
-        SerialBox = new MyComboBox(Serial);
-        SerialBox->setObjectName(QStringLiteral("SerialBox"));
-
-        gridLayout_2->addWidget(SerialBox, 0, 1, 1, 2);
-
-        tabWidget1->addTab(Serial, QString());
-
-        gridLayout_4->addWidget(tabWidget1, 0, 0, 1, 1);
-
+        gridLayout_8 = new QGridLayout(RTLS_Widget);
+        gridLayout_8->setSpacing(6);
+        gridLayout_8->setContentsMargins(11, 11, 11, 11);
+        gridLayout_8->setObjectName(QStringLiteral("gridLayout_8"));
         tabWidget2 = new QTabWidget(RTLS_Widget);
         tabWidget2->setObjectName(QStringLiteral("tabWidget2"));
         Positioning = new QWidget();
@@ -147,12 +121,6 @@ public:
         gridLayout_3->setSpacing(6);
         gridLayout_3->setContentsMargins(11, 11, 11, 11);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
-        pushButton_2 = new QPushButton(Positioning);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setMaximumSize(QSize(90, 16777215));
-
-        gridLayout_3->addWidget(pushButton_2, 0, 1, 1, 1);
-
         tableWidget_Tag = new QTableWidget(Positioning);
         if (tableWidget_Tag->columnCount() < 4)
             tableWidget_Tag->setColumnCount(4);
@@ -295,6 +263,18 @@ public:
 
         gridLayout_3->addWidget(tableWidget_Tag, 1, 1, 1, 1);
 
+        pushButton_2 = new QPushButton(Positioning);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setMaximumSize(QSize(90, 16777215));
+
+        gridLayout_3->addWidget(pushButton_2, 0, 1, 1, 1);
+
+        pushButton = new QPushButton(Positioning);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setMaximumSize(QSize(90, 16777215));
+
+        gridLayout_3->addWidget(pushButton, 0, 0, 1, 1);
+
         tableWidget_Anchor = new QTableWidget(Positioning);
         if (tableWidget_Anchor->columnCount() < 4)
             tableWidget_Anchor->setColumnCount(4);
@@ -376,24 +356,344 @@ public:
 
         gridLayout_3->addWidget(tableWidget_Anchor, 1, 0, 1, 1);
 
-        pushButton = new QPushButton(Positioning);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setMaximumSize(QSize(90, 16777215));
-
-        gridLayout_3->addWidget(pushButton, 0, 0, 1, 1);
-
         tabWidget2->addTab(Positioning, QString());
         Ranging = new QWidget();
         Ranging->setObjectName(QStringLiteral("Ranging"));
+        gridLayout_6 = new QGridLayout(Ranging);
+        gridLayout_6->setSpacing(6);
+        gridLayout_6->setContentsMargins(11, 11, 11, 11);
+        gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
+        groupBox = new QGroupBox(Ranging);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        gridLayout_5 = new QGridLayout(groupBox);
+        gridLayout_5->setSpacing(6);
+        gridLayout_5->setContentsMargins(11, 11, 11, 11);
+        gridLayout_5->setObjectName(QStringLiteral("gridLayout_5"));
+        label_3 = new QLabel(groupBox);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        gridLayout_5->addWidget(label_3, 0, 0, 1, 1);
+
+        comboBox = new QComboBox(groupBox);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+
+        gridLayout_5->addWidget(comboBox, 0, 1, 1, 1);
+
+        label_4 = new QLabel(groupBox);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        gridLayout_5->addWidget(label_4, 0, 2, 1, 1);
+
+        comboBox_2 = new QComboBox(groupBox);
+        comboBox_2->setObjectName(QStringLiteral("comboBox_2"));
+
+        gridLayout_5->addWidget(comboBox_2, 0, 3, 1, 1);
+
+        label_7 = new QLabel(groupBox);
+        label_7->setObjectName(QStringLiteral("label_7"));
+
+        gridLayout_5->addWidget(label_7, 1, 0, 1, 1);
+
+        lineEdit = new QLineEdit(groupBox);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+
+        gridLayout_5->addWidget(lineEdit, 1, 1, 1, 2);
+
+        pushButton_6 = new QPushButton(groupBox);
+        pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
+
+        gridLayout_5->addWidget(pushButton_6, 1, 3, 1, 1);
+
+        label_8 = new QLabel(groupBox);
+        label_8->setObjectName(QStringLiteral("label_8"));
+
+        gridLayout_5->addWidget(label_8, 2, 0, 1, 1);
+
+        lineEdit_2 = new QLineEdit(groupBox);
+        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
+
+        gridLayout_5->addWidget(lineEdit_2, 2, 1, 1, 2);
+
+        pushButton_5 = new QPushButton(groupBox);
+        pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
+
+        gridLayout_5->addWidget(pushButton_5, 2, 3, 1, 1);
+
+        label_5 = new QLabel(groupBox);
+        label_5->setObjectName(QStringLiteral("label_5"));
+
+        gridLayout_5->addWidget(label_5, 3, 0, 1, 1);
+
+        lineEdit_3 = new QLineEdit(groupBox);
+        lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
+
+        gridLayout_5->addWidget(lineEdit_3, 3, 1, 1, 2);
+
+        pushButton_3 = new QPushButton(groupBox);
+        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+
+        gridLayout_5->addWidget(pushButton_3, 3, 3, 1, 1);
+
+        label_6 = new QLabel(groupBox);
+        label_6->setObjectName(QStringLiteral("label_6"));
+
+        gridLayout_5->addWidget(label_6, 4, 0, 1, 1);
+
+        lineEdit_4 = new QLineEdit(groupBox);
+        lineEdit_4->setObjectName(QStringLiteral("lineEdit_4"));
+
+        gridLayout_5->addWidget(lineEdit_4, 4, 1, 1, 2);
+
+        pushButton_4 = new QPushButton(groupBox);
+        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+
+        gridLayout_5->addWidget(pushButton_4, 4, 3, 1, 1);
+
+        textEdit = new QTextEdit(groupBox);
+        textEdit->setObjectName(QStringLiteral("textEdit"));
+
+        gridLayout_5->addWidget(textEdit, 5, 0, 1, 4);
+
+
+        gridLayout_6->addWidget(groupBox, 0, 0, 1, 1);
+
+        groupBox_2 = new QGroupBox(Ranging);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        gridLayout_7 = new QGridLayout(groupBox_2);
+        gridLayout_7->setSpacing(6);
+        gridLayout_7->setContentsMargins(11, 11, 11, 11);
+        gridLayout_7->setObjectName(QStringLiteral("gridLayout_7"));
+        tableWidget = new QTableWidget(groupBox_2);
+        if (tableWidget->columnCount() < 3)
+            tableWidget->setColumnCount(3);
+        QTableWidgetItem *__qtablewidgetitem68 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem68);
+        QTableWidgetItem *__qtablewidgetitem69 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem69);
+        QTableWidgetItem *__qtablewidgetitem70 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem70);
+        if (tableWidget->rowCount() < 2)
+            tableWidget->setRowCount(2);
+        QTableWidgetItem *__qtablewidgetitem71 = new QTableWidgetItem();
+        tableWidget->setVerticalHeaderItem(0, __qtablewidgetitem71);
+        QTableWidgetItem *__qtablewidgetitem72 = new QTableWidgetItem();
+        tableWidget->setVerticalHeaderItem(1, __qtablewidgetitem72);
+        tableWidget->setObjectName(QStringLiteral("tableWidget"));
+
+        gridLayout_7->addWidget(tableWidget, 1, 0, 1, 3);
+
+        tableWidget_2 = new QTableWidget(groupBox_2);
+        if (tableWidget_2->columnCount() < 4)
+            tableWidget_2->setColumnCount(4);
+        QTableWidgetItem *__qtablewidgetitem73 = new QTableWidgetItem();
+        tableWidget_2->setHorizontalHeaderItem(0, __qtablewidgetitem73);
+        QTableWidgetItem *__qtablewidgetitem74 = new QTableWidgetItem();
+        tableWidget_2->setHorizontalHeaderItem(1, __qtablewidgetitem74);
+        QTableWidgetItem *__qtablewidgetitem75 = new QTableWidgetItem();
+        tableWidget_2->setHorizontalHeaderItem(2, __qtablewidgetitem75);
+        QTableWidgetItem *__qtablewidgetitem76 = new QTableWidgetItem();
+        tableWidget_2->setHorizontalHeaderItem(3, __qtablewidgetitem76);
+        if (tableWidget_2->rowCount() < 2)
+            tableWidget_2->setRowCount(2);
+        QTableWidgetItem *__qtablewidgetitem77 = new QTableWidgetItem();
+        tableWidget_2->setVerticalHeaderItem(0, __qtablewidgetitem77);
+        QTableWidgetItem *__qtablewidgetitem78 = new QTableWidgetItem();
+        tableWidget_2->setVerticalHeaderItem(1, __qtablewidgetitem78);
+        tableWidget_2->setObjectName(QStringLiteral("tableWidget_2"));
+
+        gridLayout_7->addWidget(tableWidget_2, 2, 0, 1, 3);
+
+        label_9 = new QLabel(groupBox_2);
+        label_9->setObjectName(QStringLiteral("label_9"));
+
+        gridLayout_7->addWidget(label_9, 0, 0, 1, 1);
+
+        checkBox = new QCheckBox(groupBox_2);
+        checkBox->setObjectName(QStringLiteral("checkBox"));
+        checkBox->setTristate(false);
+
+        gridLayout_7->addWidget(checkBox, 0, 2, 1, 1);
+
+        comboBox_3 = new QComboBox(groupBox_2);
+        comboBox_3->setObjectName(QStringLiteral("comboBox_3"));
+
+        gridLayout_7->addWidget(comboBox_3, 0, 1, 1, 1);
+
+
+        gridLayout_6->addWidget(groupBox_2, 0, 1, 1, 1);
+
         tabWidget2->addTab(Ranging, QString());
 
-        gridLayout_4->addWidget(tabWidget2, 1, 0, 1, 1);
+        gridLayout_8->addWidget(tabWidget2, 1, 0, 1, 1);
+
+        tabWidget1 = new QTabWidget(RTLS_Widget);
+        tabWidget1->setObjectName(QStringLiteral("tabWidget1"));
+        tabWidget1->setMaximumSize(QSize(16777215, 200));
+        Tcp = new QWidget();
+        Tcp->setObjectName(QStringLiteral("Tcp"));
+        gridLayout = new QGridLayout(Tcp);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        lineEdit_Port = new QLineEdit(Tcp);
+        lineEdit_Port->setObjectName(QStringLiteral("lineEdit_Port"));
+
+        gridLayout->addWidget(lineEdit_Port, 0, 3, 1, 1);
+
+        label_2 = new QLabel(Tcp);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        gridLayout->addWidget(label_2, 0, 2, 1, 1);
+
+        textEdit_read = new QTextEdit(Tcp);
+        textEdit_read->setObjectName(QStringLiteral("textEdit_read"));
+
+        gridLayout->addWidget(textEdit_read, 1, 0, 1, 6);
+
+        lineEdit_IP = new QLineEdit(Tcp);
+        lineEdit_IP->setObjectName(QStringLiteral("lineEdit_IP"));
+
+        gridLayout->addWidget(lineEdit_IP, 0, 1, 1, 1);
+
+        horizontalSpacer = new QSpacerItem(157, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer, 0, 5, 1, 1);
+
+        Button_connect = new QPushButton(Tcp);
+        Button_connect->setObjectName(QStringLiteral("Button_connect"));
+
+        gridLayout->addWidget(Button_connect, 0, 4, 1, 1);
+
+        label = new QLabel(Tcp);
+        label->setObjectName(QStringLiteral("label"));
+
+        gridLayout->addWidget(label, 0, 0, 1, 1);
+
+        tabWidget1->addTab(Tcp, QString());
+        Serial = new QWidget();
+        Serial->setObjectName(QStringLiteral("Serial"));
+        gridLayout_2 = new QGridLayout(Serial);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        SerialLabel = new QLabel(Serial);
+        SerialLabel->setObjectName(QStringLiteral("SerialLabel"));
+        SerialLabel->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(SerialLabel, 0, 0, 1, 1);
+
+        SerialTextBrowser = new QTextBrowser(Serial);
+        SerialTextBrowser->setObjectName(QStringLiteral("SerialTextBrowser"));
+
+        gridLayout_2->addWidget(SerialTextBrowser, 1, 0, 1, 4);
+
+        SerialButton = new QPushButton(Serial);
+        SerialButton->setObjectName(QStringLiteral("SerialButton"));
+
+        gridLayout_2->addWidget(SerialButton, 0, 3, 1, 1);
+
+        SerialBox = new MyComboBox(Serial);
+        SerialBox->setObjectName(QStringLiteral("SerialBox"));
+
+        gridLayout_2->addWidget(SerialBox, 0, 1, 1, 2);
+
+        tabWidget1->addTab(Serial, QString());
+        tab = new QWidget();
+        tab->setObjectName(QStringLiteral("tab"));
+        gridLayout_4 = new QGridLayout(tab);
+        gridLayout_4->setSpacing(6);
+        gridLayout_4->setContentsMargins(11, 11, 11, 11);
+        gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
+        label_10 = new QLabel(tab);
+        label_10->setObjectName(QStringLiteral("label_10"));
+
+        gridLayout_4->addWidget(label_10, 0, 0, 1, 1);
+
+        lineEdit_5 = new QLineEdit(tab);
+        lineEdit_5->setObjectName(QStringLiteral("lineEdit_5"));
+
+        gridLayout_4->addWidget(lineEdit_5, 0, 1, 1, 1);
+
+        pushButton_7 = new QPushButton(tab);
+        pushButton_7->setObjectName(QStringLiteral("pushButton_7"));
+
+        gridLayout_4->addWidget(pushButton_7, 0, 2, 1, 1);
+
+        label_12 = new QLabel(tab);
+        label_12->setObjectName(QStringLiteral("label_12"));
+
+        gridLayout_4->addWidget(label_12, 0, 3, 1, 1);
+
+        comboBox_5 = new QComboBox(tab);
+        comboBox_5->setObjectName(QStringLiteral("comboBox_5"));
+
+        gridLayout_4->addWidget(comboBox_5, 0, 4, 1, 1);
+
+        label_11 = new QLabel(tab);
+        label_11->setObjectName(QStringLiteral("label_11"));
+
+        gridLayout_4->addWidget(label_11, 1, 0, 1, 1);
+
+        comboBox_4 = new QComboBox(tab);
+        comboBox_4->setObjectName(QStringLiteral("comboBox_4"));
+
+        gridLayout_4->addWidget(comboBox_4, 1, 1, 1, 1);
+
+        pushButton_8 = new QPushButton(tab);
+        pushButton_8->setObjectName(QStringLiteral("pushButton_8"));
+
+        gridLayout_4->addWidget(pushButton_8, 1, 2, 1, 1);
+
+        label_13 = new QLabel(tab);
+        label_13->setObjectName(QStringLiteral("label_13"));
+
+        gridLayout_4->addWidget(label_13, 1, 3, 1, 1);
+
+        comboBox_6 = new QComboBox(tab);
+        comboBox_6->setObjectName(QStringLiteral("comboBox_6"));
+
+        gridLayout_4->addWidget(comboBox_6, 1, 4, 1, 1);
+
+        textEdit_2 = new QTextEdit(tab);
+        textEdit_2->setObjectName(QStringLiteral("textEdit_2"));
+
+        gridLayout_4->addWidget(textEdit_2, 2, 0, 3, 3);
+
+        label_14 = new QLabel(tab);
+        label_14->setObjectName(QStringLiteral("label_14"));
+
+        gridLayout_4->addWidget(label_14, 2, 3, 1, 1);
+
+        comboBox_7 = new QComboBox(tab);
+        comboBox_7->setObjectName(QStringLiteral("comboBox_7"));
+
+        gridLayout_4->addWidget(comboBox_7, 2, 4, 1, 1);
+
+        label_15 = new QLabel(tab);
+        label_15->setObjectName(QStringLiteral("label_15"));
+
+        gridLayout_4->addWidget(label_15, 3, 3, 2, 1);
+
+        comboBox_8 = new QComboBox(tab);
+        comboBox_8->setObjectName(QStringLiteral("comboBox_8"));
+
+        gridLayout_4->addWidget(comboBox_8, 3, 4, 1, 1);
+
+        horizontalSlider = new QSlider(tab);
+        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
+        horizontalSlider->setOrientation(Qt::Horizontal);
+
+        gridLayout_4->addWidget(horizontalSlider, 4, 4, 1, 1);
+
+        tabWidget1->addTab(tab, QString());
+
+        gridLayout_8->addWidget(tabWidget1, 0, 0, 1, 1);
 
 
         retranslateUi(RTLS_Widget);
 
-        tabWidget1->setCurrentIndex(0);
-        tabWidget2->setCurrentIndex(0);
+        tabWidget2->setCurrentIndex(1);
+        tabWidget1->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(RTLS_Widget);
@@ -402,16 +702,6 @@ public:
     void retranslateUi(QWidget *RTLS_Widget)
     {
         RTLS_Widget->setWindowTitle(QApplication::translate("RTLS_Widget", "RTLS_Widget", nullptr));
-        Button_connect->setText(QApplication::translate("RTLS_Widget", "Connect", nullptr));
-        lineEdit_Port->setText(QApplication::translate("RTLS_Widget", "12900", nullptr));
-        label_2->setText(QApplication::translate("RTLS_Widget", "\346\234\215\345\212\241\345\231\250 \347\253\257\345\217\243\345\217\267\357\274\232", nullptr));
-        label->setText(QApplication::translate("RTLS_Widget", "\346\234\215\345\212\241\345\231\250 IP\357\274\232", nullptr));
-        lineEdit_IP->setText(QApplication::translate("RTLS_Widget", "127.0.0.1", nullptr));
-        tabWidget1->setTabText(tabWidget1->indexOf(Tcp), QApplication::translate("RTLS_Widget", "TCP", nullptr));
-        SerialLabel->setText(QApplication::translate("RTLS_Widget", "\344\270\262\345\217\243\351\200\211\346\213\251", nullptr));
-        SerialButton->setText(QApplication::translate("RTLS_Widget", "Connect", nullptr));
-        tabWidget1->setTabText(tabWidget1->indexOf(Serial), QApplication::translate("RTLS_Widget", "Serial Port", nullptr));
-        pushButton_2->setText(QApplication::translate("RTLS_Widget", "\345\233\276\345\275\242\345\214\226\347\225\214\351\235\242", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tableWidget_Tag->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("RTLS_Widget", "Tag ID", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget_Tag->horizontalHeaderItem(1);
@@ -441,6 +731,8 @@ public:
         ___qtablewidgetitem11->setText(QApplication::translate("RTLS_Widget", "Tag 7", nullptr));
         tableWidget_Tag->setSortingEnabled(__sortingEnabled);
 
+        pushButton_2->setText(QApplication::translate("RTLS_Widget", "\345\233\276\345\275\242\345\214\226\347\225\214\351\235\242", nullptr));
+        pushButton->setText(QApplication::translate("RTLS_Widget", "\350\257\273\345\217\226\345\237\272\347\253\231\345\235\220\346\240\207", nullptr));
         QTableWidgetItem *___qtablewidgetitem12 = tableWidget_Anchor->horizontalHeaderItem(0);
         ___qtablewidgetitem12->setText(QApplication::translate("RTLS_Widget", "Anchor ID", nullptr));
         QTableWidgetItem *___qtablewidgetitem13 = tableWidget_Anchor->horizontalHeaderItem(1);
@@ -486,9 +778,63 @@ public:
         ___qtablewidgetitem31->setText(QApplication::translate("RTLS_Widget", "3.2", nullptr));
         tableWidget_Anchor->setSortingEnabled(__sortingEnabled1);
 
-        pushButton->setText(QApplication::translate("RTLS_Widget", "\350\257\273\345\217\226\345\237\272\347\253\231\345\235\220\346\240\207", nullptr));
         tabWidget2->setTabText(tabWidget2->indexOf(Positioning), QApplication::translate("RTLS_Widget", "Positioning", nullptr));
+        groupBox->setTitle(QApplication::translate("RTLS_Widget", "Range Correction", nullptr));
+        label_3->setText(QApplication::translate("RTLS_Widget", "Tag ID\357\274\232", nullptr));
+        label_4->setText(QApplication::translate("RTLS_Widget", "Anchor ID\357\274\232", nullptr));
+        label_7->setText(QApplication::translate("RTLS_Widget", "  K\357\274\232", nullptr));
+        lineEdit->setText(QString());
+        pushButton_6->setText(QApplication::translate("RTLS_Widget", "  \346\230\276\347\244\272", nullptr));
+        label_8->setText(QApplication::translate("RTLS_Widget", "  b\357\274\232", nullptr));
+        pushButton_5->setText(QApplication::translate("RTLS_Widget", "\346\211\213\345\212\250\344\277\256\346\224\271", nullptr));
+        label_5->setText(QApplication::translate("RTLS_Widget", "  True\357\274\232", nullptr));
+        pushButton_3->setText(QApplication::translate("RTLS_Widget", " \345\274\200\345\247\213\346\240\241\346\255\243", nullptr));
+        label_6->setText(QApplication::translate("RTLS_Widget", "  Measured\357\274\232", nullptr));
+        pushButton_4->setText(QApplication::translate("RTLS_Widget", "\350\256\260\345\275\225", nullptr));
+        groupBox_2->setTitle(QApplication::translate("RTLS_Widget", " Tag  Range", nullptr));
+        QTableWidgetItem *___qtablewidgetitem32 = tableWidget->horizontalHeaderItem(0);
+        ___qtablewidgetitem32->setText(QApplication::translate("RTLS_Widget", "x/m", nullptr));
+        QTableWidgetItem *___qtablewidgetitem33 = tableWidget->horizontalHeaderItem(1);
+        ___qtablewidgetitem33->setText(QApplication::translate("RTLS_Widget", "y/m", nullptr));
+        QTableWidgetItem *___qtablewidgetitem34 = tableWidget->horizontalHeaderItem(2);
+        ___qtablewidgetitem34->setText(QApplication::translate("RTLS_Widget", "z/m", nullptr));
+        QTableWidgetItem *___qtablewidgetitem35 = tableWidget->verticalHeaderItem(0);
+        ___qtablewidgetitem35->setText(QApplication::translate("RTLS_Widget", "\345\256\236\346\265\213\344\275\215\347\275\256", nullptr));
+        QTableWidgetItem *___qtablewidgetitem36 = tableWidget->verticalHeaderItem(1);
+        ___qtablewidgetitem36->setText(QApplication::translate("RTLS_Widget", "\347\234\237\345\256\236\344\275\215\347\275\256", nullptr));
+        QTableWidgetItem *___qtablewidgetitem37 = tableWidget_2->horizontalHeaderItem(0);
+        ___qtablewidgetitem37->setText(QApplication::translate("RTLS_Widget", "A0", nullptr));
+        QTableWidgetItem *___qtablewidgetitem38 = tableWidget_2->horizontalHeaderItem(1);
+        ___qtablewidgetitem38->setText(QApplication::translate("RTLS_Widget", "A1", nullptr));
+        QTableWidgetItem *___qtablewidgetitem39 = tableWidget_2->horizontalHeaderItem(2);
+        ___qtablewidgetitem39->setText(QApplication::translate("RTLS_Widget", "A2", nullptr));
+        QTableWidgetItem *___qtablewidgetitem40 = tableWidget_2->horizontalHeaderItem(3);
+        ___qtablewidgetitem40->setText(QApplication::translate("RTLS_Widget", "A3", nullptr));
+        QTableWidgetItem *___qtablewidgetitem41 = tableWidget_2->verticalHeaderItem(0);
+        ___qtablewidgetitem41->setText(QApplication::translate("RTLS_Widget", "\345\256\236\346\265\213\350\267\235\347\246\273", nullptr));
+        QTableWidgetItem *___qtablewidgetitem42 = tableWidget_2->verticalHeaderItem(1);
+        ___qtablewidgetitem42->setText(QApplication::translate("RTLS_Widget", "\347\234\237\345\256\236\350\267\235\347\246\273", nullptr));
+        label_9->setText(QApplication::translate("RTLS_Widget", "Tag ID\357\274\232", nullptr));
+        checkBox->setText(QApplication::translate("RTLS_Widget", "\345\267\262\347\237\245\347\234\237\345\256\236\344\275\215\347\275\256", nullptr));
         tabWidget2->setTabText(tabWidget2->indexOf(Ranging), QApplication::translate("RTLS_Widget", "Ranging", nullptr));
+        lineEdit_Port->setText(QApplication::translate("RTLS_Widget", "12900", nullptr));
+        label_2->setText(QApplication::translate("RTLS_Widget", "\346\234\215\345\212\241\345\231\250 \347\253\257\345\217\243\345\217\267\357\274\232", nullptr));
+        lineEdit_IP->setText(QApplication::translate("RTLS_Widget", "127.0.0.1", nullptr));
+        Button_connect->setText(QApplication::translate("RTLS_Widget", "Connect", nullptr));
+        label->setText(QApplication::translate("RTLS_Widget", "\346\234\215\345\212\241\345\231\250 IP\357\274\232", nullptr));
+        tabWidget1->setTabText(tabWidget1->indexOf(Tcp), QApplication::translate("RTLS_Widget", "TCP", nullptr));
+        SerialLabel->setText(QApplication::translate("RTLS_Widget", "\344\270\262\345\217\243\351\200\211\346\213\251", nullptr));
+        SerialButton->setText(QApplication::translate("RTLS_Widget", "Connect", nullptr));
+        tabWidget1->setTabText(tabWidget1->indexOf(Serial), QApplication::translate("RTLS_Widget", "Serial Port", nullptr));
+        label_10->setText(QApplication::translate("RTLS_Widget", "\350\246\201\346\216\247\345\210\266 \350\256\276\345\244\207IP\357\274\232", nullptr));
+        pushButton_7->setText(QApplication::translate("RTLS_Widget", "\350\277\220\350\241\214", nullptr));
+        label_12->setText(QApplication::translate("RTLS_Widget", "Net( \347\275\221)\357\274\232", nullptr));
+        label_11->setText(QApplication::translate("RTLS_Widget", "\351\200\211\346\213\251\347\275\221\345\215\241\357\274\232", nullptr));
+        pushButton_8->setText(QApplication::translate("RTLS_Widget", "\351\273\221\345\234\272", nullptr));
+        label_13->setText(QApplication::translate("RTLS_Widget", "SubNet(\345\255\220\347\275\221)\357\274\232", nullptr));
+        label_14->setText(QApplication::translate("RTLS_Widget", "Universe(\345\237\237)\357\274\232", nullptr));
+        label_15->setText(QApplication::translate("RTLS_Widget", "\351\200\232\351\201\223(Channel)\357\274\232", nullptr));
+        tabWidget1->setTabText(tabWidget1->indexOf(tab), QApplication::translate("RTLS_Widget", "\350\210\236\345\217\260\347\201\257\350\256\276\347\275\256", nullptr));
     } // retranslateUi
 
 };

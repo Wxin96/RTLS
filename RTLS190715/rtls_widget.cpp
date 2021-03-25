@@ -32,7 +32,6 @@ RTLS_Widget::RTLS_Widget(QWidget *parent) :
 
     connect(tcpSocket,&QTcpSocket::readyRead,this,&RTLS_Widget::newData);
 
-//    connect(this,&RTLS_Widget::data_accept,this,&RTLS_Widget::deal_data); 舍弃
 
     // 串口通信
     serial = new QSerialPort(this);
@@ -134,7 +133,7 @@ void RTLS_Widget::on_SerialButton_clicked()
     }
 }
 
-// 获取表格内容
+// 获取表格内容, 基站更改时作用
 void RTLS_Widget::slotItemChanged(QTableWidgetItem * item)
 {
     // 读取行列
@@ -172,7 +171,6 @@ void RTLS_Widget:: handleTimeout()
         int length; // 数据帧长度
 
         length = str_data_split[0].length();
-//        qDebug()<<length;
 
         // 判断长度和mc
         if(length >= TOF_REPORT_LEN)
@@ -184,7 +182,6 @@ void RTLS_Widget:: handleTimeout()
             {
                 return;
             }
-//            qDebug()<<"含有mc";
 
         }
         else {
@@ -200,8 +197,9 @@ void RTLS_Widget:: handleTimeout()
 
         int num = sscanf(tofReport.constData(),
                          "m%c %x %x %x %x %x %x %x %x %c%d:%d power_%c %d %d %d %d %d %d\n",
-                         &type, &mask, &range[0], &range[1], &range[2], &range[3], &lnum, &seq, &rangetime, &c, &tid, &aid,&power,&temperature,&voltage,&current,&electric,&total_elec,&rest_elec);
-//        qDebug()<<num;
+                         &type, &mask, &range[0], &range[1], &range[2], &range[3],
+                         &lnum, &seq, &rangetime, &c, &tid, &aid,&power,&temperature,
+                         &voltage, &current, &electric, &total_elec, &rest_elec);
 
         if(mask==0x0f)
         {
@@ -216,17 +214,11 @@ void RTLS_Widget:: handleTimeout()
 
             distance[tid].flag = 1<<tid;
             dist_flag |= distance[tid].flag;
-
-//            qDebug("Tid:%d,%d,%d,%d,%d",tid,distance[tid].t_a0,distance[tid].t_a1,distance[tid].t_a2,distance[tid].t_a3);
         }
 
-//        qDebug("%d",distance[tid].flag);
-
-//        qDebug()<<distance[tid].t_a0;
         str_data_split.removeFirst();   // 删去第一个元素
     }
 
-//    qDebug("执行定时器");
     int i = 0;  // for
     char A0_flag, A1_flag, A2_flag;
     int averageNum = 18;
@@ -235,13 +227,11 @@ void RTLS_Widget:: handleTimeout()
     A1_flag = Anchor[1].flag[0] + Anchor[1].flag[1] + Anchor[1].flag[2];
     A2_flag = Anchor[2].flag[0] + Anchor[2].flag[1] + Anchor[2].flag[2];
 
-//    qDebug("%d,%d,%d,%d",A0_flag, A1_flag, A2_flag, dist_flag);
 
     if(A0_flag==3 && A1_flag==3 && A2_flag==3 && dist_flag != 0)
     {
         int result = 0;
         int Range_deca[4] = {0};
-//        qDebug("进入标签坐标计算");
         for (i=0;i<8;i++)
         {
             if(dist_flag%2 ==1)
@@ -291,15 +281,7 @@ void RTLS_Widget:: handleTimeout()
                     Range_deca[3] += dit_temp[i][j].t_a3;
 
                 }
-//                Range_deca[0] /= 10; //tag to A0 distance
-//                Range_deca[1] /= 10; //tag to A1 distance
-//                Range_deca[2] /= 10; //tag to A2 distance
-//                Range_deca[3] /= 10; //tag to A3 distance
 
-//                Range_deca[0] = distance[i].t_a0; //tag to A0 distance
-//                Range_deca[1] = distance[i].t_a1; //tag to A1 distance
-//                Range_deca[2] = distance[i].t_a2; //tag to A2 distance
-//                Range_deca[3] = distance[i].t_a3; //tag to A3 distance
                 rangeFilterp[i][0] = int(0.3*Range_deca[0]/averageNum + 0.7*rangeFilterp[i][0]); //tag to A0 distance
                 rangeFilterp[i][1] = int(0.3*Range_deca[1]/averageNum + 0.7*rangeFilterp[i][1]); //tag to A1 distance
                 rangeFilterp[i][2] = int(0.3*Range_deca[2]/averageNum + 0.7*rangeFilterp[i][2]);; //tag to A2 distance
@@ -308,12 +290,6 @@ void RTLS_Widget:: handleTimeout()
                 Range_deca[1] = rangeFilterp[i][1];
                 Range_deca[2] = rangeFilterp[i][2];
                 Range_deca[3] = rangeFilterp[i][3];
-
-//                qDebug("%d,%d,%d,%d", Range_deca[0],Range_deca[1],Range_deca[2],Range_deca[3]);
-
-//                result = GetLocation(&Tag[i], 0, &Anchor[0], &Range_deca[0]);
-//                GetLocationChanTaylor(&Tag[i], &Anchor[0], &Range_deca[0], 2, 0.001, 200);
-//                GetLocationChanTaylor(&Tag[i], &Anchor[0], &Range_deca[0], 2000, 0.001, 200);
                 // Kalman滤波初始化
                 if (!distance[i].kf) {
                     int spatial_dimension = 3;
@@ -326,12 +302,7 @@ void RTLS_Widget:: handleTimeout()
                 // Q初始化
                 MatrixXd Q = MatrixXd::Identity(4, 4) * 0.0025; // sd = 0.05
 
-//                GetLocationChanTaylorKalman(&Tag[i], &Anchor[0], &Range_deca[0], distance[i].kf, Q, 0.005, 0.001, 200);
-                GetLocationTrilateralTaylorKalman(&Tag[i], &Anchor[0], &Range_deca[0], distance[i].kf, Q, 0.005, 0.001, 200);
-
-                // 测距函数输出
-//                qDebug()<<result;
-
+                GetLocation(T_T_K, &Tag[i], &Anchor[0], &Range_deca[0], distance[i].kf, Q, 0.005, 0.001, 200);
                 // 判断
                 if(result != -1)
                 {
@@ -362,7 +333,6 @@ void RTLS_Widget::newData()
 {
     QByteArray data;                // 读取数据
     QString str_data = data;        // 转换为字符串
-//    QStringList str_data_split;     // 字符串分割为字符串列表
     QTextCursor cursor;             // 控件滑动位置
 
 
@@ -374,17 +344,12 @@ void RTLS_Widget::newData()
         str_data_split.removeLast();    // 删除最后一个空格
         str_num = str_data_split.count();
 
-    //    qDebug()<<dist_str.count();
-
         // 滑动到底并写值
         cursor = ui->textEdit_read->textCursor();
         cursor.movePosition(QTextCursor::End);
         ui->textEdit_read->setTextCursor(cursor);
         ui->textEdit_read->append(data);
 
-//        qDebug() << data;
-
-    //    emit deal_data(str_data_split);   舍弃
     }
     else if (ui->SerialButton->text() == QString("DisConnect"))
     {
@@ -393,8 +358,6 @@ void RTLS_Widget::newData()
         str_data_split = str_data.split("\n");
         str_data_split.removeLast();    // 删除最后一个空格
         str_num = str_data_split.count();
-
-    //    qDebug()<<dist_str.count();
 
         // 滑动到底并写值
         cursor = ui->SerialTextBrowser->textCursor();

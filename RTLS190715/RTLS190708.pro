@@ -29,6 +29,7 @@ SOURCES += \
         location.cpp \
         main.cpp \
         mycombobox.cpp \
+        ranging.cpp \
         rtls_widget.cpp \
         trilateration.cpp
 
@@ -36,6 +37,7 @@ HEADERS += \
         kalmanfilter.h \
         location.h \
         mycombobox.h \
+        ranging.h \
         rtls_widget.h \
         trilateration.h
 INCLUDEPATH += \

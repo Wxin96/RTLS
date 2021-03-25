@@ -1,0 +1,12 @@
+INPUT(
+./release\kalmanfilter.o
+./release\location.o
+./release\main.o
+./release\mycombobox.o
+./release\ranging.o
+./release\rtls_widget.o
+./release\trilateration.o
+./release\moc_location.o
+./release\moc_mycombobox.o
+./release\moc_rtls_widget.o
+);

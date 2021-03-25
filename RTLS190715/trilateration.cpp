@@ -641,7 +641,7 @@ int deca_3dlocate (	vec3d	*const solution1,
 // use4thAnchor 是否使用第四个基站（标志位）
 // anchorArray 基站列表
 // distanceArray 距离列表
-int GetLocation(vec3d *best_solution, int use4thAnchor, vec3d* anchorArray, int *distanceArray)
+int GetLocationTrilateral(vec3d *best_solution, int use4thAnchor, vec3d* anchorArray, int *distanceArray)
 {
 
     // o1、o2两个解，p1-p4基站坐标，r1-r4距离，
@@ -749,7 +749,7 @@ void test(void)
     Range_deca[2] = 5254; //tag to A2 distance
     Range_deca[3] = 4889; //tag to A3 distance
 
-    result = GetLocation(&report, 1, &anchorArray[0], &Range_deca[0]);
+    result = GetLocationTrilateral(&report, 1, &anchorArray[0], &Range_deca[0]);
     printf("result = %d\r\n", result);
     printf("tag.x=%.3f\r\ntag.y=%.3f\r\ntag.z=%.3f\r\n", report.x, report.y, report.z);
 
@@ -761,9 +761,12 @@ void test(void)
     qDebug()<<t.elapsed()<<"ms";
 }
 
+
+
 // Chan-Taylor测距
 void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distanceArray, MatrixXd Q, double residual, double delta, int iterativeNum)
 {
+    cout << "C-T-K~" << endl;
     /*  获取初始位置Chan  */
     // 初始位置
     vec3d locationInit;
@@ -799,13 +802,19 @@ void GetLocationChanTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *
     qDebug()<<"ResidualCal:"<<residualCal<<endl;
 
     /*  Taylor  */
-    *best_solution = TaylorItrator(anchorArray, &locationInit, distanceArray, Q, delta, iterativeNum);
+    locationInit = TaylorItrator(anchorArray, best_solution, distanceArray, Q, delta, iterativeNum);
+    if (isnan(locationInit.x) || isnan(locationInit.y) || isnan(locationInit.z)) {
+        cout << "warning: taylor nan!" << endl;
+    } else {
+        *best_solution = locationInit;
+    }
     // 卡尔曼滤波
     kf->iteration(best_solution);
 }
 
 // TS(三边) - T - K
 void GetLocationTrilateralTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, MatrixXd Q, double residual, double delta, int iterativeNum){
+    cout << "T-T-K~" << endl;
     // 0.检测旋转逆矩阵、平移矩阵是否初始化
     if (!rigid_motion.flag) {
         RigidMotionInit(anchorArray);
@@ -816,7 +825,7 @@ void GetLocationTrilateralTaylorKalman(vec3d *best_solution, vec3d *anchorArray,
         anchorArrayPlane[i] = CoordinateTranformation(W2V, &anchorArray[i]);
     }
     // 2.三边测距
-    GetLocation(best_solution, 1, &anchorArrayPlane[0], distanceArray);
+    GetLocationTrilateral(best_solution, 1, &anchorArrayPlane[0], distanceArray);
     *best_solution = CoordinateTranformation(V2W, best_solution);
     vec3d locationInit = *best_solution;
     // 3.Taylor
@@ -826,13 +835,12 @@ void GetLocationTrilateralTaylorKalman(vec3d *best_solution, vec3d *anchorArray,
     qDebug()<<"ResidualCal: "<<residualCal<<endl;
 
     /*  Taylor  */
-    cout << locationInit.x << "," << locationInit.y << "," << locationInit.z <<endl;
-    for (int i = 0; i < 4; i++) {
-        cout << anchorArray[i].x << "," << anchorArray[i].y  << "," << anchorArray[i].z  <<endl;
-        cout << distanceArray[i] << endl;
+    locationInit = TaylorItrator(anchorArray, best_solution, distanceArray, Q, delta, iterativeNum);
+    if (isnan(locationInit.x) || isnan(locationInit.y) || isnan(locationInit.z)) {
+        cout << "warning: taylor nan!" << endl;
+    } else {
+        *best_solution = locationInit;
     }
-    *best_solution = TaylorItrator(anchorArray, &locationInit, distanceArray, Q, delta, iterativeNum);
-    cout << best_solution->x << "," << best_solution->y << "," << best_solution->z <<endl;
     // 4.Kalman
     kf->iteration(best_solution);
 }
@@ -1019,7 +1027,6 @@ void distUpdata(vec3d* anchorArray, vec3d* location, double *distanceUd)
     }
 }
 
-
 // 残差计算
 double ResidualCal(vec3d* anchorArray, vec3d* location, int *distanceArray)
 {
@@ -1040,5 +1047,17 @@ double ResidualCal(vec3d* anchorArray, vec3d* location, int *distanceArray)
 }
 
 
-
-
+// 根据不同方法，定位
+void GetLocation(LocationMethod method, vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter *kf, MatrixXd Q, double residual, double delta, int iterativeNum)
+{
+    switch (method) {
+    case C_T_K:
+        GetLocationChanTaylorKalman(best_solution, anchorArray, distanceArray, kf, Q, residual, delta, iterativeNum);
+        break;
+    case T_T_K:
+        GetLocationTrilateralTaylorKalman(best_solution, anchorArray, distanceArray, kf, Q, residual, delta, iterativeNum);
+            break;
+    default:
+        throw "invalid argument！";
+    }
+}

@@ -52,8 +52,8 @@ extern vec3d Tag[8];
 // 缓存数据
 extern ta_dist dit_temp[8][30];
 
-
-
+// 枚举, 定位方法
+enum LocationMethod {C_T_K, T_T_K};
 
 /* Return the difference of two vectors, (vector1 - vector2). */
 vec3d vdiff(const vec3d vector1, const vec3d vector2);
@@ -101,7 +101,10 @@ int trilateration(vec3d *const result1,
                   const vec3d p3, const double r3,
                   const vec3d p4, const double r4,
                   const double maxzero);
-int GetLocation(vec3d *best_solution, int use4thAnchor, vec3d* anchorArray, int *distanceArray);
+// 选择不同方法顶你为
+void GetLocation(LocationMethod method, vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, MatrixXd Q, double residual, double delta, int iterativeNum);
+
+int GetLocationTrilateral(vec3d *best_solution, int use4thAnchor, vec3d* anchorArray, int *distanceArray);
 
 /* Chan-Taylor */
 void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distanceArray, MatrixXd Q, double residual, double delta, int iterativeNum);
