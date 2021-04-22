@@ -230,21 +230,22 @@ Makefile: ../RTLS190715/RTLS190708.pro D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/win3
 		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/qt.prf \
 		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/resources.prf \
 		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/moc.prf \
+		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/testlib_defines.prf \
+		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/win32/console.prf \
 		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/win32/opengl.prf \
 		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/uic.prf \
 		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/qmake_use.prf \
 		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/file_copies.prf \
-		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/win32/windows.prf \
 		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/testcase_targets.prf \
 		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/exceptions.prf \
 		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/yacc.prf \
 		D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/lex.prf \
 		../RTLS190715/RTLS190708.pro \
-		D:/Soft/Qt/5.11.3/mingw53_32/lib/qtmaind.prl \
 		D:/Soft/Qt/5.11.3/mingw53_32/lib/Qt5Widgets.prl \
 		D:/Soft/Qt/5.11.3/mingw53_32/lib/Qt5Gui.prl \
 		D:/Soft/Qt/5.11.3/mingw53_32/lib/Qt5Network.prl \
 		D:/Soft/Qt/5.11.3/mingw53_32/lib/Qt5SerialPort.prl \
+		D:/Soft/Qt/5.11.3/mingw53_32/lib/Qt5Test.prl \
 		D:/Soft/Qt/5.11.3/mingw53_32/lib/Qt5Core.prl
 	$(QMAKE) -o Makefile ..\RTLS190715\RTLS190708.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
 D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/spec_pre.prf:
@@ -416,21 +417,22 @@ D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/warn_on.prf:
 D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/qt.prf:
 D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/resources.prf:
 D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/moc.prf:
+D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/testlib_defines.prf:
+D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/win32/console.prf:
 D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/win32/opengl.prf:
 D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/uic.prf:
 D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/qmake_use.prf:
 D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/file_copies.prf:
-D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/win32/windows.prf:
 D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/testcase_targets.prf:
 D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/exceptions.prf:
 D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/yacc.prf:
 D:/Soft/Qt/5.11.3/mingw53_32/mkspecs/features/lex.prf:
 ../RTLS190715/RTLS190708.pro:
-D:/Soft/Qt/5.11.3/mingw53_32/lib/qtmaind.prl:
 D:/Soft/Qt/5.11.3/mingw53_32/lib/Qt5Widgets.prl:
 D:/Soft/Qt/5.11.3/mingw53_32/lib/Qt5Gui.prl:
 D:/Soft/Qt/5.11.3/mingw53_32/lib/Qt5Network.prl:
 D:/Soft/Qt/5.11.3/mingw53_32/lib/Qt5SerialPort.prl:
+D:/Soft/Qt/5.11.3/mingw53_32/lib/Qt5Test.prl:
 D:/Soft/Qt/5.11.3/mingw53_32/lib/Qt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\RTLS190715\RTLS190708.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"

@@ -1,17 +1,13 @@
 INPUT(
-./debug\commoditytest.o
 ./debug\config.o
 ./debug\kalmanfilter.o
 ./debug\location.o
-./debug\logwidget.o
 ./debug\main.o
 ./debug\mycombobox.o
 ./debug\rangeconfig.o
 ./debug\rtls_widget.o
 ./debug\trilateration.o
-./debug\moc_commoditytest.o
 ./debug\moc_location.o
-./debug\moc_logwidget.o
 ./debug\moc_mycombobox.o
 ./debug\moc_rtls_widget.o
 );

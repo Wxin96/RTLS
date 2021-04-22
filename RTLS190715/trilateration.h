@@ -4,11 +4,21 @@
 #include "stdio.h"
 #include "kalmanfilter.h"
 
+// 测距模式
 #define		TRIL_3SPHERES							3
 #define		TRIL_4SPHERES							4
 
+// 世界坐标系转换
 #define W2V 0
 #define V2W 1
+
+// 基站、标签数目定义
+#define TAG_NUM 8
+
+#ifndef ANCHOR_NUM
+    #define ANCHOR_NUM 4
+#endif
+
 
 // 坐标结构体 => 头文件循环引用，移到"kalmanfilter.h"中了
 //struct vec3d{
@@ -53,7 +63,7 @@ extern vec3d Tag[8];
 extern ta_dist dit_temp[8][30];
 
 // 枚举, 定位方法
-enum LocationMethod {C_T_K, T_T_K};
+enum LocationMethod {C_T_K, T_T_K, C_T};
 
 /* Return the difference of two vectors, (vector1 - vector2). */
 vec3d vdiff(const vec3d vector1, const vec3d vector2);

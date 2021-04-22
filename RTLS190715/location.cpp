@@ -36,7 +36,7 @@ void Location::paintEvent(QPaintEvent *)
     // 绘制方格
     Location::paint_grid(80, 80, 16, 10);
     // 画基站
-    Location::paint_rect();
+//    Location::paint_rect();
     // 绘制基站
     Location::paint_anchor();
     // 绘制标签

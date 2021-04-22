@@ -1057,6 +1057,9 @@ void GetLocation(LocationMethod method, vec3d *best_solution, vec3d *anchorArray
     case T_T_K:
         GetLocationTrilateralTaylorKalman(best_solution, anchorArray, distanceArray, kf, Q, residual, delta, iterativeNum);
             break;
+    case C_T:
+        GetLocationChanTaylor(best_solution, anchorArray, distanceArray, Q, residual, delta, iterativeNum);
+        break;
     default:
         throw "invalid argument！";
     }

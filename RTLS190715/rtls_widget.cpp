@@ -5,6 +5,7 @@
 #include <QTime>
 #include <QPainter>
 
+
 //#define TOF_REPORT_LEN  (107)
 #define TOF_REPORT_LEN  (64)
 
@@ -15,11 +16,15 @@ RTLS_Widget::RTLS_Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // 配置文件
+    QString path = QCoreApplication::applicationDirPath() + "/config/trajConfig.ini";
+    config = new Config(path);
+
+
     // 定时器
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(handleTimeout()));
-    timer->start(1);  // 单位：10ms
-
+    timer->start(1);  // 单位：1ms
 
     // 通信套接字
     tcpSocket = new QTcpSocket(this);
@@ -32,7 +37,6 @@ RTLS_Widget::RTLS_Widget(QWidget *parent) :
 
     connect(tcpSocket,&QTcpSocket::readyRead,this,&RTLS_Widget::newData);
 
-
     // 串口通信
     serial = new QSerialPort(this);
     connect(serial,&QSerialPort::readyRead,this,&RTLS_Widget::newData);
@@ -41,11 +45,34 @@ RTLS_Widget::RTLS_Widget(QWidget *parent) :
     // 表格
     connect(ui->tableWidget_Anchor,SIGNAL(itemChanged(QTableWidgetItem *)),this,SLOT(slotItemChanged(QTableWidgetItem*)));
 
+    /*  标签测距校正部分UI  */
+    // Tag ID下拉框 点击事件 =》 下拉框刷新
+    connect(ui->tagSelect, SIGNAL(clicked()), this, SLOT(TagDropDownList_clicked()));
+    // Anchor ID下拉框 点击事件 =》 下拉框刷新
+    connect(ui->anchorSelect, SIGNAL(clicked()), this, SLOT(AnchorDropDownList_clicked()));
+
+
+    /*  Qt文件操作 */
+    QString sFilePath = QCoreApplication::applicationDirPath() + "/config/trajConfig.txt";
+    file = new QFile(sFilePath);
+
+    if (!file->open(QIODevice::WriteOnly|QIODevice::Text)) {
+        QMessageBox::critical(NULL, "提示", "无法创建文件");
+    }
+    outStream = new QTextStream(file);
 }
 
 RTLS_Widget::~RTLS_Widget()
 {
+    outStream->flush();
+    file->close();
     delete ui;
+    delete timer;
+    delete tcpSocket;
+    delete serial;
+    delete config;
+    delete file;
+    delete outStream;
 }
 
 void RTLS_Widget::on_Button_connect_clicked()
@@ -94,6 +121,27 @@ void RTLS_Widget::SerialPortDetect()
         }
     }
 
+}
+
+// 标签测距校正，标签下拉框
+void RTLS_Widget::TagDropDownList_clicked()
+{
+    if (ui->tagSelect->count() != TAG_NUM) {
+        ui->tagSelect->clear();
+        for (int i = 0; i < TAG_NUM; i++) {
+            ui->tagSelect->addItem(QString::number(i));
+        }
+    }
+}
+
+void RTLS_Widget::AnchorDropDownList_clicked()
+{
+    if (ui->anchorSelect->count() != ANCHOR_NUM) {
+        ui->anchorSelect->clear();
+        for (int i = 0; i < ANCHOR_NUM; i++) {
+            ui->anchorSelect->addItem(QString::number(i));
+        }
+    }
 }
 
 // 串口连接/断开
@@ -166,7 +214,8 @@ void RTLS_Widget::slotItemChanged(QTableWidgetItem * item)
 // 定时器执行
 void RTLS_Widget:: handleTimeout()
 {
-    if((not str_data_split.isEmpty())&&(clock%(50/str_num) == 0))
+//    if((not str_data_split.isEmpty())&&(clock%(50/str_num) == 0))
+    if((not str_data_split.isEmpty()))
     {
         int length; // 数据帧长度
 
@@ -193,20 +242,29 @@ void RTLS_Widget:: handleTimeout()
 
         int aid, tid, range[4], lnum, seq, mask,temperature,voltage,current,electric,total_elec,rest_elec;
         int rangetime;
-        char c, type,power;
+        char c, type, power;
+        int x_true, y_true, z_true;
 
+        // m%c %x %x %x %x %x %x %x %x %c%d:%d power_%c %d %d %d %d %d %d\n
         int num = sscanf(tofReport.constData(),
-                         "m%c %x %x %x %x %x %x %x %x %c%d:%d power_%c %d %d %d %d %d %d\n",
+                         "m%c %x %x %x %x %x %x %x %x %c%d:%d %d %d %d\n",
                          &type, &mask, &range[0], &range[1], &range[2], &range[3],
-                         &lnum, &seq, &rangetime, &c, &tid, &aid,&power,&temperature,
-                         &voltage, &current, &electric, &total_elec, &rest_elec);
+                         &lnum, &seq, &rangetime, &c, &tid, &aid, &x_true, &y_true, &z_true);
+        Tag[7].x = (double)x_true / 1000;
+        Tag[7].y = (double)y_true / 1000;
+        Tag[7].z = (double)z_true / 1000;
+        ui->tableWidget_Tag->setItem(7,1,new QTableWidgetItem( QString::number(Tag[7].x,10,5)));
+        ui->tableWidget_Tag->setItem(7,2,new QTableWidgetItem( QString::number(Tag[7].y,10,5)));
+        ui->tableWidget_Tag->setItem(7,3,new QTableWidgetItem( QString::number(Tag[7].z,10,5)));
+
+        // 读取字符串错误
+        if (range[0] == 0 || range[1] == 0 || range[2] == 0 || range[3] == 0) {
+            qDebug() << "字符串读取错误";
+            return;
+        }
 
         if(mask==0x0f)
         {
-//            distance[tid].t_a0 = int(range[0]*1.0028 - 566.97);
-//            distance[tid].t_a1 = int(range[1]*1.0028 - 566.97);
-//            distance[tid].t_a2 = int(range[2]*1.0028 - 566.97);
-//            distance[tid].t_a3 = int(range[3]*1.0028 - 566.97);
             distance[tid].t_a0 = range[0];
             distance[tid].t_a1 = range[1];
             distance[tid].t_a2 = range[2];
@@ -221,7 +279,7 @@ void RTLS_Widget:: handleTimeout()
 
     int i = 0;  // for
     char A0_flag, A1_flag, A2_flag;
-    int averageNum = 18;
+    int averageNum = 1;
 
     A0_flag = Anchor[0].flag[0] + Anchor[0].flag[1] + Anchor[0].flag[2];
     A1_flag = Anchor[1].flag[0] + Anchor[1].flag[1] + Anchor[1].flag[2];
@@ -282,10 +340,10 @@ void RTLS_Widget:: handleTimeout()
 
                 }
 
-                rangeFilterp[i][0] = int(0.3*Range_deca[0]/averageNum + 0.7*rangeFilterp[i][0]); //tag to A0 distance
-                rangeFilterp[i][1] = int(0.3*Range_deca[1]/averageNum + 0.7*rangeFilterp[i][1]); //tag to A1 distance
-                rangeFilterp[i][2] = int(0.3*Range_deca[2]/averageNum + 0.7*rangeFilterp[i][2]);; //tag to A2 distance
-                rangeFilterp[i][3] = int(0.3*Range_deca[3]/averageNum + 0.7*rangeFilterp[i][3]);; //tag to A3 distance
+                rangeFilterp[i][0] = int(0.6*Range_deca[0]/averageNum + 0.4*rangeFilterp[i][0]); //tag to A0 distance
+                rangeFilterp[i][1] = int(0.6*Range_deca[1]/averageNum + 0.4*rangeFilterp[i][1]); //tag to A1 distance
+                rangeFilterp[i][2] = int(0.6*Range_deca[2]/averageNum + 0.4*rangeFilterp[i][2]);; //tag to A2 distance
+                rangeFilterp[i][3] = int(0.6*Range_deca[3]/averageNum + 0.4*rangeFilterp[i][3]);; //tag to A3 distance
                 Range_deca[0] = rangeFilterp[i][0];
                 Range_deca[1] = rangeFilterp[i][1];
                 Range_deca[2] = rangeFilterp[i][2];
@@ -294,7 +352,7 @@ void RTLS_Widget:: handleTimeout()
                 if (!distance[i].kf) {
                     int spatial_dimension = 3;
                     double delta_t = 0.2;
-                    MatrixXd Q = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension) * 0.0008;
+                    MatrixXd Q = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension) * 0.0001; //0.0008
                     MatrixXd R = MatrixXd::Identity(spatial_dimension, spatial_dimension) * 0.0025;     // sd = 0.05
                     MatrixXd P_init = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension);
                     distance[i].kf = new KalmanFilter(spatial_dimension, delta_t, Q, R, P_init);
@@ -302,7 +360,8 @@ void RTLS_Widget:: handleTimeout()
                 // Q初始化
                 MatrixXd Q = MatrixXd::Identity(4, 4) * 0.0025; // sd = 0.05
 
-                GetLocation(T_T_K, &Tag[i], &Anchor[0], &Range_deca[0], distance[i].kf, Q, 0.005, 0.001, 200);
+                GetLocation(C_T_K, &Tag[i], &Anchor[0], &Range_deca[0], distance[i].kf, Q, 0.005, 0.001, 200);
+
                 // 判断
                 if(result != -1)
                 {
@@ -311,8 +370,15 @@ void RTLS_Widget:: handleTimeout()
                     ui->tableWidget_Tag->setItem(i,3,new QTableWidgetItem( QString::number(Tag[i].z,10,5)));
 
                 }
+                config->Set(QString("generateTraj"), QString::number(idx++), QString("%1,%2,%3").arg(Tag[i].x).arg(Tag[i].y).arg(Tag[i].z));
+//                *outStream << QString("%1,%2,%3").arg(Tag[i].x).arg(Tag[i].y).arg(Tag[i].z) << endl;
 
+                double error = sqrt((pow(Tag[0].x - Tag[7].x, 2) + pow(Tag[0].y - Tag[7].y, 2) + pow(Tag[0].z - Tag[7].z, 2))/3);
+                *outStream<< "error = " << error << "\r\n";
+                *outStream << "true postion" << Tag[0].x << ", " << Tag[0].y << "," << Tag[0].z << "\r\n";;
+                *outStream << "pred postion" << Tag[7].x << ", " << Tag[7].y << "," << Tag[7].z << "\r\n";;
             }
+
             dist_flag = dist_flag>>1;
         }
     }
@@ -340,10 +406,16 @@ void RTLS_Widget::newData()
     {
         data = tcpSocket->readAll();
         str_data = data;
-        str_data_split = str_data.split("\n");
+        QStringList datas = str_data.split("\r\n");
+        foreach(const QString &str, datas) {
+            str_data_split.append(str);
+        }
         str_data_split.removeLast();    // 删除最后一个空格
         str_num = str_data_split.count();
-
+        // 打印
+        if (str_num > 3){
+            qDebug() << "data compression, str_num = " << str_data_split.count();
+        }
         // 滑动到底并写值
         cursor = ui->textEdit_read->textCursor();
         cursor.movePosition(QTextCursor::End);

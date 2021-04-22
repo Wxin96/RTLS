@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>RTLS_Widget</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_8">
+  <layout class="QGridLayout" name="gridLayout_6">
    <item row="1" column="0">
     <widget class="QTabWidget" name="tabWidget2">
      <property name="currentIndex">
@@ -21,9 +21,217 @@
      </property>
      <widget class="QWidget" name="Positioning">
       <attribute name="title">
-       <string>Positioning</string>
+       <string>定位</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
+       <item row="1" column="0">
+        <widget class="QTableWidget" name="tableWidget_Anchor">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>175</height>
+          </size>
+         </property>
+         <row>
+          <property name="text">
+           <string/>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string/>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string/>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string/>
+          </property>
+         </row>
+         <column>
+          <property name="text">
+           <string>Anchor ID</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>X(m)</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Y(m)</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Z(m)</string>
+          </property>
+         </column>
+         <item row="0" column="0">
+          <property name="text">
+           <string>Anchor 0</string>
+          </property>
+          <property name="font">
+           <font>
+            <underline>false</underline>
+           </font>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+          <property name="flags">
+           <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="1">
+          <property name="text">
+           <string>10.013</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </item>
+         <item row="0" column="2">
+          <property name="text">
+           <string>2.651</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </item>
+         <item row="0" column="3">
+          <property name="text">
+           <string>3.622</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </item>
+         <item row="1" column="0">
+          <property name="text">
+           <string>Anchor 1</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+          <property name="flags">
+           <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="1" column="1">
+          <property name="text">
+           <string>8.691</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </item>
+         <item row="1" column="2">
+          <property name="text">
+           <string>5.812</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </item>
+         <item row="1" column="3">
+          <property name="text">
+           <string>0.452</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </item>
+         <item row="2" column="0">
+          <property name="text">
+           <string>Anchor 2</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+          <property name="flags">
+           <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="2" column="1">
+          <property name="text">
+           <string>1.032</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </item>
+         <item row="2" column="2">
+          <property name="text">
+           <string>6.012</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </item>
+         <item row="2" column="3">
+          <property name="text">
+           <string>3.152</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </item>
+         <item row="3" column="0">
+          <property name="text">
+           <string>Anchor 3</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+          <property name="flags">
+           <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="3" column="1">
+          <property name="text">
+           <string>2.432</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </item>
+         <item row="3" column="2">
+          <property name="text">
+           <string>0.489</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </item>
+         <item row="3" column="3">
+          <property name="text">
+           <string>0.452</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="maximumSize">
+          <size>
+           <width>90</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>图形化界面</string>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="1">
         <widget class="QTableWidget" name="tableWidget_Tag">
          <property name="minimumSize">
@@ -386,19 +594,6 @@
          </item>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="maximumSize">
-          <size>
-           <width>90</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>图形化界面</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="0">
         <widget class="QPushButton" name="pushButton">
          <property name="maximumSize">
@@ -412,402 +607,325 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QTableWidget" name="tableWidget_Anchor">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>175</height>
-          </size>
-         </property>
-         <row>
-          <property name="text">
-           <string/>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string/>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string/>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string/>
-          </property>
-         </row>
-         <column>
-          <property name="text">
-           <string>Anchor ID</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>X(m)</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Y(m)</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Z(m)</string>
-          </property>
-         </column>
-         <item row="0" column="0">
-          <property name="text">
-           <string>Anchor 0</string>
-          </property>
-          <property name="font">
-           <font>
-            <underline>false</underline>
-           </font>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-          <property name="flags">
-           <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-          </property>
-         </item>
-         <item row="0" column="1">
-          <property name="text">
-           <string>-3</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </item>
-         <item row="0" column="2">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </item>
-         <item row="0" column="3">
-          <property name="text">
-           <string>0.5</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </item>
-         <item row="1" column="0">
-          <property name="text">
-           <string>Anchor 1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-          <property name="flags">
-           <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-          </property>
-         </item>
-         <item row="1" column="1">
-          <property name="text">
-           <string>4</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </item>
-         <item row="1" column="2">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </item>
-         <item row="1" column="3">
-          <property name="text">
-           <string>0</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </item>
-         <item row="2" column="0">
-          <property name="text">
-           <string>Anchor 2</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-          <property name="flags">
-           <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-          </property>
-         </item>
-         <item row="2" column="1">
-          <property name="text">
-           <string>3</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </item>
-         <item row="2" column="2">
-          <property name="text">
-           <string>3</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </item>
-         <item row="2" column="3">
-          <property name="text">
-           <string>3</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </item>
-         <item row="3" column="0">
-          <property name="text">
-           <string>Anchor 3</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-          <property name="flags">
-           <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-          </property>
-         </item>
-         <item row="3" column="1">
-          <property name="text">
-           <string>-2</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </item>
-         <item row="3" column="2">
-          <property name="text">
-           <string>3</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </item>
-         <item row="3" column="3">
-          <property name="text">
-           <string>3.2</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignCenter</set>
-          </property>
-         </item>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="Ranging">
       <attribute name="title">
-       <string>Ranging</string>
+       <string>测距校正</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_6">
+      <layout class="QGridLayout" name="gridLayout_5">
        <item row="0" column="0">
-        <widget class="QGroupBox" name="groupBox">
-         <property name="title">
-          <string>Range Correction</string>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Tag ID：</string>
          </property>
-         <layout class="QGridLayout" name="gridLayout_5">
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="MyComboBox" name="tagSelect"/>
+       </item>
+       <item row="0" column="2">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>68</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="pushButton_6">
+         <property name="text">
+          <string>  显示</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="text">
+          <string>手动修改</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5" rowspan="2">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="minimumSize">
+          <size>
+           <width>370</width>
+           <height>140</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>单基站校正</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_7">
           <item row="0" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Tag ID：</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QComboBox" name="comboBox"/>
-          </item>
-          <item row="0" column="2">
            <widget class="QLabel" name="label_4">
             <property name="text">
              <string>Anchor ID：</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="3">
-           <widget class="QComboBox" name="comboBox_2"/>
+          <item row="0" column="1">
+           <widget class="MyComboBox" name="anchorSelect"/>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="label_7">
-            <property name="text">
-             <string>  K：</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" colspan="2">
-           <widget class="QLineEdit" name="lineEdit">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QPushButton" name="pushButton_6">
-            <property name="text">
-             <string>  显示</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>  b：</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1" colspan="2">
-           <widget class="QLineEdit" name="lineEdit_2"/>
-          </item>
-          <item row="2" column="3">
-           <widget class="QPushButton" name="pushButton_5">
-            <property name="text">
-             <string>手动修改</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
            <widget class="QLabel" name="label_5">
             <property name="text">
-             <string>  True：</string>
+             <string>真实距离：</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1" colspan="2">
+          <item row="1" column="1">
            <widget class="QLineEdit" name="lineEdit_3"/>
           </item>
-          <item row="3" column="3">
+          <item row="1" column="2">
            <widget class="QPushButton" name="pushButton_3">
             <property name="text">
              <string> 开始校正</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
+          <item row="2" column="0">
            <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>  Measured：</string>
+             <string>测的距离：</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="1" colspan="2">
+          <item row="2" column="1">
            <widget class="QLineEdit" name="lineEdit_4"/>
           </item>
-          <item row="4" column="3">
+          <item row="2" column="2">
            <widget class="QPushButton" name="pushButton_4">
             <property name="text">
-             <string>记录</string>
+             <string>开始记录</string>
             </property>
            </widget>
-          </item>
-          <item row="5" column="0" colspan="4">
-           <widget class="QTextEdit" name="textEdit"/>
           </item>
          </layout>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="1" column="0" colspan="5">
+        <widget class="QTableWidget" name="tableWidget_3">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>350</width>
+           <height>0</height>
+          </size>
+         </property>
+         <row>
+          <property name="text">
+           <string>K</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>b</string>
+          </property>
+         </row>
+         <column>
+          <property name="text">
+           <string>A0</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>A1</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>A2</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>A3</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="5">
+        <widget class="QTextEdit" name="textEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="5">
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
-          <string> Tag  Range</string>
+          <string>多基站校正</string>
          </property>
-         <layout class="QGridLayout" name="gridLayout_7">
-          <item row="1" column="0" colspan="3">
-           <widget class="QTableWidget" name="tableWidget">
-            <row>
-             <property name="text">
-              <string>实测位置</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>真实位置</string>
-             </property>
-            </row>
-            <column>
-             <property name="text">
-              <string>x/m</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>y/m</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>z/m</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-          <item row="2" column="0" colspan="3">
-           <widget class="QTableWidget" name="tableWidget_2">
-            <row>
-             <property name="text">
-              <string>实测距离</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>真实距离</string>
-             </property>
-            </row>
-            <column>
-             <property name="text">
-              <string>A0</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>A1</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>A2</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>A3</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>Tag ID：</string>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <item row="0" column="0" rowspan="3">
+           <widget class="QLabel" name="label_19">
+            <property name="maximumSize">
+             <size>
+              <width>20</width>
+              <height>16777215</height>
+             </size>
             </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QCheckBox" name="checkBox">
             <property name="text">
-             <string>已知真实位置</string>
+             <string>标签位置</string>
             </property>
-            <property name="tristate">
-             <bool>false</bool>
+            <property name="wordWrap">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QComboBox" name="comboBox_3"/>
+           <widget class="QLabel" name="label_20">
+            <property name="text">
+             <string>x:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLineEdit" name="lineEdit_9"/>
+          </item>
+          <item row="0" column="3">
+           <widget class="QPushButton" name="pushButton_11">
+            <property name="text">
+             <string> 开始校正</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_21">
+            <property name="text">
+             <string>y:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLineEdit" name="lineEdit_10"/>
+          </item>
+          <item row="1" column="3" rowspan="2">
+           <widget class="QPushButton" name="pushButton_12">
+            <property name="text">
+             <string>开始记录</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_22">
+            <property name="text">
+             <string>z:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLineEdit" name="lineEdit_11"/>
           </item>
          </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string> 验证</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_9">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>     Tag ID：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="2">
+        <widget class="QComboBox" name="comboBox_3"/>
+       </item>
+       <item row="0" column="3">
+        <widget class="QCheckBox" name="checkBox">
+         <property name="text">
+          <string>已知真实位置</string>
+         </property>
+         <property name="tristate">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QTableWidget" name="tableWidget">
+         <row>
+          <property name="text">
+           <string>实测位置</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>真实位置</string>
+          </property>
+         </row>
+         <column>
+          <property name="text">
+           <string>x/m</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>y/m</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>z/m</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item row="1" column="2" colspan="2">
+        <widget class="QTableWidget" name="tableWidget_2">
+         <row>
+          <property name="text">
+           <string>实测距离</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>真实距离</string>
+          </property>
+         </row>
+         <column>
+          <property name="text">
+           <string>A0</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>A1</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>A2</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>A3</string>
+          </property>
+         </column>
         </widget>
        </item>
       </layout>
@@ -819,7 +937,7 @@
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>200</height>
+       <height>230</height>
       </size>
      </property>
      <property name="currentIndex">
@@ -827,7 +945,7 @@
      </property>
      <widget class="QWidget" name="Tcp">
       <attribute name="title">
-       <string>TCP</string>
+       <string>基站TCP通信</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="3">
@@ -885,7 +1003,7 @@
      </widget>
      <widget class="QWidget" name="Serial">
       <attribute name="title">
-       <string>Serial Port</string>
+       <string>基站串口通信</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0">
@@ -899,7 +1017,11 @@
         </widget>
        </item>
        <item row="1" column="0" colspan="4">
-        <widget class="QTextBrowser" name="SerialTextBrowser"/>
+        <widget class="QTextBrowser" name="SerialTextBrowser">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="0" column="3">
         <widget class="QPushButton" name="SerialButton">
@@ -915,35 +1037,25 @@
      </widget>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>舞台灯设置</string>
+       <string>射灯通信</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_10">
+       <item row="1" column="4">
+        <widget class="QLineEdit" name="lineEdit_7">
          <property name="text">
-          <string>要控制 设备IP：</string>
+          <string>格式：x,y,z</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_5"/>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="pushButton_7">
+       <item row="1" column="3">
+        <widget class="QLabel" name="label_17">
          <property name="text">
-          <string>运行</string>
+          <string>射灯x轴向量：</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="3">
-        <widget class="QLabel" name="label_12">
-         <property name="text">
-          <string>Net( 网)：</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QComboBox" name="comboBox_5"/>
+       <item row="5" column="1">
+        <widget class="QComboBox" name="comboBox_7"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_11">
@@ -952,8 +1064,111 @@
          </property>
         </widget>
        </item>
+       <item row="0" column="4">
+        <widget class="QLineEdit" name="lineEdit_6">
+         <property name="text">
+          <string>格式：x,y,z</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QPushButton" name="pushButton_10">
+         <property name="text">
+          <string>读取配置</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_15">
+         <property name="text">
+          <string>通道(Channel)：</string>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="1">
         <widget class="QComboBox" name="comboBox_4"/>
+       </item>
+       <item row="4" column="3" rowspan="4" colspan="3">
+        <widget class="QTextEdit" name="textEdit_2"/>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="pushButton_9">
+         <property name="text">
+          <string> 测试</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>要控制 设备IP：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit_5">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QComboBox" name="comboBox_8"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>Universe(域)：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>SubNet(子网)：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" rowspan="2">
+        <widget class="QComboBox" name="comboBox_6"/>
+       </item>
+       <item row="2" column="3">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string>射灯z轴向量：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QComboBox" name="comboBox_5"/>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLabel" name="label_16">
+         <property name="text">
+          <string>射灯位置：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="5">
+        <widget class="QPushButton" name="pushButton_7">
+         <property name="text">
+          <string>运行</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Net( 网)：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="4">
+        <widget class="QLineEdit" name="lineEdit_8">
+         <property name="text">
+          <string>格式：x,y,z</string>
+         </property>
+        </widget>
        </item>
        <item row="1" column="2">
         <widget class="QPushButton" name="pushButton_8">
@@ -962,40 +1177,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="3">
-        <widget class="QLabel" name="label_13">
-         <property name="text">
-          <string>SubNet(子网)：</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="4">
-        <widget class="QComboBox" name="comboBox_6"/>
-       </item>
-       <item row="2" column="0" rowspan="3" colspan="3">
-        <widget class="QTextEdit" name="textEdit_2"/>
-       </item>
-       <item row="2" column="3">
-        <widget class="QLabel" name="label_14">
-         <property name="text">
-          <string>Universe(域)：</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="4">
-        <widget class="QComboBox" name="comboBox_7"/>
-       </item>
-       <item row="3" column="3" rowspan="2">
-        <widget class="QLabel" name="label_15">
-         <property name="text">
-          <string>通道(Channel)：</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="4">
-        <widget class="QComboBox" name="comboBox_8"/>
-       </item>
-       <item row="4" column="4">
+       <item row="7" column="1">
         <widget class="QSlider" name="horizontalSlider">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>

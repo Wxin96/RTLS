@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network serialport
+QT       += core gui network serialport testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,19 +25,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        commoditytest.cpp \
+        config.cpp \
         kalmanfilter.cpp \
         location.cpp \
+        logwidget.cpp \
         main.cpp \
         mycombobox.cpp \
-        ranging.cpp \
+        rangeconfig.cpp \
         rtls_widget.cpp \
         trilateration.cpp
 
 HEADERS += \
+        commoditytest.h \
+        config.h \
         kalmanfilter.h \
         location.h \
+        logwidget.h \
         mycombobox.h \
-        ranging.h \
+        rangeconfig.h \
         rtls_widget.h \
         trilateration.h
 INCLUDEPATH += \

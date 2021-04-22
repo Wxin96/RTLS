@@ -1,17 +1,13 @@
 INPUT(
-./release\commoditytest.o
 ./release\config.o
 ./release\kalmanfilter.o
 ./release\location.o
-./release\logwidget.o
 ./release\main.o
 ./release\mycombobox.o
 ./release\rangeconfig.o
 ./release\rtls_widget.o
 ./release\trilateration.o
-./release\moc_commoditytest.o
 ./release\moc_location.o
-./release\moc_logwidget.o
 ./release\moc_mycombobox.o
 ./release\moc_rtls_widget.o
 );
