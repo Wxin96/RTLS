@@ -31,7 +31,8 @@ class RangeConfig
 {
 public:
    // TODO: 配置文件类，定义处命名，标签一个配置，一个文件
-    RangeConfig(environment mode, int tagIdx, Config *config);
+    explicit RangeConfig(environment mode, int tagIdx, Config *config);
+    explicit RangeConfig(environment mode, int tagIdx, Config *config, double filterParam);
     ~RangeConfig();
 
 
@@ -47,8 +48,13 @@ public:
     void startRangeConfig(vector<int> anchorIdxs);
     void finishRangeConig();
 
+    // 指数滤波参数
+    void setFilterParam(double filterParam);
+    double getFilterParm();
+
     // 记录
     void recordSingleMeasurement(int anchorIdx, double trueDist, double mearDist);
+    void recordSingleRangingDist(int anchorIdx, double rangingDist);
 
     // 显示配置状态
     QString toString();
@@ -67,10 +73,12 @@ private:
     double *k;   // K
     double *b;   // b
     bool *anchorFlag;
+    double *dist;   // 四个基站测距
 
     // 测量K，b
+    double filterParam = 0.7;
     bool mearFlag = false;
-    int *recordIdx;
+    int *recordIdx;     // 每个基站测距数目统计数组
     vector<double> *truePos;
     vector<double> *measurement;
 

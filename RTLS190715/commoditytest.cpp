@@ -13,7 +13,7 @@ void CommodityTest::initTestCase()
 
 void CommodityTest::case1_rangeConfig()
 {
-    QString path = QCoreApplication::applicationDirPath() + "/config/rangingConfigs.ini";;
+    QString path = QCoreApplication::applicationDirPath() + "/config/rangingConfigs.ini";
     Config *config = new Config(path);
     RangeConfig rangeConfig(SIMULATION, 0, config);
 //    vector<int> anchorIdxs = {0, 1};

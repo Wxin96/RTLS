@@ -3,6 +3,7 @@
 #include "basetsd.h"
 #include "stdio.h"
 #include "kalmanfilter.h"
+#include "rangeconfig.h"
 
 // 测距模式
 #define		TRIL_3SPHERES							3
@@ -36,7 +37,8 @@ struct ta_dist{
     int t_a3;
     // 标志位=》针对哪个标签的测距
     int flag;
-    KalmanFilter* kf = nullptr;    // 卡尔曼滤波器，一个标签对应一个实例
+    KalmanFilter *kf = nullptr; // 卡尔曼滤波器，一个标签对应一个实例
+    RangeConfig *rangeConfig;   // 测距配置
 };
 // 坐标变换矩阵
 struct {

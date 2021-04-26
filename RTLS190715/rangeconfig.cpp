@@ -19,6 +19,15 @@ RangeConfig::RangeConfig(environment mode, int tagIdx, Config *config)
     // 中间量存储
     truePos = new vector<double>[ANCHOR_NUM];
     measurement = new vector<double>[ANCHOR_NUM];
+    // 测距数值
+    dist = new double[ANCHOR_NUM];
+    memset(dist, 0 , sizeof (double) * ANCHOR_NUM);
+}
+
+RangeConfig::RangeConfig(environment mode, int tagIdx, Config *config, double filterParam)
+{
+    RangeConfig(mode, tagIdx, config);
+    this->filterParam = filterParam;
 }
 
 RangeConfig::~RangeConfig()
@@ -29,6 +38,7 @@ RangeConfig::~RangeConfig()
     delete [] measurement;
     delete [] recordIdx;
     delete [] anchorFlag;
+    delete [] dist;
 }
 
 void RangeConfig::getSingleParamValue(int anchorIdx, double &k, double &b)
@@ -41,12 +51,14 @@ void RangeConfig::setSingleKValue(int anchorIdx, double k)
 {
     this->k[anchorIdx] = k;
     writeSingleParamToFile(anchorIdx);
+    qDebug() << "标签"<< tagIdx <<"对基站"<< anchorIdx <<"的k参数修改为" << k;
 }
 
 void RangeConfig::setSingleBValue(int anchorIdx, double b)
 {
     this->b[anchorIdx] = b;
     writeSingleParamToFile(anchorIdx);
+    qDebug() << "标签"<< tagIdx <<"对基站"<< anchorIdx <<"的b参数修改为" << b;
 }
 
 void RangeConfig::setSingleValue(int anchorIdx, double k, double b)
@@ -54,6 +66,8 @@ void RangeConfig::setSingleValue(int anchorIdx, double k, double b)
     this->k[anchorIdx] = k;
     this->b[anchorIdx] = b;
     writeSingleParamToFile(anchorIdx);
+    qDebug() << "标签"<< tagIdx <<"对基站"<< anchorIdx <<"的k参数修改为" << k;
+    qDebug() << "标签"<< tagIdx <<"对基站"<< anchorIdx <<"的k参数修改为" << k;
 }
 
 void RangeConfig::startRangeConfig(vector<int> anchorIdxs)
@@ -103,6 +117,16 @@ void RangeConfig::finishRangeConig()
     qDebug() <<"标签"<< tagIdx <<"对基站"<< anchorsStr <<"测距矫正完成("<<num<<"对数据)!";
 }
 
+void RangeConfig::setFilterParam(double filterParam)
+{
+    this->filterParam = filterParam;
+}
+
+double RangeConfig::getFilterParm()
+{
+    return this->filterParam;
+}
+
 /**
  * @brief RangeConfig::recordSingleMeasurement 此处只记录单对数据, 调用函数负责取平均值
  * @param anchorIdx
@@ -116,6 +140,15 @@ void RangeConfig::recordSingleMeasurement(int anchorIdx, double trueDist, double
     measurement[anchorIdx].push_back(mearDist);
     recordIdx[anchorIdx]++;
     qDebug() << "标签" << tagIdx << "记录标签"<<anchorIdx<<"第" << recordIdx[anchorIdx] <<"数据," <<"其中trueDist="<< trueDist <<",mearDist=" << mearDist;
+}
+
+void RangeConfig::recordSingleRangingDist(int anchorIdx, double rangingDist)
+{
+    if (dist[anchorIdx] == 0.0) {
+        dist[anchorIdx] = rangingDist;
+    } else {
+        dist[anchorIdx] = dist[anchorIdx] * (1 - filterParam) + dist[anchorIdx] * filterParam;
+    }
 }
 
 QString RangeConfig::toString()
@@ -135,6 +168,10 @@ void RangeConfig::readParaFromFile()
     for (int i = 0; i < ANCHOR_NUM; i++) {
         if (readSingleParaFromFile(i, k[i], b[i])) {
             qDebug()<<"标签"<<tagIdx<<"读取基站"<<i<<"配置成功!";
+        } else if (i == 0) {
+            k[i] = 1;
+            b[i] = 0;
+            qWarning()<<"标签"<<tagIdx<<"中基站0，使用k=1, b=0配置";
         } else if (i) {
             k[i] = k[i-1];
             b[i] = b[i-1];

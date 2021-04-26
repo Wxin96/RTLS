@@ -5,21 +5,13 @@
 #include <QTime>
 #include <QPainter>
 
-
-//#define TOF_REPORT_LEN  (107)
 #define TOF_REPORT_LEN  (64)
-
 
 RTLS_Widget::RTLS_Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RTLS_Widget)
 {
     ui->setupUi(this);
-
-    // 配置文件
-    QString path = QCoreApplication::applicationDirPath() + "/config/trajConfig.ini";
-    config = new Config(path);
-
 
     // 定时器
     timer = new QTimer(this);
@@ -46,11 +38,19 @@ RTLS_Widget::RTLS_Widget(QWidget *parent) :
     connect(ui->tableWidget_Anchor,SIGNAL(itemChanged(QTableWidgetItem *)),this,SLOT(slotItemChanged(QTableWidgetItem*)));
 
     /*  标签测距校正部分UI  */
+    // 测距配置文件初始化
+    QString rangingConfigPath = QCoreApplication::applicationDirPath() + "/config/rangingConfigs.ini";
+    rangingDistConfig = new Config(rangingConfigPath);
+    // 表格表项集合
+    itemSet = new set<QTableWidgetItem*>();
     // Tag ID下拉框 点击事件 =》 下拉框刷新
-    connect(ui->tagSelect, SIGNAL(clicked()), this, SLOT(TagDropDownList_clicked()));
+    connect(ui->tagSelect, SIGNAL(clicked()), this, SLOT(tagDropDownList_clicked()));
     // Anchor ID下拉框 点击事件 =》 下拉框刷新
-    connect(ui->anchorSelect, SIGNAL(clicked()), this, SLOT(AnchorDropDownList_clicked()));
-
+    connect(ui->anchorSelect, SIGNAL(clicked()), this, SLOT(anchorDropDownList_clicked()));
+    // Tag ID下拉框 当前选中序号改变
+    connect(ui->tagSelect, SIGNAL(currentIndexChanged(int)), this, SLOT(rangingParamShow(int)));
+    // 测距参数页面显示初始化
+    rangingParamInit();
 
     /*  Qt文件操作 */
     QString sFilePath = QCoreApplication::applicationDirPath() + "/config/trajConfig.txt";
@@ -70,9 +70,10 @@ RTLS_Widget::~RTLS_Widget()
     delete timer;
     delete tcpSocket;
     delete serial;
-    delete config;
+    delete rangingDistConfig;
     delete file;
     delete outStream;
+    delete itemSet;
 }
 
 void RTLS_Widget::on_Button_connect_clicked()
@@ -124,7 +125,7 @@ void RTLS_Widget::SerialPortDetect()
 }
 
 // 标签测距校正，标签下拉框
-void RTLS_Widget::TagDropDownList_clicked()
+void RTLS_Widget::tagDropDownList_clicked()
 {
     if (ui->tagSelect->count() != TAG_NUM) {
         ui->tagSelect->clear();
@@ -134,7 +135,7 @@ void RTLS_Widget::TagDropDownList_clicked()
     }
 }
 
-void RTLS_Widget::AnchorDropDownList_clicked()
+void RTLS_Widget::anchorDropDownList_clicked()
 {
     if (ui->anchorSelect->count() != ANCHOR_NUM) {
         ui->anchorSelect->clear();
@@ -142,6 +143,97 @@ void RTLS_Widget::AnchorDropDownList_clicked()
             ui->anchorSelect->addItem(QString::number(i));
         }
     }
+}
+
+void RTLS_Widget::rangingParamInit()
+{
+    // 1.初始化下拉框
+    tagDropDownList_clicked();
+    // 2.设置为不可编辑
+    ui->rangingParamTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    // 3.显示
+    rangingParamShow(ui->tagSelect->currentIndex());
+}
+
+void RTLS_Widget::rangingParamShow(int tagIdx)
+{
+    // 1.获取当前标签编号
+//    int tagIdx = ui->tagSelect->currentIndex();
+    // 2.获取标签配置参数
+    if (distance[tagIdx].rangeConfig == nullptr) {
+        distance[tagIdx].rangeConfig = new RangeConfig(SIMULATION, tagIdx, rangingDistConfig);
+    }
+    RangeConfig *curRangingConfig = distance[tagIdx].rangeConfig;
+    // 3.参数显示
+    for (int i = 0; i < ANCHOR_NUM; i++) {
+        double k, b;
+        curRangingConfig->getSingleParamValue(i, k, b);
+        ui->rangingParamTable->setItem(0, i, new QTableWidgetItem(QString::number(k)));
+        ui->rangingParamTable->setItem(1, i, new QTableWidgetItem(QString::number(b)));
+    }
+    qDebug() << "标签" << tagIdx << "参数显示完成";
+    // 4.清除集合数据
+    itemSet->clear();
+}
+
+void RTLS_Widget::on_rangingParamTable_itemDoubleClicked(QTableWidgetItem *item)
+{
+    if (!ui->rangingParamTable->editTriggers()) {
+        QMessageBox::warning(this, "warnning", "如需修改测距参数，请点击“手动修改”按钮！");
+    }
+}
+
+void RTLS_Widget::on_manualModify_clicked()
+{
+    if (!ui->rangingParamTable->editTriggers()) {
+        ui->manualModify->setStyleSheet("background-color: rgb(255, 0, 0);");
+        ui->manualModify->setText("修改完毕");
+        ui->rangingParamTable->setEditTriggers(QAbstractItemView::DoubleClicked);
+        ui->tagSelect->setEnabled(false);
+    } else {
+        ui->manualModify->setStyleSheet("");
+        ui->manualModify->setText("手动修改");
+        ui->rangingParamTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        ui->tagSelect->setEnabled(true);
+
+        QMessageBox Msg(QMessageBox::Question, QString("information"), QString("是否保存修改？"));  // 对话框提示
+        QAbstractButton *pYesBtn = dynamic_cast<QAbstractButton *> (Msg.addButton(QString("是"), QMessageBox::YesRole) );
+        QAbstractButton *pNoBtn = dynamic_cast<QAbstractButton *> ( Msg.addButton(QString("否"), QMessageBox::NoRole) );
+        Msg.exec(); // 阻塞
+
+        // 根据按钮不同作不同处理
+        int tagIdx = ui->tagSelect->currentIndex();
+        // 遍历参数
+        if (Msg.clickedButton() == pYesBtn){
+            for(set<QTableWidgetItem*>::iterator it = itemSet->begin(); it != itemSet->end(); it++){
+               QTableWidgetItem *curItem = (*it);
+               setParamToRangingConfig(tagIdx, curItem->row(), curItem->column(), curItem->text().toDouble());
+            }
+            qDebug() << "标签"<< tagIdx << "参数手动更新完成, 共修改了"<< itemSet->size() << "处参数";
+        } else if(Msg.clickedButton() == pNoBtn) {
+            rangingParamShow(tagIdx);
+            qDebug() << "标签"<< tagIdx << "参数未改动";
+        }
+        // 清除集合
+        itemSet->clear();
+    }
+}
+
+void RTLS_Widget::on_rangingParamTable_itemChanged(QTableWidgetItem *item)
+{
+    if ( ui->rangingParamTable->editTriggers() ==  QAbstractItemView::DoubleClicked){
+        itemSet->insert(item);
+    }
+}
+
+void RTLS_Widget::setParamToRangingConfig(int tagIdx, int row, int col, double value)
+{
+    if (row == 0) { //  k
+        distance[tagIdx].rangeConfig->setSingleKValue(col, value);
+    } else if (row == 1) {  // b
+        distance[tagIdx].rangeConfig->setSingleBValue(col, value);
+    }
+
 }
 
 // 串口连接/断开
@@ -250,9 +342,9 @@ void RTLS_Widget:: handleTimeout()
                          "m%c %x %x %x %x %x %x %x %x %c%d:%d %d %d %d\n",
                          &type, &mask, &range[0], &range[1], &range[2], &range[3],
                          &lnum, &seq, &rangetime, &c, &tid, &aid, &x_true, &y_true, &z_true);
-        Tag[7].x = (double)x_true / 1000;
-        Tag[7].y = (double)y_true / 1000;
-        Tag[7].z = (double)z_true / 1000;
+        Tag[7].x = static_cast<double>(x_true / 1000);
+        Tag[7].y = static_cast<double>(y_true / 1000);
+        Tag[7].z = static_cast<double>(z_true / 1000);
         ui->tableWidget_Tag->setItem(7,1,new QTableWidgetItem( QString::number(Tag[7].x,10,5)));
         ui->tableWidget_Tag->setItem(7,2,new QTableWidgetItem( QString::number(Tag[7].y,10,5)));
         ui->tableWidget_Tag->setItem(7,3,new QTableWidgetItem( QString::number(Tag[7].z,10,5)));
@@ -370,8 +462,6 @@ void RTLS_Widget:: handleTimeout()
                     ui->tableWidget_Tag->setItem(i,3,new QTableWidgetItem( QString::number(Tag[i].z,10,5)));
 
                 }
-                config->Set(QString("generateTraj"), QString::number(idx++), QString("%1,%2,%3").arg(Tag[i].x).arg(Tag[i].y).arg(Tag[i].z));
-//                *outStream << QString("%1,%2,%3").arg(Tag[i].x).arg(Tag[i].y).arg(Tag[i].z) << endl;
 
                 double error = sqrt((pow(Tag[0].x - Tag[7].x, 2) + pow(Tag[0].y - Tag[7].y, 2) + pow(Tag[0].z - Tag[7].z, 2))/3);
                 *outStream<< "error = " << error << "\r\n";
@@ -439,74 +529,6 @@ void RTLS_Widget::newData()
     }
 }
 
-void RTLS_Widget:: deal_data(QStringList str_data_split)
-{
-    char i; // 计数变量
-    int length; // 数据帧长度
-
-    for (i=0;i<str_data_split.count();i++)
-    {
-//        ui->textEdit_read->append(str_data_split[i]);
-        length = str_data_split[i].length();
-//        qDebug()<<length;
-
-        // 判断长度和mc
-        if(length >= TOF_REPORT_LEN)
-        {
-            QString header = str_data_split[i].mid(0, 2);
-
-            //"mc" 包含校正后的数据
-            if(not header.contains("mc"))
-            {
-                return;
-            }
-//            qDebug()<<"含有mc";
-
-        }
-        else {
-            return;
-        }
-
-        // TOF报告
-        QByteArray tofReport = str_data_split[i].toUtf8();
-
-        int aid, tid, range[4], lnum, seq, mask,temperature,voltage,current,electric,total_elec,rest_elec;
-        int rangetime;
-        char c, type,power;
-
-        int num = sscanf(tofReport.constData(),
-                         "m%c %x %x %x %x %x %x %x %x %c%d:%d power_%c %d %d %d %d %d %d\n",
-                         &type, &mask, &range[0], &range[1], &range[2], &range[3], &lnum, &seq, &rangetime, &c, &tid, &aid,&power,&temperature,&voltage,&current,&electric,&total_elec,&rest_elec);
-//        qDebug()<<num;
-
-        if(mask==0x0f)
-        {
-//            distance[tid].t_a0 = int(range[0]*1.0094 - 561.1);
-//            distance[tid].t_a1 = int(range[1]*1.0094 - 561.1);
-//            distance[tid].t_a2 = int(range[2]*1.0094 - 561.1);
-//            distance[tid].t_a3 = int(range[3]*1.0094 - 561.1);
-
-            distance[tid].t_a0 = range[0];
-            distance[tid].t_a1 = range[1];
-            distance[tid].t_a2 = range[2];
-            distance[tid].t_a3 = range[3];
-
-            distance[tid].flag = 1<<tid;
-            dist_flag |= distance[tid].flag;
-
-//            qDebug("Tid:%d,%d,%d,%d,%d",tid,distance[tid].t_a0,distance[tid].t_a1,distance[tid].t_a2,distance[tid].t_a3);
-        }
-
-
-
-//        qDebug("%d",distance[tid].flag);
-
-//        qDebug()<<distance[tid].t_a0;
-
-    }
-
-
-}
 
 void RTLS_Widget::on_pushButton_clicked()
 {
