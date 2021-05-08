@@ -26,8 +26,10 @@ CONFIG += c++11
 
 SOURCES += \
         commoditytest.cpp \
+        commonutil.cpp \
         config.cpp \
         kalmanfilter.cpp \
+        lightcontrol.cpp \
         location.cpp \
         logwidget.cpp \
         main.cpp \
@@ -37,9 +39,12 @@ SOURCES += \
         trilateration.cpp
 
 HEADERS += \
+        FQ512NetShow.h \
         commoditytest.h \
+        commonutil.h \
         config.h \
         kalmanfilter.h \
+        lightcontrol.h \
         location.h \
         logwidget.h \
         mycombobox.h \
@@ -56,3 +61,7 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+# Qt中添加配置
+
+LIBS += -L $$PWD/./ -l FQ512NetShow # 灯光控制

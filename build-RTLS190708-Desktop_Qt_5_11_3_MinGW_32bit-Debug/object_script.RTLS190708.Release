@@ -1,5 +1,6 @@
 INPUT(
 ./release\commoditytest.o
+./release\commonutil.o
 ./release\config.o
 ./release\kalmanfilter.o
 ./release\location.o

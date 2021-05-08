@@ -766,7 +766,7 @@ void test(void)
 // Chan-Taylor测距
 void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distanceArray, MatrixXd Q, double residual, double delta, int iterativeNum)
 {
-    cout << "C-T-K~" << endl;
+    qDebug() << "C-T~";
     /*  获取初始位置Chan  */
     // 初始位置
     vec3d locationInit;
@@ -776,7 +776,7 @@ void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distan
     /*  计算残差  */
     double residualCal = 0;
     residualCal = ResidualCal(anchorArray, best_solution, distanceArray);
-    qDebug()<<"ResidualCal:"<<residualCal<<endl;
+    qDebug()<<"ResidualCal:"<<residualCal;
 
     /*  判断是否要进行Taylor  */
     if (residualCal > residual)
@@ -789,22 +789,26 @@ void GetLocationChanTaylor(vec3d *best_solution, vec3d* anchorArray, int *distan
 // C-T-K
 void GetLocationChanTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, MatrixXd Q, double residual, double delta, int iterativeNum)
 {
-    qDebug() << "C-T-K positioning~" <<endl;
+    qDebug() << "C-T-K positioning~";
     /*  获取初始位置Chan  */
     // 初始位置
     vec3d locationInit;
     locationInit = Chan(anchorArray, distanceArray, Q);
     *best_solution = locationInit;
+    if (isnan(best_solution->x) || isnan(best_solution->y) || isnan(best_solution->z)) {
+        qCritical() << "Chan定位值存在nan！";
+        throw domain_error("Chan定位值存在nan！");
+    }
 
     /*  计算残差  */
     double residualCal = 0;
     residualCal = ResidualCal(anchorArray, best_solution, distanceArray);
-    qDebug()<<"ResidualCal:"<<residualCal<<endl;
+    qDebug()<<"ResidualCal:"<<residualCal;
 
     /*  Taylor  */
     locationInit = TaylorItrator(anchorArray, best_solution, distanceArray, Q, delta, iterativeNum);
     if (isnan(locationInit.x) || isnan(locationInit.y) || isnan(locationInit.z)) {
-        cout << "warning: taylor nan!" << endl;
+        qCritical() << "warning: taylor nan!" ;
     } else {
         *best_solution = locationInit;
     }
@@ -814,7 +818,7 @@ void GetLocationChanTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *
 
 // TS(三边) - T - K
 void GetLocationTrilateralTaylorKalman(vec3d *best_solution, vec3d *anchorArray, int *distanceArray, KalmanFilter* kf, MatrixXd Q, double residual, double delta, int iterativeNum){
-    cout << "T-T-K~" << endl;
+    qDebug() << "T-T-K~";
     // 0.检测旋转逆矩阵、平移矩阵是否初始化
     if (!rigid_motion.flag) {
         RigidMotionInit(anchorArray);
@@ -828,6 +832,10 @@ void GetLocationTrilateralTaylorKalman(vec3d *best_solution, vec3d *anchorArray,
     GetLocationTrilateral(best_solution, 1, &anchorArrayPlane[0], distanceArray);
     *best_solution = CoordinateTranformation(V2W, best_solution);
     vec3d locationInit = *best_solution;
+    if (isnan(best_solution->x) || isnan(best_solution->y) || isnan(best_solution->z)) {
+        qCritical() << "三边定位值存在nan！";
+        throw domain_error("三边定位值存在nan！");
+    }
     // 3.Taylor
     /*  计算残差  */
     double residualCal = 0;
@@ -837,7 +845,7 @@ void GetLocationTrilateralTaylorKalman(vec3d *best_solution, vec3d *anchorArray,
     /*  Taylor  */
     locationInit = TaylorItrator(anchorArray, best_solution, distanceArray, Q, delta, iterativeNum);
     if (isnan(locationInit.x) || isnan(locationInit.y) || isnan(locationInit.z)) {
-        cout << "warning: taylor nan!" << endl;
+        qCritical() << "warning: taylor nan!" ;
     } else {
         *best_solution = locationInit;
     }
@@ -910,39 +918,27 @@ vec3d CoordinateTranformation(int mode, vec3d *loc) {
 }
 
 // Chan方法
+// 误差矢量 Ψ = h - Gz
+// Q分子分母可消去单位影响，故未统一单位
 vec3d Chan(vec3d* anchorArray, int *distanceArray, MatrixXd Q)
 {
-    // xyz赋值
-    // typedef Matrix<double, Dynamic, Dynamic> MatrixXd;
-    // (double类型)
-    // 坐标和距离单统一(mm)
-    Q = Q * 1000000;
-    MatrixXd x(4,1);
-    MatrixXd y(4,1);
-    MatrixXd z(4,1);
-    for(int i =0;i<4;i++){
-        x(i,0) = anchorArray[i].x * 1000.0;
-        y(i,0) = anchorArray[i].y * 1000.0;
-        z(i,0) = anchorArray[i].z * 1000.0;
-    }
-
-    // 运算结果
+    // 初始化数据
     MatrixXd result;
     vec3d location;
-
-    // 误差矢量 Ψ = h - Gz
     // h、G参数赋值
     MatrixXd h(4,1);
     MatrixXd G(4,4);
-    MatrixXd B(4,4);
+    MatrixXd B = MatrixXd::Zero(4, 4);
     MatrixXd Psi_inv;
     for(int i=0;i<4;i++)
     {
-        h(i,0) = distanceArray[i]*distanceArray[i] - x(i, 0)*x(i, 0)- y(i, 0)*y(i, 0)- z(i, 0)*z(i, 0);
-        // TODO 行赋值操作
-        G(i, 0) = -2*x(i,0);
-        G(i, 1) = -2*y(i,0);
-        G(i, 2) = -2*z(i,0);
+        double x = anchorArray[i].x * 1000;
+        double y = anchorArray[i].y * 1000;
+        double z = anchorArray[i].z * 1000;
+        h(i,0) = distanceArray[i]*distanceArray[i] - x*x- y*y- z*z;
+        G(i, 0) = -2 * x;
+        G(i, 1) = -2 * y;
+        G(i, 2) = -2 * z;
         G(i, 3) = 1;
         B(i, i) = distanceArray[i];
     }
@@ -952,6 +948,16 @@ vec3d Chan(vec3d* anchorArray, int *distanceArray, MatrixXd Q)
     location.x = result(0, 0) / 1000;
     location.y = result(1, 0) / 1000;
     location.z = result(2, 0) / 1000;
+    // 结果判断
+    if (isnan(location.x) || isnan(location.y) || isnan(location.z)) {
+        qCritical() << "Chan定位值存在nan！";
+        cout << distanceArray[0] << endl;
+        cout << distanceArray[1] << endl;
+        cout << distanceArray[2] << endl;
+        cout << distanceArray[3] << endl;
+        throw domain_error("Chan定位值存在nan！");
+    }
+
     return location;
 }
 
@@ -959,7 +965,7 @@ vec3d Chan(vec3d* anchorArray, int *distanceArray, MatrixXd Q)
 // 500次67ms  1次0.134ms
 vec3d TaylorItrator(vec3d* anchorArray, vec3d* location, int *distanceArray, MatrixXd Q, double delta, int iterativeNum)
 {
-    qDebug() << "Taylor~" << endl;
+    qDebug() << "Taylor~";
     // 坐标
     vec3d locaItrator = *location;
     // 坐标偏差
@@ -980,7 +986,7 @@ vec3d TaylorItrator(vec3d* anchorArray, vec3d* location, int *distanceArray, Mat
         if (deltaCal <= delta)
             break;
     }
-    qDebug()<<"迭代次数："<<i<<endl;
+    qDebug()<<"迭代次数："<<i;
     return locaItrator;
 }
 

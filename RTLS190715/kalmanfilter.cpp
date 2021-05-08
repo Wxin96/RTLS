@@ -16,6 +16,7 @@ KalmanFilter::KalmanFilter(int spatial_dimension, double delta_t, MatrixXd Q, Ma
     this->Q = Q;
     this->R = R;
     this->P = P_init;
+    this->P_init = P_init;
 
     // 2.状态转移矩阵初始化
     this->F = MatrixXd::Identity(2*spatial_dimension, 2*spatial_dimension);
@@ -26,7 +27,7 @@ KalmanFilter::KalmanFilter(int spatial_dimension, double delta_t, MatrixXd Q, Ma
     this->H = MatrixXd::Identity(spatial_dimension, 2*spatial_dimension);
 
     // 4.状态量初始化
-    this->x = MatrixXd(2 * spatial_dimension, 1);
+    this->x = MatrixXd::Zero(2 * spatial_dimension, 1);
 
 }
 
@@ -54,14 +55,26 @@ void KalmanFilter::update(vec3d *location)
 
 void KalmanFilter::iteration(vec3d *location)
 {
-//    cout << "Kalman滤波~" <<endl;
+    if (isnan(location->x) || isnan(location->y) || isnan(location->z)) {
+        qCritical() << "卡尔曼滤波输入位置有nan值!";
+        throw invalid_argument("卡尔曼滤波输入位置有nan值!");
+    }
     predict();
     update(location);
     // 更新位置
     location->x = x(0, 0);
     location->y = x(1, 0);
     location->z = x(2, 0);
+    if (isnan(location->x) || isnan(location->y) || isnan(location->z)) {
+        qCritical() << "卡尔曼滤波处理后的位置有nan值!";
+        throw domain_error("卡尔曼滤波处理后的位置有nan值!");
+    }
+}
 
+void KalmanFilter::reset()
+{
+    this->P = P_init;
+    this->x *= 0;
 }
 
 

@@ -1,5 +1,6 @@
 INPUT(
 ./debug\commoditytest.o
+./debug\commonutil.o
 ./debug\config.o
 ./debug\kalmanfilter.o
 ./debug\location.o

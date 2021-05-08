@@ -60,7 +60,7 @@ void Location::QCheckBox_toggled()
 
 }
 
-// 刷新画面
+// 刷新画面 => 调用paintEvent函数
 void Location::handleTimeout()
 {
     update();

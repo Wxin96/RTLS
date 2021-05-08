@@ -45,11 +45,6 @@ int main(int argc, char *argv[])
     w.show();
     LogWidget::getInstance()->show();
 
-    // 打印信息
-    qDebug("This is a debug message.");
-    qWarning("This is a warning message.");
-    qCritical("This is a critical message.");
-
     // 防止内存泄漏
     for (int i = 0; i < 8; i++){
         if (distance[i].kf) {
@@ -60,8 +55,6 @@ int main(int argc, char *argv[])
 
     return a.exec();
 
-//    test();
-//    return 1;
 }
 
 

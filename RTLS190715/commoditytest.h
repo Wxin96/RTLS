@@ -6,6 +6,7 @@
 #include "rangeconfig.h"
 #include "config.h"
 #include "logwidget.h"
+#include "trilateration.h"
 
 class CommodityTest : public QObject
 {
@@ -20,6 +21,7 @@ public slots:
 private slots:
     void initTestCase();
     void case1_rangeConfig();
+    void case2_chanNanTest();
 
 };
 

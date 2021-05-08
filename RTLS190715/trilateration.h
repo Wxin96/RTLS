@@ -20,15 +20,6 @@
     #define ANCHOR_NUM 4
 #endif
 
-
-// 坐标结构体 => 头文件循环引用，移到"kalmanfilter.h"中了
-//struct vec3d{
-//    double	x;
-//    double	y;
-//    double	z;
-//    char flag[3];
-//};
-
 // 标签距离四个基站的距离
 struct ta_dist{
     int t_a0;
@@ -37,6 +28,7 @@ struct ta_dist{
     int t_a3;
     // 标志位=》针对哪个标签的测距
     int flag;
+    unsigned char anchorFlag;   // 基站标志，使用低四位，1表示当前基站测距存在
     KalmanFilter *kf = nullptr; // 卡尔曼滤波器，一个标签对应一个实例
     RangeConfig *rangeConfig;   // 测距配置
 };
