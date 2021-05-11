@@ -92,3 +92,28 @@ void CommonUtil::dropDownListShow(QComboBox *comboBox, int cnt)
         }
     }
 }
+
+// ipv4判断
+bool CommonUtil::ipv4PatternMatch(QString ipv4, unsigned char *ip)
+{
+    // 0.预处理
+    QStringList ipList = ipv4.trimmed().split(".");
+    if (ipList.size() != 4) return false;
+    // 1.正则 + 匹配
+    for (int i = 0; i < 4; i++) {
+        QString curStrNum = ipList.at(i);
+        if (!patternMatch("^\\d{1,3}$", curStrNum) || patternMatch("^0\\d+", curStrNum)) {
+            qWarning() << "ip正则匹配未通过! ==> " << curStrNum;
+            return false;
+        }
+        int curNum = curStrNum.toInt();
+        if (curNum >= 0 && curNum < 256) {
+            ip[i] = static_cast<unsigned char>(curNum);
+        } else {
+            qWarning() << "ip数值范围不正确! ==> " << curStrNum;
+            return false;
+        }
+    }
+    return true;
+
+}

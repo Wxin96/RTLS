@@ -21,6 +21,7 @@
 #include <iostream>
 #include <set>
 #include "commonutil.h"
+#include "lightcontrol.h"
 
 using std::set;
 using namespace CommonUtil;
@@ -94,6 +95,26 @@ private slots:
     // 标签validateTagSelect选择的索引改变
     void on_validateTagSelect_currentIndexChanged(int index);
 
+    /*  射灯跟随部分  */
+    void on_followTagSelect_clicked();  // 射灯跟随部分点击标签选择
+    void on_lightIplineEdit_editingFinished();  // 射灯跟随部分ip内容更改结束
+    void on_lightConfigDisplayBtn_clicked();    // 射灯跟随部分配置信息显示
+    void on_netCardSelect_clicked();    // 射灯跟随部分点击网卡选择
+    void on_reflushNetBth_clicked();    // 刷新射灯网络
+    void on_netCardSelect_currentIndexChanged(int index);   // 射灯使用网卡序号改变
+    void on_netSelect_clicked();    // 射灯跟随部分点击网络号选择
+    void on_netSelect_currentIndexChanged(int index);   // 射灯跟随部分点击网络号更改
+    void on_subNetSelect_clicked(); // 射灯跟随部分点击子网络号选择
+    void on_subNetSelect_currentIndexChanged(int index);    // 射灯跟随部分点击子网络号改变
+    void on_universeSelect_clicked();   // 射灯跟随部分点击域点击
+    void on_universeSelect_currentIndexChanged(int index);  // 射灯跟随部分点击域改变
+    void on_channelSelect_clicked();    // 射灯跟随部分点击通道点击
+    void on_channelSelect_currentIndexChanged(int index);   // 射灯跟随部分点击通道改变
+    void on_channelValue_valueChanged(int value);   // 射灯跟随部分-滑块值改变
+    void on_blackFeildBtn_clicked();    // 射灯跟随部分-黑场按钮
+    void on_testLightNetBtn_clicked();  // 射灯跟随部分-测试通信连接
+    void on_manuSendBtn_clicked();  // 射灯跟随部分-手动发送
+
 private:
     Ui::RTLS_Widget *ui;
     QTcpSocket *tcpSocket;  // 通信套接字
@@ -161,6 +182,14 @@ private:
     void validating();  // 验证函数
     void validating(int tagIdx, bool trueLosFlag);
     void updateTrueDist();  // 更新真实距离函数
+
+    /*** 射灯跟随部分 ***/
+    /* 数据结构 */
+    LightControl *lightControl;
+
+    /* 方法 */
+    void followModuleInit();    // 射灯跟随部分初始化
+
 
     /***     其他     ***/
     void dropDropDownList_clicked(QComboBox* curComboBox, int cnt); // 下拉框通用函数

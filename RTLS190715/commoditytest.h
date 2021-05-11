@@ -22,7 +22,8 @@ private slots:
     void initTestCase();
     void case1_rangeConfig();
     void case2_chanNanTest();
-
+    void case3_eigenTest();
+    void case4_ipPatternMatchTest();
 };
 
 #endif // COMMODITYTEST_H

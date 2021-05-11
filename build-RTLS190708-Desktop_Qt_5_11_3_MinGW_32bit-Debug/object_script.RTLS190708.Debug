@@ -2,7 +2,9 @@ INPUT(
 ./debug\commoditytest.o
 ./debug\commonutil.o
 ./debug\config.o
+./debug\graphicsview.o
 ./debug\kalmanfilter.o
+./debug\lightcontrol.o
 ./debug\location.o
 ./debug\logwidget.o
 ./debug\main.o
@@ -11,6 +13,7 @@ INPUT(
 ./debug\rtls_widget.o
 ./debug\trilateration.o
 ./debug\moc_commoditytest.o
+./debug\moc_graphicsview.o
 ./debug\moc_location.o
 ./debug\moc_logwidget.o
 ./debug\moc_mycombobox.o

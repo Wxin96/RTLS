@@ -34,7 +34,9 @@ QT_BEGIN_NAMESPACE
 class Ui_RTLS_Widget
 {
 public:
-    QGridLayout *gridLayout;
+    QGridLayout *gridLayout_13;
+    QSpacerItem *horizontalSpacer_6;
+    QLabel *modeLabel;
     QTabWidget *tabWidget2;
     QWidget *Positioning;
     QGridLayout *gridLayout_9;
@@ -49,21 +51,20 @@ public:
     QWidget *Ranging;
     QGridLayout *gridLayout_8;
     MyComboBox *tagSelect;
-    QSpacerItem *horizontalSpacer_2;
-    QTableWidget *rangingParamTable;
-    QLabel *label_3;
     QGroupBox *groupBox;
     QGridLayout *gridLayout_7;
-    QLabel *label_4;
-    MyComboBox *anchorSelect;
-    QFrame *line_3;
-    QLabel *label_5;
     QLineEdit *singleTrueDist;
-    QLabel *label_6;
     QLineEdit *singleMearDist;
-    QPushButton *singleCorrect;
+    QFrame *line_3;
+    QLabel *label_6;
+    QLabel *label_4;
+    QLabel *label_5;
+    MyComboBox *anchorSelect;
     QPushButton *singleRecord;
+    QPushButton *singleCorrect;
     QPushButton *manualModify;
+    QSpacerItem *horizontalSpacer_2;
+    QLabel *label_3;
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout_11;
     QFrame *line;
@@ -88,6 +89,7 @@ public:
     QTableWidget *multiMearTable;
     QPushButton *multiRecord;
     QSpacerItem *verticalSpacer;
+    QTableWidget *rangingParamTable;
     QWidget *tab_2;
     QGridLayout *gridLayout_3;
     QLabel *label_9;
@@ -98,7 +100,6 @@ public:
     QPushButton *validateReadTrueLocBtn;
     QTableWidget *validateLocTab;
     QTableWidget *validateDistTab;
-    QLabel *modeLabel;
     QTabWidget *tabWidget1;
     QWidget *Tcp;
     QGridLayout *gridLayout_6;
@@ -117,42 +118,69 @@ public:
     MyComboBox *SerialBox;
     QWidget *tab;
     QGridLayout *gridLayout_4;
-    QLabel *label_10;
-    QLineEdit *lineEdit_5;
-    QPushButton *pushButton_9;
     QFrame *line_2;
-    QLabel *label_16;
-    QLineEdit *lineEdit_6;
-    QPushButton *pushButton_10;
+    QLabel *label_8;
+    MyComboBox *followTagSelect;
+    QSpacerItem *horizontalSpacer_10;
+    QGroupBox *groupBox_6;
+    QGridLayout *gridLayout_12;
+    QLabel *label_10;
+    QLineEdit *lightIplineEdit;
+    QPushButton *testLightNetBtn;
     QLabel *label_11;
-    QComboBox *comboBox_4;
-    QPushButton *pushButton_8;
-    QLabel *label_17;
-    QLineEdit *lineEdit_7;
-    QPushButton *pushButton_7;
+    MyComboBox *netCardSelect;
     QLabel *label_12;
-    QComboBox *comboBox_5;
+    MyComboBox *netSelect;
+    QLabel *label_13;
+    MyComboBox *subNetSelect;
+    QLabel *label_14;
+    MyComboBox *universeSelect;
+    QLabel *label_15;
+    MyComboBox *channelSelect;
+    QPushButton *manuSendBtn;
+    QSlider *channelValue;
+    QPushButton *blackFeildBtn;
+    QPushButton *reflushNetBth;
+    QPushButton *resetLightBtn;
+    QPushButton *lightSwitchBtn;
+    QLabel *channelValLab;
+    QPushButton *followBtn;
+    QPushButton *lightConfigDisplayBtn;
+    QSpacerItem *horizontalSpacer_7;
+    QGroupBox *groupBox_5;
+    QGridLayout *gridLayout;
+    QLabel *label_16;
+    QLineEdit *lineEdit_7;
+    QLabel *label_17;
+    QPushButton *pushButton_10;
+    QSpacerItem *horizontalSpacer_11;
+    QLineEdit *lightLocInput;
     QLabel *label_18;
     QLineEdit *lineEdit_8;
-    QLabel *label_13;
-    QComboBox *comboBox_6;
-    QTextEdit *textEdit_2;
-    QLabel *label_14;
-    QComboBox *comboBox_7;
-    QLabel *label_15;
-    QComboBox *comboBox_8;
-    QSlider *horizontalSlider;
-    QSpacerItem *horizontalSpacer_6;
 
     void setupUi(QWidget *RTLS_Widget)
     {
         if (RTLS_Widget->objectName().isEmpty())
             RTLS_Widget->setObjectName(QStringLiteral("RTLS_Widget"));
-        RTLS_Widget->resize(832, 736);
-        gridLayout = new QGridLayout(RTLS_Widget);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        RTLS_Widget->resize(829, 880);
+        gridLayout_13 = new QGridLayout(RTLS_Widget);
+        gridLayout_13->setSpacing(6);
+        gridLayout_13->setContentsMargins(11, 11, 11, 11);
+        gridLayout_13->setObjectName(QStringLiteral("gridLayout_13"));
+        horizontalSpacer_6 = new QSpacerItem(740, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_13->addItem(horizontalSpacer_6, 0, 0, 1, 1);
+
+        modeLabel = new QLabel(RTLS_Widget);
+        modeLabel->setObjectName(QStringLiteral("modeLabel"));
+        QFont font;
+        font.setBold(true);
+        font.setWeight(75);
+        modeLabel->setFont(font);
+        modeLabel->setWordWrap(false);
+
+        gridLayout_13->addWidget(modeLabel, 0, 1, 1, 1);
+
         tabWidget2 = new QTabWidget(RTLS_Widget);
         tabWidget2->setObjectName(QStringLiteral("tabWidget2"));
         Positioning = new QWidget();
@@ -322,11 +350,11 @@ public:
         tableWidget_Anchor->setVerticalHeaderItem(2, __qtablewidgetitem41);
         QTableWidgetItem *__qtablewidgetitem42 = new QTableWidgetItem();
         tableWidget_Anchor->setVerticalHeaderItem(3, __qtablewidgetitem42);
-        QFont font;
-        font.setUnderline(false);
+        QFont font1;
+        font1.setUnderline(false);
         QTableWidgetItem *__qtablewidgetitem43 = new QTableWidgetItem();
         __qtablewidgetitem43->setTextAlignment(Qt::AlignCenter);
-        __qtablewidgetitem43->setFont(font);
+        __qtablewidgetitem43->setFont(font1);
         __qtablewidgetitem43->setFlags(Qt::ItemIsSelectable|Qt::ItemIsDragEnabled|Qt::ItemIsDropEnabled|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
         tableWidget_Anchor->setItem(0, 0, __qtablewidgetitem43);
         QTableWidgetItem *__qtablewidgetitem44 = new QTableWidgetItem();
@@ -395,44 +423,6 @@ public:
 
         gridLayout_8->addWidget(tagSelect, 0, 1, 1, 1);
 
-        horizontalSpacer_2 = new QSpacerItem(68, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_8->addItem(horizontalSpacer_2, 0, 2, 1, 1);
-
-        rangingParamTable = new QTableWidget(Ranging);
-        if (rangingParamTable->columnCount() < 4)
-            rangingParamTable->setColumnCount(4);
-        QTableWidgetItem *__qtablewidgetitem59 = new QTableWidgetItem();
-        rangingParamTable->setHorizontalHeaderItem(0, __qtablewidgetitem59);
-        QTableWidgetItem *__qtablewidgetitem60 = new QTableWidgetItem();
-        rangingParamTable->setHorizontalHeaderItem(1, __qtablewidgetitem60);
-        QTableWidgetItem *__qtablewidgetitem61 = new QTableWidgetItem();
-        rangingParamTable->setHorizontalHeaderItem(2, __qtablewidgetitem61);
-        QTableWidgetItem *__qtablewidgetitem62 = new QTableWidgetItem();
-        rangingParamTable->setHorizontalHeaderItem(3, __qtablewidgetitem62);
-        if (rangingParamTable->rowCount() < 2)
-            rangingParamTable->setRowCount(2);
-        QTableWidgetItem *__qtablewidgetitem63 = new QTableWidgetItem();
-        rangingParamTable->setVerticalHeaderItem(0, __qtablewidgetitem63);
-        QTableWidgetItem *__qtablewidgetitem64 = new QTableWidgetItem();
-        rangingParamTable->setVerticalHeaderItem(1, __qtablewidgetitem64);
-        QTableWidgetItem *__qtablewidgetitem65 = new QTableWidgetItem();
-        rangingParamTable->setItem(0, 0, __qtablewidgetitem65);
-        rangingParamTable->setObjectName(QStringLiteral("rangingParamTable"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(rangingParamTable->sizePolicy().hasHeightForWidth());
-        rangingParamTable->setSizePolicy(sizePolicy);
-        rangingParamTable->setMinimumSize(QSize(350, 0));
-
-        gridLayout_8->addWidget(rangingParamTable, 1, 0, 1, 4);
-
-        label_3 = new QLabel(Ranging);
-        label_3->setObjectName(QStringLiteral("label_3"));
-
-        gridLayout_8->addWidget(label_3, 0, 0, 1, 1);
-
         groupBox = new QGroupBox(Ranging);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setMinimumSize(QSize(370, 140));
@@ -440,15 +430,16 @@ public:
         gridLayout_7->setSpacing(6);
         gridLayout_7->setContentsMargins(11, 11, 11, 11);
         gridLayout_7->setObjectName(QStringLiteral("gridLayout_7"));
-        label_4 = new QLabel(groupBox);
-        label_4->setObjectName(QStringLiteral("label_4"));
+        singleTrueDist = new QLineEdit(groupBox);
+        singleTrueDist->setObjectName(QStringLiteral("singleTrueDist"));
 
-        gridLayout_7->addWidget(label_4, 0, 0, 1, 1);
+        gridLayout_7->addWidget(singleTrueDist, 2, 1, 1, 1);
 
-        anchorSelect = new MyComboBox(groupBox);
-        anchorSelect->setObjectName(QStringLiteral("anchorSelect"));
+        singleMearDist = new QLineEdit(groupBox);
+        singleMearDist->setObjectName(QStringLiteral("singleMearDist"));
+        singleMearDist->setEnabled(false);
 
-        gridLayout_7->addWidget(anchorSelect, 0, 1, 1, 1);
+        gridLayout_7->addWidget(singleMearDist, 3, 1, 1, 1);
 
         line_3 = new QFrame(groupBox);
         line_3->setObjectName(QStringLiteral("line_3"));
@@ -457,37 +448,36 @@ public:
 
         gridLayout_7->addWidget(line_3, 1, 0, 1, 3);
 
-        label_5 = new QLabel(groupBox);
-        label_5->setObjectName(QStringLiteral("label_5"));
-
-        gridLayout_7->addWidget(label_5, 2, 0, 1, 1);
-
-        singleTrueDist = new QLineEdit(groupBox);
-        singleTrueDist->setObjectName(QStringLiteral("singleTrueDist"));
-
-        gridLayout_7->addWidget(singleTrueDist, 2, 1, 1, 1);
-
         label_6 = new QLabel(groupBox);
         label_6->setObjectName(QStringLiteral("label_6"));
 
         gridLayout_7->addWidget(label_6, 3, 0, 1, 1);
 
-        singleMearDist = new QLineEdit(groupBox);
-        singleMearDist->setObjectName(QStringLiteral("singleMearDist"));
-        singleMearDist->setEnabled(false);
+        label_4 = new QLabel(groupBox);
+        label_4->setObjectName(QStringLiteral("label_4"));
 
-        gridLayout_7->addWidget(singleMearDist, 3, 1, 1, 1);
+        gridLayout_7->addWidget(label_4, 0, 0, 1, 1);
 
-        singleCorrect = new QPushButton(groupBox);
-        singleCorrect->setObjectName(QStringLiteral("singleCorrect"));
+        label_5 = new QLabel(groupBox);
+        label_5->setObjectName(QStringLiteral("label_5"));
 
-        gridLayout_7->addWidget(singleCorrect, 0, 2, 1, 1);
+        gridLayout_7->addWidget(label_5, 2, 0, 1, 1);
+
+        anchorSelect = new MyComboBox(groupBox);
+        anchorSelect->setObjectName(QStringLiteral("anchorSelect"));
+
+        gridLayout_7->addWidget(anchorSelect, 0, 1, 1, 1);
 
         singleRecord = new QPushButton(groupBox);
         singleRecord->setObjectName(QStringLiteral("singleRecord"));
         singleRecord->setEnabled(false);
 
         gridLayout_7->addWidget(singleRecord, 2, 2, 1, 1);
+
+        singleCorrect = new QPushButton(groupBox);
+        singleCorrect->setObjectName(QStringLiteral("singleCorrect"));
+
+        gridLayout_7->addWidget(singleCorrect, 0, 2, 1, 1);
 
 
         gridLayout_8->addWidget(groupBox, 0, 4, 2, 1);
@@ -497,13 +487,22 @@ public:
 
         gridLayout_8->addWidget(manualModify, 0, 3, 1, 1);
 
+        horizontalSpacer_2 = new QSpacerItem(68, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_8->addItem(horizontalSpacer_2, 0, 2, 1, 1);
+
+        label_3 = new QLabel(Ranging);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        gridLayout_8->addWidget(label_3, 0, 0, 1, 1);
+
         groupBox_2 = new QGroupBox(Ranging);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
-        groupBox_2->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy);
         gridLayout_11 = new QGridLayout(groupBox_2);
         gridLayout_11->setSpacing(6);
         gridLayout_11->setContentsMargins(11, 11, 11, 11);
@@ -523,11 +522,11 @@ public:
 
         multiCorrect = new QPushButton(groupBox_2);
         multiCorrect->setObjectName(QStringLiteral("multiCorrect"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(50);
-        sizePolicy2.setHeightForWidth(multiCorrect->sizePolicy().hasHeightForWidth());
-        multiCorrect->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(50);
+        sizePolicy1.setHeightForWidth(multiCorrect->sizePolicy().hasHeightForWidth());
+        multiCorrect->setSizePolicy(sizePolicy1);
         multiCorrect->setMaximumSize(QSize(84, 16777215));
 
         gridLayout_11->addWidget(multiCorrect, 0, 5, 1, 1);
@@ -565,48 +564,48 @@ public:
         gridLayout_5->setObjectName(QStringLiteral("gridLayout_5"));
         label_20 = new QLabel(groupBox_3);
         label_20->setObjectName(QStringLiteral("label_20"));
-        QFont font1;
-        font1.setPointSize(11);
-        label_20->setFont(font1);
+        QFont font2;
+        font2.setPointSize(11);
+        label_20->setFont(font2);
 
         gridLayout_5->addWidget(label_20, 1, 0, 1, 1);
 
         label_22 = new QLabel(groupBox_3);
         label_22->setObjectName(QStringLiteral("label_22"));
-        label_22->setFont(font1);
+        label_22->setFont(font2);
 
         gridLayout_5->addWidget(label_22, 3, 0, 1, 1);
 
         rcc_z_loc = new QLineEdit(groupBox_3);
         rcc_z_loc->setObjectName(QStringLiteral("rcc_z_loc"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(rcc_z_loc->sizePolicy().hasHeightForWidth());
-        rcc_z_loc->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(rcc_z_loc->sizePolicy().hasHeightForWidth());
+        rcc_z_loc->setSizePolicy(sizePolicy2);
         rcc_z_loc->setMaximumSize(QSize(16777215, 25));
 
         gridLayout_5->addWidget(rcc_z_loc, 3, 1, 1, 1);
 
         rcc_y_loc = new QLineEdit(groupBox_3);
         rcc_y_loc->setObjectName(QStringLiteral("rcc_y_loc"));
-        sizePolicy3.setHeightForWidth(rcc_y_loc->sizePolicy().hasHeightForWidth());
-        rcc_y_loc->setSizePolicy(sizePolicy3);
+        sizePolicy2.setHeightForWidth(rcc_y_loc->sizePolicy().hasHeightForWidth());
+        rcc_y_loc->setSizePolicy(sizePolicy2);
         rcc_y_loc->setMaximumSize(QSize(16777215, 25));
 
         gridLayout_5->addWidget(rcc_y_loc, 2, 1, 1, 1);
 
         rcc_x_loc = new QLineEdit(groupBox_3);
         rcc_x_loc->setObjectName(QStringLiteral("rcc_x_loc"));
-        sizePolicy3.setHeightForWidth(rcc_x_loc->sizePolicy().hasHeightForWidth());
-        rcc_x_loc->setSizePolicy(sizePolicy3);
+        sizePolicy2.setHeightForWidth(rcc_x_loc->sizePolicy().hasHeightForWidth());
+        rcc_x_loc->setSizePolicy(sizePolicy2);
         rcc_x_loc->setMaximumSize(QSize(16777215, 25));
 
         gridLayout_5->addWidget(rcc_x_loc, 1, 1, 1, 1);
 
         label_21 = new QLabel(groupBox_3);
         label_21->setObjectName(QStringLiteral("label_21"));
-        label_21->setFont(font1);
+        label_21->setFont(font2);
 
         gridLayout_5->addWidget(label_21, 2, 0, 1, 1);
 
@@ -633,38 +632,38 @@ public:
         multiMearTable = new QTableWidget(groupBox_4);
         if (multiMearTable->columnCount() < 4)
             multiMearTable->setColumnCount(4);
-        QTableWidgetItem *__qtablewidgetitem66 = new QTableWidgetItem();
-        multiMearTable->setHorizontalHeaderItem(0, __qtablewidgetitem66);
-        QTableWidgetItem *__qtablewidgetitem67 = new QTableWidgetItem();
-        multiMearTable->setHorizontalHeaderItem(1, __qtablewidgetitem67);
-        QTableWidgetItem *__qtablewidgetitem68 = new QTableWidgetItem();
-        multiMearTable->setHorizontalHeaderItem(2, __qtablewidgetitem68);
-        QTableWidgetItem *__qtablewidgetitem69 = new QTableWidgetItem();
-        multiMearTable->setHorizontalHeaderItem(3, __qtablewidgetitem69);
+        QTableWidgetItem *__qtablewidgetitem59 = new QTableWidgetItem();
+        multiMearTable->setHorizontalHeaderItem(0, __qtablewidgetitem59);
+        QTableWidgetItem *__qtablewidgetitem60 = new QTableWidgetItem();
+        multiMearTable->setHorizontalHeaderItem(1, __qtablewidgetitem60);
+        QTableWidgetItem *__qtablewidgetitem61 = new QTableWidgetItem();
+        multiMearTable->setHorizontalHeaderItem(2, __qtablewidgetitem61);
+        QTableWidgetItem *__qtablewidgetitem62 = new QTableWidgetItem();
+        multiMearTable->setHorizontalHeaderItem(3, __qtablewidgetitem62);
         if (multiMearTable->rowCount() < 2)
             multiMearTable->setRowCount(2);
-        QTableWidgetItem *__qtablewidgetitem70 = new QTableWidgetItem();
-        multiMearTable->setVerticalHeaderItem(0, __qtablewidgetitem70);
-        QTableWidgetItem *__qtablewidgetitem71 = new QTableWidgetItem();
-        multiMearTable->setVerticalHeaderItem(1, __qtablewidgetitem71);
+        QTableWidgetItem *__qtablewidgetitem63 = new QTableWidgetItem();
+        multiMearTable->setVerticalHeaderItem(0, __qtablewidgetitem63);
+        QTableWidgetItem *__qtablewidgetitem64 = new QTableWidgetItem();
+        multiMearTable->setVerticalHeaderItem(1, __qtablewidgetitem64);
         multiMearTable->setObjectName(QStringLiteral("multiMearTable"));
         multiMearTable->setEnabled(false);
-        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(multiMearTable->sizePolicy().hasHeightForWidth());
-        multiMearTable->setSizePolicy(sizePolicy4);
+        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(multiMearTable->sizePolicy().hasHeightForWidth());
+        multiMearTable->setSizePolicy(sizePolicy3);
 
         gridLayout_10->addWidget(multiMearTable, 0, 0, 2, 1);
 
         multiRecord = new QPushButton(groupBox_4);
         multiRecord->setObjectName(QStringLiteral("multiRecord"));
         multiRecord->setEnabled(false);
-        QSizePolicy sizePolicy5(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy5.setHorizontalStretch(50);
-        sizePolicy5.setVerticalStretch(0);
-        sizePolicy5.setHeightForWidth(multiRecord->sizePolicy().hasHeightForWidth());
-        multiRecord->setSizePolicy(sizePolicy5);
+        QSizePolicy sizePolicy4(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(50);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(multiRecord->sizePolicy().hasHeightForWidth());
+        multiRecord->setSizePolicy(sizePolicy4);
         multiRecord->setMinimumSize(QSize(0, 30));
         multiRecord->setMaximumSize(QSize(84, 16777215));
 
@@ -679,6 +678,35 @@ public:
 
 
         gridLayout_8->addWidget(groupBox_2, 2, 0, 1, 5);
+
+        rangingParamTable = new QTableWidget(Ranging);
+        if (rangingParamTable->columnCount() < 4)
+            rangingParamTable->setColumnCount(4);
+        QTableWidgetItem *__qtablewidgetitem65 = new QTableWidgetItem();
+        rangingParamTable->setHorizontalHeaderItem(0, __qtablewidgetitem65);
+        QTableWidgetItem *__qtablewidgetitem66 = new QTableWidgetItem();
+        rangingParamTable->setHorizontalHeaderItem(1, __qtablewidgetitem66);
+        QTableWidgetItem *__qtablewidgetitem67 = new QTableWidgetItem();
+        rangingParamTable->setHorizontalHeaderItem(2, __qtablewidgetitem67);
+        QTableWidgetItem *__qtablewidgetitem68 = new QTableWidgetItem();
+        rangingParamTable->setHorizontalHeaderItem(3, __qtablewidgetitem68);
+        if (rangingParamTable->rowCount() < 2)
+            rangingParamTable->setRowCount(2);
+        QTableWidgetItem *__qtablewidgetitem69 = new QTableWidgetItem();
+        rangingParamTable->setVerticalHeaderItem(0, __qtablewidgetitem69);
+        QTableWidgetItem *__qtablewidgetitem70 = new QTableWidgetItem();
+        rangingParamTable->setVerticalHeaderItem(1, __qtablewidgetitem70);
+        QTableWidgetItem *__qtablewidgetitem71 = new QTableWidgetItem();
+        rangingParamTable->setItem(0, 0, __qtablewidgetitem71);
+        rangingParamTable->setObjectName(QStringLiteral("rangingParamTable"));
+        QSizePolicy sizePolicy5(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(rangingParamTable->sizePolicy().hasHeightForWidth());
+        rangingParamTable->setSizePolicy(sizePolicy5);
+        rangingParamTable->setMinimumSize(QSize(350, 0));
+
+        gridLayout_8->addWidget(rangingParamTable, 1, 0, 1, 4);
 
         tabWidget2->addTab(Ranging, QString());
         tab_2 = new QWidget();
@@ -788,21 +816,11 @@ public:
 
         tabWidget2->addTab(tab_2, QString());
 
-        gridLayout->addWidget(tabWidget2, 2, 0, 1, 2);
-
-        modeLabel = new QLabel(RTLS_Widget);
-        modeLabel->setObjectName(QStringLiteral("modeLabel"));
-        QFont font2;
-        font2.setBold(true);
-        font2.setWeight(75);
-        modeLabel->setFont(font2);
-        modeLabel->setWordWrap(false);
-
-        gridLayout->addWidget(modeLabel, 0, 1, 1, 1);
+        gridLayout_13->addWidget(tabWidget2, 2, 0, 1, 2);
 
         tabWidget1 = new QTabWidget(RTLS_Widget);
         tabWidget1->setObjectName(QStringLiteral("tabWidget1"));
-        tabWidget1->setMaximumSize(QSize(16777215, 230));
+        tabWidget1->setMaximumSize(QSize(16777215, 300));
         Tcp = new QWidget();
         Tcp->setObjectName(QStringLiteral("Tcp"));
         gridLayout_6 = new QGridLayout(Tcp);
@@ -879,147 +897,220 @@ public:
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
-        label_10 = new QLabel(tab);
-        label_10->setObjectName(QStringLiteral("label_10"));
-
-        gridLayout_4->addWidget(label_10, 0, 0, 1, 1);
-
-        lineEdit_5 = new QLineEdit(tab);
-        lineEdit_5->setObjectName(QStringLiteral("lineEdit_5"));
-
-        gridLayout_4->addWidget(lineEdit_5, 0, 1, 1, 1);
-
-        pushButton_9 = new QPushButton(tab);
-        pushButton_9->setObjectName(QStringLiteral("pushButton_9"));
-
-        gridLayout_4->addWidget(pushButton_9, 0, 2, 1, 1);
-
         line_2 = new QFrame(tab);
         line_2->setObjectName(QStringLiteral("line_2"));
-        line_2->setFrameShape(QFrame::VLine);
+        line_2->setFrameShape(QFrame::HLine);
         line_2->setFrameShadow(QFrame::Sunken);
 
-        gridLayout_4->addWidget(line_2, 0, 3, 8, 1);
+        gridLayout_4->addWidget(line_2, 3, 0, 1, 7);
 
-        label_16 = new QLabel(tab);
-        label_16->setObjectName(QStringLiteral("label_16"));
+        label_8 = new QLabel(tab);
+        label_8->setObjectName(QStringLiteral("label_8"));
 
-        gridLayout_4->addWidget(label_16, 0, 4, 1, 1);
+        gridLayout_4->addWidget(label_8, 0, 0, 1, 1);
 
-        lineEdit_6 = new QLineEdit(tab);
-        lineEdit_6->setObjectName(QStringLiteral("lineEdit_6"));
+        followTagSelect = new MyComboBox(tab);
+        followTagSelect->setObjectName(QStringLiteral("followTagSelect"));
+        followTagSelect->setMinimumSize(QSize(180, 0));
 
-        gridLayout_4->addWidget(lineEdit_6, 0, 5, 1, 1);
+        gridLayout_4->addWidget(followTagSelect, 0, 2, 1, 1);
 
-        pushButton_10 = new QPushButton(tab);
-        pushButton_10->setObjectName(QStringLiteral("pushButton_10"));
+        horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
 
-        gridLayout_4->addWidget(pushButton_10, 0, 6, 1, 1);
+        gridLayout_4->addItem(horizontalSpacer_10, 0, 4, 1, 2);
 
-        label_11 = new QLabel(tab);
+        groupBox_6 = new QGroupBox(tab);
+        groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
+        gridLayout_12 = new QGridLayout(groupBox_6);
+        gridLayout_12->setSpacing(6);
+        gridLayout_12->setContentsMargins(11, 11, 11, 11);
+        gridLayout_12->setObjectName(QStringLiteral("gridLayout_12"));
+        label_10 = new QLabel(groupBox_6);
+        label_10->setObjectName(QStringLiteral("label_10"));
+
+        gridLayout_12->addWidget(label_10, 0, 0, 1, 1);
+
+        lightIplineEdit = new QLineEdit(groupBox_6);
+        lightIplineEdit->setObjectName(QStringLiteral("lightIplineEdit"));
+
+        gridLayout_12->addWidget(lightIplineEdit, 0, 1, 1, 1);
+
+        testLightNetBtn = new QPushButton(groupBox_6);
+        testLightNetBtn->setObjectName(QStringLiteral("testLightNetBtn"));
+        testLightNetBtn->setMinimumSize(QSize(0, 20));
+
+        gridLayout_12->addWidget(testLightNetBtn, 0, 2, 1, 1);
+
+        label_11 = new QLabel(groupBox_6);
         label_11->setObjectName(QStringLiteral("label_11"));
 
-        gridLayout_4->addWidget(label_11, 1, 0, 1, 1);
+        gridLayout_12->addWidget(label_11, 1, 0, 1, 1);
 
-        comboBox_4 = new QComboBox(tab);
-        comboBox_4->setObjectName(QStringLiteral("comboBox_4"));
+        netCardSelect = new MyComboBox(groupBox_6);
+        netCardSelect->setObjectName(QStringLiteral("netCardSelect"));
 
-        gridLayout_4->addWidget(comboBox_4, 1, 1, 1, 1);
+        gridLayout_12->addWidget(netCardSelect, 1, 1, 1, 1);
 
-        pushButton_8 = new QPushButton(tab);
-        pushButton_8->setObjectName(QStringLiteral("pushButton_8"));
-
-        gridLayout_4->addWidget(pushButton_8, 1, 2, 1, 1);
-
-        label_17 = new QLabel(tab);
-        label_17->setObjectName(QStringLiteral("label_17"));
-
-        gridLayout_4->addWidget(label_17, 1, 4, 1, 1);
-
-        lineEdit_7 = new QLineEdit(tab);
-        lineEdit_7->setObjectName(QStringLiteral("lineEdit_7"));
-
-        gridLayout_4->addWidget(lineEdit_7, 1, 5, 1, 1);
-
-        pushButton_7 = new QPushButton(tab);
-        pushButton_7->setObjectName(QStringLiteral("pushButton_7"));
-
-        gridLayout_4->addWidget(pushButton_7, 1, 6, 1, 1);
-
-        label_12 = new QLabel(tab);
+        label_12 = new QLabel(groupBox_6);
         label_12->setObjectName(QStringLiteral("label_12"));
 
-        gridLayout_4->addWidget(label_12, 2, 0, 1, 1);
+        gridLayout_12->addWidget(label_12, 2, 0, 1, 1);
 
-        comboBox_5 = new QComboBox(tab);
-        comboBox_5->setObjectName(QStringLiteral("comboBox_5"));
+        netSelect = new MyComboBox(groupBox_6);
+        netSelect->setObjectName(QStringLiteral("netSelect"));
 
-        gridLayout_4->addWidget(comboBox_5, 2, 1, 1, 1);
+        gridLayout_12->addWidget(netSelect, 2, 1, 1, 1);
 
-        label_18 = new QLabel(tab);
-        label_18->setObjectName(QStringLiteral("label_18"));
-
-        gridLayout_4->addWidget(label_18, 2, 4, 1, 1);
-
-        lineEdit_8 = new QLineEdit(tab);
-        lineEdit_8->setObjectName(QStringLiteral("lineEdit_8"));
-
-        gridLayout_4->addWidget(lineEdit_8, 2, 5, 1, 1);
-
-        label_13 = new QLabel(tab);
+        label_13 = new QLabel(groupBox_6);
         label_13->setObjectName(QStringLiteral("label_13"));
 
-        gridLayout_4->addWidget(label_13, 3, 0, 1, 1);
+        gridLayout_12->addWidget(label_13, 3, 0, 1, 1);
 
-        comboBox_6 = new QComboBox(tab);
-        comboBox_6->setObjectName(QStringLiteral("comboBox_6"));
+        subNetSelect = new MyComboBox(groupBox_6);
+        subNetSelect->setObjectName(QStringLiteral("subNetSelect"));
 
-        gridLayout_4->addWidget(comboBox_6, 3, 1, 2, 1);
+        gridLayout_12->addWidget(subNetSelect, 3, 1, 1, 1);
 
-        textEdit_2 = new QTextEdit(tab);
-        textEdit_2->setObjectName(QStringLiteral("textEdit_2"));
-
-        gridLayout_4->addWidget(textEdit_2, 4, 4, 4, 3);
-
-        label_14 = new QLabel(tab);
+        label_14 = new QLabel(groupBox_6);
         label_14->setObjectName(QStringLiteral("label_14"));
 
-        gridLayout_4->addWidget(label_14, 5, 0, 1, 1);
+        gridLayout_12->addWidget(label_14, 4, 0, 1, 1);
 
-        comboBox_7 = new QComboBox(tab);
-        comboBox_7->setObjectName(QStringLiteral("comboBox_7"));
+        universeSelect = new MyComboBox(groupBox_6);
+        universeSelect->setObjectName(QStringLiteral("universeSelect"));
 
-        gridLayout_4->addWidget(comboBox_7, 5, 1, 1, 1);
+        gridLayout_12->addWidget(universeSelect, 4, 1, 1, 1);
 
-        label_15 = new QLabel(tab);
+        label_15 = new QLabel(groupBox_6);
         label_15->setObjectName(QStringLiteral("label_15"));
 
-        gridLayout_4->addWidget(label_15, 6, 0, 1, 1);
+        gridLayout_12->addWidget(label_15, 5, 0, 1, 1);
 
-        comboBox_8 = new QComboBox(tab);
-        comboBox_8->setObjectName(QStringLiteral("comboBox_8"));
+        channelSelect = new MyComboBox(groupBox_6);
+        channelSelect->setObjectName(QStringLiteral("channelSelect"));
 
-        gridLayout_4->addWidget(comboBox_8, 6, 1, 1, 1);
+        gridLayout_12->addWidget(channelSelect, 5, 1, 1, 1);
 
-        horizontalSlider = new QSlider(tab);
-        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
-        horizontalSlider->setOrientation(Qt::Horizontal);
+        manuSendBtn = new QPushButton(groupBox_6);
+        manuSendBtn->setObjectName(QStringLiteral("manuSendBtn"));
 
-        gridLayout_4->addWidget(horizontalSlider, 7, 1, 1, 1);
+        gridLayout_12->addWidget(manuSendBtn, 5, 2, 1, 1);
+
+        channelValue = new QSlider(groupBox_6);
+        channelValue->setObjectName(QStringLiteral("channelValue"));
+        channelValue->setMaximum(255);
+        channelValue->setOrientation(Qt::Horizontal);
+
+        gridLayout_12->addWidget(channelValue, 6, 1, 1, 1);
+
+        blackFeildBtn = new QPushButton(groupBox_6);
+        blackFeildBtn->setObjectName(QStringLiteral("blackFeildBtn"));
+        blackFeildBtn->setMinimumSize(QSize(0, 20));
+
+        gridLayout_12->addWidget(blackFeildBtn, 2, 2, 1, 1);
+
+        reflushNetBth = new QPushButton(groupBox_6);
+        reflushNetBth->setObjectName(QStringLiteral("reflushNetBth"));
+
+        gridLayout_12->addWidget(reflushNetBth, 1, 2, 1, 1);
+
+        resetLightBtn = new QPushButton(groupBox_6);
+        resetLightBtn->setObjectName(QStringLiteral("resetLightBtn"));
+
+        gridLayout_12->addWidget(resetLightBtn, 4, 2, 1, 1);
+
+        lightSwitchBtn = new QPushButton(groupBox_6);
+        lightSwitchBtn->setObjectName(QStringLiteral("lightSwitchBtn"));
+
+        gridLayout_12->addWidget(lightSwitchBtn, 3, 2, 1, 1);
+
+        channelValLab = new QLabel(groupBox_6);
+        channelValLab->setObjectName(QStringLiteral("channelValLab"));
+        channelValLab->setAlignment(Qt::AlignCenter);
+
+        gridLayout_12->addWidget(channelValLab, 6, 2, 1, 1);
+
+
+        gridLayout_4->addWidget(groupBox_6, 4, 3, 1, 4);
+
+        followBtn = new QPushButton(tab);
+        followBtn->setObjectName(QStringLiteral("followBtn"));
+        followBtn->setMinimumSize(QSize(0, 25));
+
+        gridLayout_4->addWidget(followBtn, 0, 6, 1, 1);
+
+        lightConfigDisplayBtn = new QPushButton(tab);
+        lightConfigDisplayBtn->setObjectName(QStringLiteral("lightConfigDisplayBtn"));
+        lightConfigDisplayBtn->setMinimumSize(QSize(0, 25));
+
+        gridLayout_4->addWidget(lightConfigDisplayBtn, 0, 3, 1, 1);
+
+        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_7, 0, 1, 1, 1);
+
+        groupBox_5 = new QGroupBox(tab);
+        groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
+        gridLayout = new QGridLayout(groupBox_5);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        label_16 = new QLabel(groupBox_5);
+        label_16->setObjectName(QStringLiteral("label_16"));
+
+        gridLayout->addWidget(label_16, 1, 0, 1, 1);
+
+        lineEdit_7 = new QLineEdit(groupBox_5);
+        lineEdit_7->setObjectName(QStringLiteral("lineEdit_7"));
+        lineEdit_7->setMinimumSize(QSize(0, 0));
+
+        gridLayout->addWidget(lineEdit_7, 2, 1, 1, 1);
+
+        label_17 = new QLabel(groupBox_5);
+        label_17->setObjectName(QStringLiteral("label_17"));
+
+        gridLayout->addWidget(label_17, 2, 0, 1, 1);
+
+        pushButton_10 = new QPushButton(groupBox_5);
+        pushButton_10->setObjectName(QStringLiteral("pushButton_10"));
+        pushButton_10->setMinimumSize(QSize(0, 15));
+        pushButton_10->setMaximumSize(QSize(16777215, 16777215));
+
+        gridLayout->addWidget(pushButton_10, 0, 2, 1, 1);
+
+        horizontalSpacer_11 = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_11, 0, 0, 1, 2);
+
+        lightLocInput = new QLineEdit(groupBox_5);
+        lightLocInput->setObjectName(QStringLiteral("lightLocInput"));
+        lightLocInput->setMinimumSize(QSize(0, 0));
+
+        gridLayout->addWidget(lightLocInput, 1, 1, 1, 1);
+
+        label_18 = new QLabel(groupBox_5);
+        label_18->setObjectName(QStringLiteral("label_18"));
+
+        gridLayout->addWidget(label_18, 3, 0, 1, 1);
+
+        lineEdit_8 = new QLineEdit(groupBox_5);
+        lineEdit_8->setObjectName(QStringLiteral("lineEdit_8"));
+        lineEdit_8->setMinimumSize(QSize(0, 0));
+
+        gridLayout->addWidget(lineEdit_8, 3, 1, 1, 1);
+
+
+        gridLayout_4->addWidget(groupBox_5, 4, 0, 1, 3);
 
         tabWidget1->addTab(tab, QString());
 
-        gridLayout->addWidget(tabWidget1, 1, 0, 1, 2);
-
-        horizontalSpacer_6 = new QSpacerItem(740, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_6, 0, 0, 1, 1);
+        gridLayout_13->addWidget(tabWidget1, 1, 0, 1, 2);
 
 
         retranslateUi(RTLS_Widget);
 
         tabWidget2->setCurrentIndex(1);
-        tabWidget1->setCurrentIndex(0);
+        tabWidget1->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(RTLS_Widget);
@@ -1028,6 +1119,7 @@ public:
     void retranslateUi(QWidget *RTLS_Widget)
     {
         RTLS_Widget->setWindowTitle(QApplication::translate("RTLS_Widget", "RTLS_Widget", nullptr));
+        modeLabel->setText(QApplication::translate("RTLS_Widget", "\346\234\252\351\200\211\346\213\251\346\250\241\345\274\217", nullptr));
         locFlagBtn->setText(QApplication::translate("RTLS_Widget", "\345\274\200\345\247\213\345\256\232\344\275\215", nullptr));
         locMethodComboBox->setItemText(0, QApplication::translate("RTLS_Widget", "C_T_K", nullptr));
         locMethodComboBox->setItemText(1, QApplication::translate("RTLS_Widget", "T_T_K", nullptr));
@@ -1108,31 +1200,14 @@ public:
         tableWidget_Anchor->setSortingEnabled(__sortingEnabled1);
 
         tabWidget2->setTabText(tabWidget2->indexOf(Positioning), QApplication::translate("RTLS_Widget", "\345\256\232\344\275\215", nullptr));
-        QTableWidgetItem *___qtablewidgetitem31 = rangingParamTable->horizontalHeaderItem(0);
-        ___qtablewidgetitem31->setText(QApplication::translate("RTLS_Widget", "A0", nullptr));
-        QTableWidgetItem *___qtablewidgetitem32 = rangingParamTable->horizontalHeaderItem(1);
-        ___qtablewidgetitem32->setText(QApplication::translate("RTLS_Widget", "A1", nullptr));
-        QTableWidgetItem *___qtablewidgetitem33 = rangingParamTable->horizontalHeaderItem(2);
-        ___qtablewidgetitem33->setText(QApplication::translate("RTLS_Widget", "A2", nullptr));
-        QTableWidgetItem *___qtablewidgetitem34 = rangingParamTable->horizontalHeaderItem(3);
-        ___qtablewidgetitem34->setText(QApplication::translate("RTLS_Widget", "A3", nullptr));
-        QTableWidgetItem *___qtablewidgetitem35 = rangingParamTable->verticalHeaderItem(0);
-        ___qtablewidgetitem35->setText(QApplication::translate("RTLS_Widget", "K", nullptr));
-        QTableWidgetItem *___qtablewidgetitem36 = rangingParamTable->verticalHeaderItem(1);
-        ___qtablewidgetitem36->setText(QApplication::translate("RTLS_Widget", "b/mm", nullptr));
-
-        const bool __sortingEnabled2 = rangingParamTable->isSortingEnabled();
-        rangingParamTable->setSortingEnabled(false);
-        rangingParamTable->setSortingEnabled(__sortingEnabled2);
-
-        label_3->setText(QApplication::translate("RTLS_Widget", "Tag ID\357\274\232", nullptr));
         groupBox->setTitle(QApplication::translate("RTLS_Widget", "\345\215\225\345\237\272\347\253\231\346\240\241\346\255\243", nullptr));
+        label_6->setText(QApplication::translate("RTLS_Widget", "\346\265\213\347\232\204\350\267\235\347\246\273/mm\357\274\232", nullptr));
         label_4->setText(QApplication::translate("RTLS_Widget", "Anchor ID\357\274\232", nullptr));
         label_5->setText(QApplication::translate("RTLS_Widget", "\347\234\237\345\256\236\350\267\235\347\246\273/mm\357\274\232", nullptr));
-        label_6->setText(QApplication::translate("RTLS_Widget", "\346\265\213\347\232\204\350\267\235\347\246\273/mm\357\274\232", nullptr));
-        singleCorrect->setText(QApplication::translate("RTLS_Widget", "\345\274\200\345\247\213\346\240\241\346\255\243", nullptr));
         singleRecord->setText(QApplication::translate("RTLS_Widget", "\350\256\260\345\275\225", nullptr));
+        singleCorrect->setText(QApplication::translate("RTLS_Widget", "\345\274\200\345\247\213\346\240\241\346\255\243", nullptr));
         manualModify->setText(QApplication::translate("RTLS_Widget", "\346\211\213\345\212\250\344\277\256\346\224\271", nullptr));
+        label_3->setText(QApplication::translate("RTLS_Widget", "Tag ID\357\274\232", nullptr));
         groupBox_2->setTitle(QApplication::translate("RTLS_Widget", "\345\244\232\345\237\272\347\253\231\346\240\241\346\255\243", nullptr));
         a2CheckBox->setText(QApplication::translate("RTLS_Widget", " A2", nullptr));
         multiCorrect->setText(QApplication::translate("RTLS_Widget", "\345\274\200\345\247\213\346\240\241\346\255\243", nullptr));
@@ -1149,19 +1224,36 @@ public:
         label_21->setText(QApplication::translate("RTLS_Widget", "  y/m:", nullptr));
         multiRangingLocRead->setText(QApplication::translate("RTLS_Widget", "\350\257\273\345\217\226\345\235\220\346\240\207", nullptr));
         groupBox_4->setTitle(QApplication::translate("RTLS_Widget", "\345\237\272\347\253\231\346\265\213\350\267\235\357\274\232", nullptr));
-        QTableWidgetItem *___qtablewidgetitem37 = multiMearTable->horizontalHeaderItem(0);
-        ___qtablewidgetitem37->setText(QApplication::translate("RTLS_Widget", "A0", nullptr));
-        QTableWidgetItem *___qtablewidgetitem38 = multiMearTable->horizontalHeaderItem(1);
-        ___qtablewidgetitem38->setText(QApplication::translate("RTLS_Widget", "A1", nullptr));
-        QTableWidgetItem *___qtablewidgetitem39 = multiMearTable->horizontalHeaderItem(2);
-        ___qtablewidgetitem39->setText(QApplication::translate("RTLS_Widget", "A2", nullptr));
-        QTableWidgetItem *___qtablewidgetitem40 = multiMearTable->horizontalHeaderItem(3);
-        ___qtablewidgetitem40->setText(QApplication::translate("RTLS_Widget", "A3", nullptr));
-        QTableWidgetItem *___qtablewidgetitem41 = multiMearTable->verticalHeaderItem(0);
-        ___qtablewidgetitem41->setText(QApplication::translate("RTLS_Widget", "\346\265\213\347\232\204\350\267\235\347\246\273/mm", nullptr));
-        QTableWidgetItem *___qtablewidgetitem42 = multiMearTable->verticalHeaderItem(1);
-        ___qtablewidgetitem42->setText(QApplication::translate("RTLS_Widget", "\347\234\237\345\256\236\350\267\235\347\246\273/mm", nullptr));
+        QTableWidgetItem *___qtablewidgetitem31 = multiMearTable->horizontalHeaderItem(0);
+        ___qtablewidgetitem31->setText(QApplication::translate("RTLS_Widget", "A0", nullptr));
+        QTableWidgetItem *___qtablewidgetitem32 = multiMearTable->horizontalHeaderItem(1);
+        ___qtablewidgetitem32->setText(QApplication::translate("RTLS_Widget", "A1", nullptr));
+        QTableWidgetItem *___qtablewidgetitem33 = multiMearTable->horizontalHeaderItem(2);
+        ___qtablewidgetitem33->setText(QApplication::translate("RTLS_Widget", "A2", nullptr));
+        QTableWidgetItem *___qtablewidgetitem34 = multiMearTable->horizontalHeaderItem(3);
+        ___qtablewidgetitem34->setText(QApplication::translate("RTLS_Widget", "A3", nullptr));
+        QTableWidgetItem *___qtablewidgetitem35 = multiMearTable->verticalHeaderItem(0);
+        ___qtablewidgetitem35->setText(QApplication::translate("RTLS_Widget", "\346\265\213\347\232\204\350\267\235\347\246\273/mm", nullptr));
+        QTableWidgetItem *___qtablewidgetitem36 = multiMearTable->verticalHeaderItem(1);
+        ___qtablewidgetitem36->setText(QApplication::translate("RTLS_Widget", "\347\234\237\345\256\236\350\267\235\347\246\273/mm", nullptr));
         multiRecord->setText(QApplication::translate("RTLS_Widget", "\350\256\260\345\275\225", nullptr));
+        QTableWidgetItem *___qtablewidgetitem37 = rangingParamTable->horizontalHeaderItem(0);
+        ___qtablewidgetitem37->setText(QApplication::translate("RTLS_Widget", "A0", nullptr));
+        QTableWidgetItem *___qtablewidgetitem38 = rangingParamTable->horizontalHeaderItem(1);
+        ___qtablewidgetitem38->setText(QApplication::translate("RTLS_Widget", "A1", nullptr));
+        QTableWidgetItem *___qtablewidgetitem39 = rangingParamTable->horizontalHeaderItem(2);
+        ___qtablewidgetitem39->setText(QApplication::translate("RTLS_Widget", "A2", nullptr));
+        QTableWidgetItem *___qtablewidgetitem40 = rangingParamTable->horizontalHeaderItem(3);
+        ___qtablewidgetitem40->setText(QApplication::translate("RTLS_Widget", "A3", nullptr));
+        QTableWidgetItem *___qtablewidgetitem41 = rangingParamTable->verticalHeaderItem(0);
+        ___qtablewidgetitem41->setText(QApplication::translate("RTLS_Widget", "K", nullptr));
+        QTableWidgetItem *___qtablewidgetitem42 = rangingParamTable->verticalHeaderItem(1);
+        ___qtablewidgetitem42->setText(QApplication::translate("RTLS_Widget", "b/mm", nullptr));
+
+        const bool __sortingEnabled2 = rangingParamTable->isSortingEnabled();
+        rangingParamTable->setSortingEnabled(false);
+        rangingParamTable->setSortingEnabled(__sortingEnabled2);
+
         tabWidget2->setTabText(tabWidget2->indexOf(Ranging), QApplication::translate("RTLS_Widget", "\346\265\213\350\267\235\346\240\241\346\255\243", nullptr));
         label_9->setText(QApplication::translate("RTLS_Widget", "Tag ID\357\274\232", nullptr));
         validateTagSelect->setItemText(0, QApplication::translate("RTLS_Widget", "0", nullptr));
@@ -1211,7 +1303,6 @@ public:
         QTableWidgetItem *___qtablewidgetitem57 = validateDistTab->verticalHeaderItem(2);
         ___qtablewidgetitem57->setText(QApplication::translate("RTLS_Widget", "\345\256\236-\347\234\237 \350\267\235\347\246\273\345\267\256/mm", nullptr));
         tabWidget2->setTabText(tabWidget2->indexOf(tab_2), QApplication::translate("RTLS_Widget", " \351\252\214\350\257\201", nullptr));
-        modeLabel->setText(QApplication::translate("RTLS_Widget", "\346\234\252\351\200\211\346\213\251\346\250\241\345\274\217", nullptr));
         label->setText(QApplication::translate("RTLS_Widget", "\346\234\215\345\212\241\345\231\250 IP\357\274\232", nullptr));
         lineEdit_IP->setText(QApplication::translate("RTLS_Widget", "127.0.0.1", nullptr));
         label_2->setText(QApplication::translate("RTLS_Widget", "\346\234\215\345\212\241\345\231\250 \347\253\257\345\217\243\345\217\267\357\274\232", nullptr));
@@ -1221,23 +1312,32 @@ public:
         SerialLabel->setText(QApplication::translate("RTLS_Widget", "\344\270\262\345\217\243\351\200\211\346\213\251", nullptr));
         SerialButton->setText(QApplication::translate("RTLS_Widget", "Connect", nullptr));
         tabWidget1->setTabText(tabWidget1->indexOf(Serial), QApplication::translate("RTLS_Widget", "\345\237\272\347\253\231\344\270\262\345\217\243\351\200\232\344\277\241", nullptr));
+        label_8->setText(QApplication::translate("RTLS_Widget", "\350\267\237\351\232\217\346\240\207\347\255\276\357\274\232", nullptr));
+        groupBox_6->setTitle(QApplication::translate("RTLS_Widget", "\351\200\232\344\277\241\351\205\215\347\275\256", nullptr));
         label_10->setText(QApplication::translate("RTLS_Widget", "\350\246\201\346\216\247\345\210\266 \350\256\276\345\244\207IP\357\274\232", nullptr));
-        lineEdit_5->setText(QString());
-        pushButton_9->setText(QApplication::translate("RTLS_Widget", " \346\265\213\350\257\225", nullptr));
-        label_16->setText(QApplication::translate("RTLS_Widget", "\345\260\204\347\201\257\344\275\215\347\275\256\357\274\232", nullptr));
-        lineEdit_6->setText(QApplication::translate("RTLS_Widget", "\346\240\274\345\274\217\357\274\232x,y,z", nullptr));
-        pushButton_10->setText(QApplication::translate("RTLS_Widget", "\350\257\273\345\217\226\351\205\215\347\275\256", nullptr));
+        lightIplineEdit->setText(QApplication::translate("RTLS_Widget", "192.168.4.1", nullptr));
+        testLightNetBtn->setText(QApplication::translate("RTLS_Widget", "\346\265\213\350\257\225\350\277\236\346\216\245", nullptr));
         label_11->setText(QApplication::translate("RTLS_Widget", "\351\200\211\346\213\251\347\275\221\345\215\241\357\274\232", nullptr));
-        pushButton_8->setText(QApplication::translate("RTLS_Widget", "\351\273\221\345\234\272", nullptr));
-        label_17->setText(QApplication::translate("RTLS_Widget", "\345\260\204\347\201\257x\350\275\264\345\220\221\351\207\217\357\274\232", nullptr));
-        lineEdit_7->setText(QApplication::translate("RTLS_Widget", "\346\240\274\345\274\217\357\274\232x,y,z", nullptr));
-        pushButton_7->setText(QApplication::translate("RTLS_Widget", "\350\277\220\350\241\214", nullptr));
         label_12->setText(QApplication::translate("RTLS_Widget", "Net( \347\275\221)\357\274\232", nullptr));
-        label_18->setText(QApplication::translate("RTLS_Widget", "\345\260\204\347\201\257z\350\275\264\345\220\221\351\207\217\357\274\232", nullptr));
-        lineEdit_8->setText(QApplication::translate("RTLS_Widget", "\346\240\274\345\274\217\357\274\232x,y,z", nullptr));
         label_13->setText(QApplication::translate("RTLS_Widget", "SubNet(\345\255\220\347\275\221)\357\274\232", nullptr));
         label_14->setText(QApplication::translate("RTLS_Widget", "Universe(\345\237\237)\357\274\232", nullptr));
         label_15->setText(QApplication::translate("RTLS_Widget", "\351\200\232\351\201\223(Channel)\357\274\232", nullptr));
+        manuSendBtn->setText(QApplication::translate("RTLS_Widget", "\346\211\213\345\212\250\345\217\221\351\200\201", nullptr));
+        blackFeildBtn->setText(QApplication::translate("RTLS_Widget", "\351\273\221\345\234\272", nullptr));
+        reflushNetBth->setText(QApplication::translate("RTLS_Widget", "\345\210\267\346\226\260\347\275\221\347\273\234", nullptr));
+        resetLightBtn->setText(QApplication::translate("RTLS_Widget", "\351\207\215\347\275\256", nullptr));
+        lightSwitchBtn->setText(QApplication::translate("RTLS_Widget", "\345\274\200\347\201\257", nullptr));
+        channelValLab->setText(QApplication::translate("RTLS_Widget", "0", nullptr));
+        followBtn->setText(QApplication::translate("RTLS_Widget", "\350\277\220\350\241\214", nullptr));
+        lightConfigDisplayBtn->setText(QApplication::translate("RTLS_Widget", "\346\230\276\347\244\272\345\275\223\345\211\215\351\205\215\347\275\256", nullptr));
+        groupBox_5->setTitle(QApplication::translate("RTLS_Widget", " \345\235\220\346\240\207\351\205\215\347\275\256", nullptr));
+        label_16->setText(QApplication::translate("RTLS_Widget", "\345\260\204\347\201\257\344\275\215\347\275\256\357\274\232", nullptr));
+        lineEdit_7->setText(QApplication::translate("RTLS_Widget", "\346\240\274\345\274\217\357\274\232x,y,z", nullptr));
+        label_17->setText(QApplication::translate("RTLS_Widget", "\345\260\204\347\201\257x\350\275\264\345\220\221\351\207\217\357\274\232", nullptr));
+        pushButton_10->setText(QApplication::translate("RTLS_Widget", "\350\257\273\345\217\226\351\205\215\347\275\256", nullptr));
+        lightLocInput->setText(QApplication::translate("RTLS_Widget", "\346\240\274\345\274\217\357\274\232x,y,z", nullptr));
+        label_18->setText(QApplication::translate("RTLS_Widget", "\345\260\204\347\201\257z\350\275\264\345\220\221\351\207\217\357\274\232", nullptr));
+        lineEdit_8->setText(QApplication::translate("RTLS_Widget", "\346\240\274\345\274\217\357\274\232x,y,z", nullptr));
         tabWidget1->setTabText(tabWidget1->indexOf(tab), QApplication::translate("RTLS_Widget", "\345\260\204\347\201\257\351\200\232\344\277\241", nullptr));
     } // retranslateUi
 

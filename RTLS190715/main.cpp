@@ -26,17 +26,8 @@ void outputMessage(QtMsgType type, const QMessageLogContext &context, const QStr
 
 int main(int argc, char *argv[])
 {
-//    int spatial_dimension = 3;
-//    double delta_t = 0.2;
-//    MatrixXd Q = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension) * 0.001;
-//    MatrixXd R = MatrixXd::Identity(spatial_dimension, spatial_dimension) * 0.0025;     // sd = 0.05
-//    MatrixXd P_init = MatrixXd::Identity(2 * spatial_dimension, 2 * spatial_dimension);
-
-    MatrixXd matrix(3, 3);
-
     //注册日志消息回调函数
     qInstallMessageHandler(outputMessage);
-
 
     memset(dit_temp,0,sizeof(dit_temp));
 
@@ -52,9 +43,7 @@ int main(int argc, char *argv[])
         }
     }
 
-
     return a.exec();
-
 }
 
 

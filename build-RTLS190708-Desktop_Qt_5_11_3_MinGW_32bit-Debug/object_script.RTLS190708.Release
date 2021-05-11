@@ -2,7 +2,9 @@ INPUT(
 ./release\commoditytest.o
 ./release\commonutil.o
 ./release\config.o
+./release\graphicsview.o
 ./release\kalmanfilter.o
+./release\lightcontrol.o
 ./release\location.o
 ./release\logwidget.o
 ./release\main.o
@@ -11,6 +13,7 @@ INPUT(
 ./release\rtls_widget.o
 ./release\trilateration.o
 ./release\moc_commoditytest.o
+./release\moc_graphicsview.o
 ./release\moc_location.o
 ./release\moc_logwidget.o
 ./release\moc_mycombobox.o

@@ -76,6 +76,15 @@ RTLS_Widget::RTLS_Widget(QWidget *parent) :
     connect(ui->validateTagSelect, SIGNAL(clicked()), this, SLOT(validateTagDropDownList_clicked()));
     validateModuleInit();   // 校正模块初始化
 
+    /*      射灯跟随部分      */
+    lightControl = new LightControl();
+    connect(ui->followBtn, SIGNAL(clicked()), this, SLOT(on_followTagSelect_clicked()));
+    connect(ui->netCardSelect, SIGNAL(clicked()), this, SLOT(on_netCardSelect_clicked()));
+    connect(ui->subNetSelect, SIGNAL(clicked()), this, SLOT(on_subNetSelect_clicked()));
+    connect(ui->universeSelect, SIGNAL(clicked()), this, SLOT(on_universeSelect_clicked()));
+    connect(ui->channelSelect, SIGNAL(clicked()), this, SLOT(on_channelSelect_clicked()));
+    followModuleInit();
+
 
     /*  Qt文件操作 */
     QString sFilePath = QCoreApplication::applicationDirPath() + "/config/trajConfig.txt";
@@ -100,6 +109,7 @@ RTLS_Widget::~RTLS_Widget()
     delete rCComponent;
     delete trueLoc;
     delete trueDist;
+    delete lightControl;
 }
 
 /******************  定数据接收部分  ******************/
@@ -758,6 +768,244 @@ void RTLS_Widget::on_validateTagSelect_currentIndexChanged(int index)
     if (readTrueLocFlag) on_validateReadTrueLocBtn_clicked();
 }
 
+// 射灯跟随部分点击标签选择
+void RTLS_Widget::on_followTagSelect_clicked()
+{
+    CommonUtil::dropDownListShow(ui->followTagSelect, TAG_NUM);
+}
+
+// 射灯跟随部分ip内容更改结束
+void RTLS_Widget::on_lightIplineEdit_editingFinished()
+{
+    // 0.与判断
+    if(this->lightControl == nullptr) {
+        qCritical() << "lightControl为nullptr!";
+        throw std::logic_error("lightControl为nullptr!");
+    }
+    unsigned char ip[4];
+    QString ipStr = ui->lightIplineEdit->text();
+    if (CommonUtil::ipv4PatternMatch(ipStr, ip)) {
+        this->lightControl->setTargetIp(ip);
+        ui->lightIplineEdit->setStyleSheet("background-color: green");
+    } else {
+        qWarning() << "ip设置有误，请重新输入！";
+        this->lightControl->clearTargetIp();
+        ui->lightIplineEdit->setStyleSheet("background-color: white");
+        CommonUtil::warningMegBox(this, "ip设置有误，请重新输入！");
+    }
+}
+
+// 射灯跟随部分配置信息显示
+void RTLS_Widget::on_lightConfigDisplayBtn_clicked()
+{
+   // 0.预判断
+    if (this->lightControl == nullptr)  {
+        qCritical() << "lightControl为nullptr!";
+        throw std::logic_error("lightControl为nullptr!");
+    }
+    // 1.显示配置
+    qDebug() << "-------------------------------------------------------------------";
+    foreach(QString str, this->lightControl->displayMsg().split("\r\n")) {
+        if (!str.trimmed().isEmpty()) qDebug() << str;
+    }
+    qDebug() << "-------------------------------------------------------------------";
+}
+
+// 射灯跟随部分点击网卡选择
+void RTLS_Widget::on_netCardSelect_clicked()
+{
+    // 0.预判断
+     if (this->lightControl == nullptr)  {
+         qCritical() << "lightControl为nullptr!";
+         throw std::logic_error("lightControl为nullptr!");
+     }
+     // 1.网卡列表
+     QStringList netCardList = this->lightControl->getNetCardMsg();
+     // 2.初始化下拉框,从 0 ->
+     int netCardSize = netCardList.size();
+     int comboBoxSize = ui->netCardSelect->count();
+     int len = (netCardSize >= comboBoxSize ? netCardSize : comboBoxSize);
+     for (int i = 0; i < len; i++) {
+         if (i < netCardSize && i < comboBoxSize) {
+             if (ui->netCardSelect->itemText(i).compare(netCardList.at(i))) {
+                 ui->netCardSelect->setItemText(i, netCardList.at(i));
+             }
+         } else if (i < netCardSize){
+             ui->netCardSelect->addItem(netCardList.at(i));
+         } else if (i < comboBoxSize) {
+             ui->netCardSelect->removeItem(ui->netCardSelect->count() - 1);
+         }
+     }
+}
+
+// 刷新射灯网络
+void RTLS_Widget::on_reflushNetBth_clicked()
+{
+     // 0.预判断
+     if (this->lightControl == nullptr)  {
+         qCritical() << "lightControl为nullptr!";
+         throw std::logic_error("lightControl为nullptr!");
+     }
+     // 1.刷新
+     this->lightControl->reflushNetEnv();
+     // 2.重置
+     this->lightControl->setNetCard(static_cast<unsigned char>(ui->netCardSelect->currentIndex()));
+     // 3.文字刷新
+     on_netCardSelect_clicked();
+}
+
+void RTLS_Widget::on_netCardSelect_currentIndexChanged(int index)
+{
+    // 0.预判断
+    if (this->lightControl == nullptr)  {
+        qCritical() << "lightControl为nullptr!";
+        throw std::logic_error("lightControl为nullptr!");
+    }
+    // 1.更改网卡号
+    this->lightControl->setNetCard(static_cast<unsigned char>(index));
+}
+
+// 射灯跟随部分点击网络号选择
+void RTLS_Widget::on_netSelect_clicked()
+{
+    CommonUtil::dropDownListShow(ui->netSelect, NET_NUM);
+}
+
+// 射灯跟随部分点击网络号更改
+void RTLS_Widget::on_netSelect_currentIndexChanged(int index)
+{
+    // 0.预判断
+    if (this->lightControl == nullptr)  {
+        qCritical() << "lightControl为nullptr!";
+        throw std::logic_error("lightControl为nullptr!");
+    }
+    // 1.更改网络号
+    this->lightControl->setNet(static_cast<unsigned char>(index));
+}
+
+// 射灯跟随部分点击子网络号选择
+void RTLS_Widget::on_subNetSelect_clicked()
+{
+    CommonUtil::dropDownListShow(this->ui->subNetSelect, SUBNET_NUM);
+}
+
+// 射灯跟随部分点击子网络号改变
+void RTLS_Widget::on_subNetSelect_currentIndexChanged(int index)
+{
+    // 0.预判断
+    if (this->lightControl == nullptr)  {
+        qCritical() << "lightControl为nullptr!";
+        throw std::logic_error("lightControl为nullptr!");
+    }
+    // 1.更改子网络号
+    this->lightControl->setSubNet(static_cast<unsigned char>(index));
+}
+
+void RTLS_Widget::on_universeSelect_clicked()
+{
+    CommonUtil::dropDownListShow(this->ui->universeSelect, UNIVERSE_NUM);
+}
+
+// 射灯跟随部分点击域改变
+void RTLS_Widget::on_universeSelect_currentIndexChanged(int index)
+{
+    // 0.预判断
+    if (this->lightControl == nullptr)  {
+        qCritical() << "lightControl为nullptr!";
+        throw std::logic_error("lightControl为nullptr!");
+    }
+    // 1.更改域
+    this->lightControl->setUniverse(static_cast<unsigned char>(index));
+}
+
+// 射灯跟随部分点击域点击
+void RTLS_Widget::on_channelSelect_clicked()
+{
+    CommonUtil::dropDownListShow(ui->channelSelect, LIGHT_CHANNEL_NUM);
+}
+
+// 射灯跟随部分点击通道改变
+void RTLS_Widget::on_channelSelect_currentIndexChanged(int index)
+{
+    // 0.预判断
+    if (this->lightControl == nullptr)  {
+        qCritical() << "lightControl为nullptr!";
+        throw std::logic_error("lightControl为nullptr!");
+    }
+    // 1.设置当前滑块值
+    ui->channelValue->setValue( this->lightControl->getSingleChannelValue(index) );
+}
+
+void RTLS_Widget::on_channelValue_valueChanged(int value)
+{
+    // 1.ui显示当前值
+    ui->channelValLab->setText(QString::number(value));
+    // 2.改变值
+    this->lightControl->setSingleChannelValue(ui->channelSelect->currentIndex(), static_cast<unsigned char>(value));
+}
+
+// 黑场按钮
+void RTLS_Widget::on_blackFeildBtn_clicked()
+{
+    // 0.预判断
+    if (this->lightControl == nullptr)  {
+        qCritical() << "lightControl为nullptr!";
+        throw std::logic_error("lightControl为nullptr!");
+    }
+    // 1.当前值改变
+    ui->channelValue->setValue(0);
+    // 2.黑场
+    this->lightControl->setBlackField(false);
+}
+
+// 射灯跟随部分-测试通信连接
+void RTLS_Widget::on_testLightNetBtn_clicked()
+{
+    // 0.预判断
+    if (this->lightControl == nullptr)  {
+        qCritical() << "lightControl为nullptr!";
+        throw std::logic_error("lightControl为nullptr!");
+    }
+    // 1.测试连接
+    int idx = 10;
+    bool flag = false;
+    while (!flag && idx >0) {
+        flag = this->lightControl->checkConnection();
+        idx--;
+        QThread::msleep(5);
+    }
+    if (flag) {
+        qDebug() << "通讯成功！";
+    } else {
+        qWarning() << "通讯失败！";
+    }
+}
+
+// 射灯跟随部分-手动发送
+void RTLS_Widget::on_manuSendBtn_clicked()
+{
+    // 0.预判断
+    if (this->lightControl == nullptr)  {
+        qCritical() << "lightControl为nullptr!";
+        throw std::logic_error("lightControl为nullptr!");
+    }
+    // 1.判断
+    if (!ui->manuSendBtn->text().compare("手动发送")) {
+        this->lightControl->sendMsgPeriodic(2);
+        ui->manuSendBtn->setText("停止发送");
+        ui->manuSendBtn->setStyleSheet("background-color: rgb(255, 0, 0);");
+        qDebug() << "开始手动发送！";
+    } else if (!ui->manuSendBtn->text().compare("停止发送")) {
+        this->lightControl->stopSendMsgPeriodic();
+        ui->manuSendBtn->setText("手动发送");
+        ui->manuSendBtn->setStyleSheet("");
+        qDebug() << "结束手动发送！";
+    } else {
+        qCritical() << "手动发送按钮输入有误";
+        throw std::invalid_argument("手动发送按钮输入有误");
+    }
+}
+
 // 菜单栏初始化
 void RTLS_Widget::menuBarInit()
 {
@@ -1148,3 +1396,19 @@ void RTLS_Widget::updateTrueDist()
         qWarning() << "真实位置trueLoc的flag不满足条件或未对真实位置进行读取!";
     }
 }
+
+// 射灯跟随部分初始化
+void RTLS_Widget::followModuleInit()
+{
+    // 1.下拉框初始化
+    on_followTagSelect_clicked();
+    on_netCardSelect_clicked();
+    on_netSelect_clicked();
+    on_subNetSelect_clicked();
+    on_universeSelect_clicked();
+    on_channelSelect_clicked();
+
+    // 2.读取ip框
+    on_lightIplineEdit_editingFinished();
+}
+

@@ -30,6 +30,7 @@ namespace CommonUtil {
     /* 正则匹配 */
     bool patternMatch(QString pattern, QString text);
     bool patternMatch(QString pattern, QStringList list);
+    bool ipv4PatternMatch(QString ipv4, unsigned char *ip); // ipv4判断
 
     /* 欧式距离计算 */
     double calcEuclidDist(vec3d *loc1, vec3d *loc2);

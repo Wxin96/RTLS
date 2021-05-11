@@ -60,3 +60,24 @@ void CommodityTest::case2_chanNanTest()
     qDebug() << res.y;
     qDebug() << res.z;
 }
+
+void CommodityTest::case3_eigenTest()
+{
+    Matrix<double, 3, 1> mat1(3, 4, 0);
+    mat1.normalize();
+    std::cout << mat1 << std::endl;
+}
+
+void CommodityTest::case4_ipPatternMatchTest()
+{
+    QString ipStr = " 010.1.2.3 ";
+    unsigned char ip[4];
+    qDebug() << CommonUtil::ipv4PatternMatch(ipStr, ip);
+    qDebug() << ip[0];
+    qDebug() << ip[1];
+    qDebug() << ip[2];
+    qDebug() << ip[3];
+}
+
+
+

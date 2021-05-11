@@ -28,6 +28,7 @@ SOURCES += \
         commoditytest.cpp \
         commonutil.cpp \
         config.cpp \
+        graphicsview.cpp \
         kalmanfilter.cpp \
         lightcontrol.cpp \
         location.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
         commoditytest.h \
         commonutil.h \
         config.h \
+        graphicsview.h \
         kalmanfilter.h \
         lightcontrol.h \
         location.h \
@@ -63,5 +65,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 # Qt中添加配置
-
-LIBS += -L $$PWD/./ -l FQ512NetShow # 灯光控制
+LIBS += -L $$PWD/ -l FQ512NetShow
